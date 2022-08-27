@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Categoria } from '../model/categoria.model';
+import { ServicecategoriaService } from '../service/servicecategoria.service';
 
 @Component({
   selector: 'app-inicio-usuario',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InicioUsuarioComponent implements OnInit {
 
-  constructor() { }
+  categorias: Categoria[] = [];
+
+  constructor(private servicioCategorias: ServicecategoriaService) { }
 
   ngOnInit(): void {
+    this.servicioCategorias.getCategorias().subscribe({
+      next: (entity) => this.categorias = entity.lista,
+      error: (error) => console.log('no se pudieron conseguir las categorias', error),
+    });
   }
 
 }

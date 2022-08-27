@@ -9,7 +9,7 @@ export class HomeComponent implements OnInit {
 
   estaLogeado: boolean
   constructor() {
-    this.estaLogeado = false
+    this.estaLogeado = true
   }
 
   ngOnInit(): void {

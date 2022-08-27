@@ -1,1 +1,20 @@
-<p>inicio-usuario works!</p>
+<!-- Section: Design Block -->
+<section class="background-radial-gradient overflow-hidden">
+  <div class="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
+    <p>inicio-usuario works!</p>
+
+    <div *ngIf="categorias.length>0">
+      <table border="1" style="margin-left: auto; margin-right: auto;">
+        <tr>
+          <td>Id</td>
+          <td>Descripcion</td>
+        </tr>
+        <tr *ngFor="let c of categorias">
+          <td>{{c.idCategoria }}</td>
+          <td> {{c.descripcion}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</section>
+<!-- Section: Design Block -->

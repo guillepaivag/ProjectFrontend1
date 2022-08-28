@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Categoria } from '../model/categoria.model';
 import { ServicecategoriaService } from '../service/servicecategoria.service';
 
@@ -8,6 +8,10 @@ import { ServicecategoriaService } from '../service/servicecategoria.service';
   styleUrls: ['./inicio-usuario.component.css']
 })
 export class InicioUsuarioComponent implements OnInit {
+
+  categoriaGuardar: Categoria = new Categoria();
+
+  mensaje: String = '';
 
   categorias: Categoria[] = [];
 
@@ -20,4 +24,13 @@ export class InicioUsuarioComponent implements OnInit {
     });
   }
 
+  guardarCategoria(): void{
+    this.servicioCategorias.guardarCategoria(this.categoriaGuardar).subscribe({
+      next: (entity) => {
+        this.mensaje = 'Agregado exitosamente'
+        this.categorias.push(entity)
+      },
+      error: (error) => console.log("error: " + error),
+    })
+  };
 }

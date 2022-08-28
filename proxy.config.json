@@ -1,5 +1,5 @@
 {
-  "/stock-nutrinatalia/categoria/*": {
+  "/stock-nutrinatalia/*": {
     "target": "https://equipoyosh.com",
     "secure": true,
     "logLevel": "debug",

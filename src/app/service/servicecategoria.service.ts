@@ -3,19 +3,42 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { listadatos } from '../model/datos.model';
 import { Categoria } from '../model/categoria.model';
+import { TipoProducto } from '../model/tipo-producto.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ServicecategoriaService {
 
-  private api: string = "/stock-nutrinatalia/categoria";
+  private api: string = "/stock-nutrinatalia";
 
   constructor(
     private http: HttpClient
-  ){ }
+  ) { }
 
   getCategorias(): Observable<listadatos<Categoria>> {
-    return this.http.get<listadatos<Categoria>>(this.api);
+    return this.http.get<listadatos<Categoria>>(`${this.api}/categoria`);
+  }
+
+  guardarCategoria(c: Categoria): Observable<Categoria> {
+    return this.http.post<Categoria>(`${this.api}/categoria`, c).pipe(
+      tap({
+        next: (data) => console.log('agregado ' + data),
+        error: (error) => console.log("error: " + error),
+      })
+    );
+  }
+
+  getTipoProductos(): Observable<listadatos<TipoProducto>> {
+    return this.http.get<listadatos<TipoProducto>>(`${this.api}/tipoProducto`);
+  }
+
+  guardarTipoProductos(t: TipoProducto): Observable<TipoProducto> {
+    return this.http.post<TipoProducto>(`${this.api}/tipoProducto`, t).pipe(
+      tap({
+        next: (data) => console.log('agregado ' + data),
+        error: (error) => console.log("error: " + error),
+      })
+    );
   }
 }

@@ -1,8 +1,17 @@
 <!-- Section: Design Block -->
 <section class="background-radial-gradient overflow-hidden">
   <div class="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
-    <p>inicio-usuario works!</p>
+    <!-- <p>inicio-usuario works!</p> -->
 
+    <p *ngIf="mensaje!=''">{{ mensaje }}</p>
+
+    <div style="margin-left: auto; margin-right: auto;">
+      <p>Agregar categoria</p>
+      Descripcion: <input [(ngModel)]="categoriaGuardar.descripcion">
+      <br>
+      <button (click)="guardarCategoria()">Guardar</button>
+    </div>
+    <br>
     <div *ngIf="categorias.length>0">
       <table border="1" style="margin-left: auto; margin-right: auto;">
         <tr>
@@ -10,8 +19,32 @@
           <td>Descripcion</td>
         </tr>
         <tr *ngFor="let c of categorias">
-          <td>{{c.idCategoria }}</td>
-          <td> {{c.descripcion}}</td>
+          <td>{{ c.idCategoria }}</td>
+          <td>{{ c.descripcion }}</td>
+        </tr>
+      </table>
+    </div>
+    <br>
+    <div style="margin-left: auto; margin-right: auto;">
+      <p>Agregar Tipo productos</p>
+      Descripcion: <input [(ngModel)]="TipoProductoGuardar.descripcion">
+      <br>
+      idCategoria: <input [(ngModel)]="TipoProductoGuardar.idCategoria.idCategoria">
+      <br>
+      <button (click)="guardarTipoProductos()">Guardar</button>
+    </div>
+
+    <div *ngIf="tipoProductos.length>0" class="mt-4">
+      <table border="1" style="margin-left: auto; margin-right: auto;">
+        <tr>
+          <td>Id</td>
+          <td>Descripcion</td>
+          <td>ID Categoria</td>
+        </tr>
+        <tr *ngFor="let t of tipoProductos">
+          <td>{{ t.idTipoProducto }}</td>
+          <td>{{ t.descripcion }}</td>
+          <td>{{ t.idCategoria.idCategoria }}</td>
         </tr>
       </table>
     </div>

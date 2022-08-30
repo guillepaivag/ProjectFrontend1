@@ -11,6 +11,7 @@ import { FooterComponent } from './footer/footer.component';
 import { InicioUsuarioComponent } from './inicio-usuario/inicio-usuario.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { InicioComponent } from './inicio/inicio.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { FormsModule } from '@angular/forms';
     HomeComponent,
     LoginComponent,
     FooterComponent,
-    InicioUsuarioComponent
+    InicioUsuarioComponent,
+    InicioComponent
   ],
   imports: [
     BrowserModule,

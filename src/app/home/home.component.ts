@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Compartido } from '../service/global.service';
 
 @Component({
   selector: 'app-home',
@@ -8,11 +9,13 @@ import { Component, OnInit } from '@angular/core';
 export class HomeComponent implements OnInit {
 
   estaLogeado: boolean
-  constructor() {
-    this.estaLogeado = false
+  constructor(private compartido: Compartido) {
+    this.estaLogeado = this.compartido.estaLogeado
+    console.log(this.estaLogeado)
   }
 
   ngOnInit(): void {
+
   }
 
 

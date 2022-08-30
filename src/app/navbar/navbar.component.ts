@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Compartido } from '../service/global.service';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -7,7 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor() { }
+
+  constructor(
+    private compartido: Compartido
+  ) { 
+
+  }
 
   ngOnInit(): void {
   }

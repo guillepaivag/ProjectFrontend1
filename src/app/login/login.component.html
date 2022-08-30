@@ -21,21 +21,22 @@
               <form>
   
                 <div class="form-floating mb-3">
-                    <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                    <input type="email" class="form-control" placeholder="name@example.com" [(ngModel)]="usuario" [ngModelOptions]="{standalone: true}">
                     <label for="floatingInput">Email address</label>
                 </div>
   
                 <!-- Password input -->
                 <div class="form-floating mb-3">
-                    <input type="email" class="form-control" id="floatingInput" placeholder="Password">
+                    <input type="email" class="form-control" placeholder="Password" [(ngModel)]="contrasenha" [ngModelOptions]="{standalone: true}">
                     <label for="floatingInput">Password</label>
                   </div>
   
                 <!-- Submit button -->
                 <div class="d-grid gap-2">
-                    <button class="btn btn-primary" type="button">Sign in</button>
+                    <button class="btn btn-primary" type="button" (click)="iniciarSesion()">Sign in</button>
                 </div>
               </form>
+              <p style="color: red;">{{mensajeError}}</p>
             </div>
           </div>
         </div>

@@ -1,15 +1,16 @@
+<app-navbar></app-navbar>
 <!-- Section: Design Block -->
 <section class="background-radial-gradient overflow-hidden">
   <div class="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
-    <!-- <p>inicio-usuario works!</p> -->
+    <!-- <p>crud-productos works!</p> -->
 
     <p *ngIf="mensaje!=''">{{ mensaje }}</p>
 
-    <div style="margin-left: auto; margin-right: auto;">
+    <div class="col-xs-1" align="center">
       <p>Agregar categoria</p>
       Descripcion: <input [(ngModel)]="categoriaGuardar.descripcion">
       <br>
-      <button (click)="guardarCategoria()">Guardar</button>
+      <button class="mt-3" (click)="guardarCategoria()">Guardar</button>
     </div>
     <br>
     <div *ngIf="categorias.length>0">
@@ -25,13 +26,14 @@
       </table>
     </div>
     <br>
-    <div style="margin-left: auto; margin-right: auto;">
+    <br>
+    <div class="col-xs-1" align="center">
       <p>Agregar Tipo productos</p>
       Descripcion: <input [(ngModel)]="TipoProductoGuardar.descripcion">
       <br>
       idCategoria: <input [(ngModel)]="TipoProductoGuardar.idCategoria.idCategoria">
       <br>
-      <button (click)="guardarTipoProductos()">Guardar</button>
+      <button class="mt-3" (click)="guardarTipoProductos()">Guardar</button>
     </div>
 
     <div *ngIf="tipoProductos.length>0" class="mt-4">
@@ -48,6 +50,24 @@
         </tr>
       </table>
     </div>
+
+    <p class="col-xs-1 mt-4" align="center" >Presentacion Productos</p>
+
+    <div *ngIf="presentacionProductos.length>0" class="mt-4">
+      <table border="1" style="margin-left: auto; margin-right: auto;">
+        <tr>
+          <td>idPresentacionProducto</td>
+          <td>nombre</td>
+          <td>idProducto</td>
+        </tr>
+        <tr *ngFor="let p of presentacionProductos">
+          <td>{{ p.idPresentacionProducto }}</td>
+          <td>{{ p.nombre }}</td>
+          <td>{{ p.idProducto.idProducto }}</td>
+        </tr>
+      </table>
+    </div>
   </div>
 </section>
 <!-- Section: Design Block -->
+<app-footer></app-footer>

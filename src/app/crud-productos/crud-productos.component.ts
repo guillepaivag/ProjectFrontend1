@@ -1,24 +1,28 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Categoria } from '../model/categoria.model';
+import { PresentacionProducto } from '../model/presentacion-producto.model';
 import { TipoProducto } from '../model/tipo-producto.model';
+import { PresentacionProductoService } from '../service/presentacion-producto.service';
 import { ServicecategoriaService } from '../service/servicecategoria.service';
 
 @Component({
-  selector: 'app-inicio-usuario',
-  templateUrl: './inicio-usuario.component.html',
-  styleUrls: ['./inicio-usuario.component.css']
+  selector: 'crud-productos',
+  templateUrl: './crud-productos.component.html',
+  styleUrls: ['./crud-productos.component.css']
 })
-export class InicioUsuarioComponent implements OnInit {
-
-  categoriaGuardar: Categoria = new Categoria();
-  TipoProductoGuardar: TipoProducto = new TipoProducto()
+export class CrudProductos implements OnInit {
 
   mensaje: String = '';
 
+  categoriaGuardar: Categoria = new Categoria();
+  TipoProductoGuardar: TipoProducto = new TipoProducto()
+  presentacionProductoGuardar: PresentacionProducto = new PresentacionProducto()
+
   categorias: Categoria[] = [];
   tipoProductos: TipoProducto[] = [];
+  presentacionProductos: PresentacionProducto[] = [];
 
-  constructor(private servicioCategorias: ServicecategoriaService) { }
+  constructor(private servicioCategorias: ServicecategoriaService, private servicioProductos: PresentacionProductoService) { }
 
   ngOnInit(): void {
     this.servicioCategorias.getCategorias().subscribe({
@@ -27,6 +31,10 @@ export class InicioUsuarioComponent implements OnInit {
     });
     this.servicioCategorias.getTipoProductos().subscribe({
       next: (entity) => this.tipoProductos = entity.lista,
+      error: (error) => console.log('no se pudieron conseguir los productos', error),
+    });
+    this.servicioProductos.getPresentacionProducto().subscribe({
+      next: (entity) => this.presentacionProductos = entity.lista,
       error: (error) => console.log('no se pudieron conseguir las categorias', error),
     });
   }

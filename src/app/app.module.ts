@@ -11,7 +11,7 @@ import { FooterComponent } from './footer/footer.component';
 import { CrudProductos } from './crud-productos/crud-productos.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { MenuComponent } from './inicio/menu.component';
+import { MenuComponent } from './menu/menu.component';
 
 @NgModule({
   declarations: [

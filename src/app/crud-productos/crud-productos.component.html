@@ -50,6 +50,23 @@
         </tr>
       </table>
     </div>
+
+    <p class="col-xs-1 mt-4" align="center" >Presentacion Productos</p>
+
+    <div *ngIf="presentacionProductos.length>0" class="mt-4">
+      <table border="1" style="margin-left: auto; margin-right: auto;">
+        <tr>
+          <td>idPresentacionProducto</td>
+          <td>nombre</td>
+          <td>idProducto</td>
+        </tr>
+        <tr *ngFor="let p of presentacionProductos">
+          <td>{{ p.idPresentacionProducto }}</td>
+          <td>{{ p.nombre }}</td>
+          <td>{{ p.idProducto.idProducto }}</td>
+        </tr>
+      </table>
+    </div>
   </div>
 </section>
 <!-- Section: Design Block -->

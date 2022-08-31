@@ -4,9 +4,9 @@ import { TipoProducto } from '../model/tipo-producto.model';
 import { ServicecategoriaService } from '../service/servicecategoria.service';
 
 @Component({
-  selector: 'app-inicio-usuario',
-  templateUrl: './inicio-usuario.component.html',
-  styleUrls: ['./inicio-usuario.component.css']
+  selector: 'crud-productos',
+  templateUrl: './crud-productos.component.html',
+  styleUrls: ['./crud-productos.component.css']
 })
 export class InicioUsuarioComponent implements OnInit {
 

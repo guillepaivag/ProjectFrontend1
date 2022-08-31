@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CrudProductos } from './crud-productos/crud-productos.component';
 import { HomeComponent } from './home/home.component';
-import { InicioComponent } from './inicio/inicio.component';
-import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
   {
@@ -16,6 +15,10 @@ const routes: Routes = [
   {
     path: 'inicio',
     component: HomeComponent
+  },
+  {
+    path: 'crud-productos',
+    component: CrudProductos
   }
 ];
 

@@ -9,7 +9,7 @@ import { Compartido } from '../service/global.service';
 export class InicioComponent implements OnInit {
 
   usuario: String
-  constructor( private compartido: Compartido) { 
+  constructor( private compartido: Compartido) {
     this.usuario = this.compartido.usuario
   }
 

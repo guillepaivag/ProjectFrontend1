@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Categoria } from '../model/categoria.model';
 import { TipoProducto } from '../model/tipo-producto.model';
 import { ServicecategoriaService } from '../service/servicecategoria.service';
@@ -8,7 +8,7 @@ import { ServicecategoriaService } from '../service/servicecategoria.service';
   templateUrl: './crud-productos.component.html',
   styleUrls: ['./crud-productos.component.css']
 })
-export class InicioUsuarioComponent implements OnInit {
+export class CrudProductos implements OnInit {
 
   categoriaGuardar: Categoria = new Categoria();
   TipoProductoGuardar: TipoProducto = new TipoProducto()

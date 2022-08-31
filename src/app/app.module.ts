@@ -11,7 +11,7 @@ import { FooterComponent } from './footer/footer.component';
 import { CrudProductos } from './crud-productos/crud-productos.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { InicioComponent } from './inicio/inicio.component';
+import { MenuComponent } from './inicio/menu.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +21,7 @@ import { InicioComponent } from './inicio/inicio.component';
     LoginComponent,
     FooterComponent,
     CrudProductos,
-    InicioComponent
+    MenuComponent
   ],
   imports: [
     BrowserModule,

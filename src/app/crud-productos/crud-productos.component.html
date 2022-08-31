@@ -6,11 +6,11 @@
 
     <p *ngIf="mensaje!=''">{{ mensaje }}</p>
 
-    <div style="margin-left: auto; margin-right: auto;">
+    <div class="col-xs-1" align="center">
       <p>Agregar categoria</p>
       Descripcion: <input [(ngModel)]="categoriaGuardar.descripcion">
       <br>
-      <button (click)="guardarCategoria()">Guardar</button>
+      <button class="mt-3" (click)="guardarCategoria()">Guardar</button>
     </div>
     <br>
     <div *ngIf="categorias.length>0">
@@ -26,13 +26,14 @@
       </table>
     </div>
     <br>
-    <div style="margin-left: auto; margin-right: auto;">
+    <br>
+    <div class="col-xs-1" align="center">
       <p>Agregar Tipo productos</p>
       Descripcion: <input [(ngModel)]="TipoProductoGuardar.descripcion">
       <br>
       idCategoria: <input [(ngModel)]="TipoProductoGuardar.idCategoria.idCategoria">
       <br>
-      <button (click)="guardarTipoProductos()">Guardar</button>
+      <button class="mt-3" (click)="guardarTipoProductos()">Guardar</button>
     </div>
 
     <div *ngIf="tipoProductos.length>0" class="mt-4">

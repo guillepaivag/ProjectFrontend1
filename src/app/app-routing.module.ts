@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CrudProductos } from './crud-productos/crud-productos.component';
 import { HomeComponent } from './home/home.component';
-import { PacienteComponent } from './paciente/paciente.component';
 
 const routes: Routes = [
   {
@@ -20,10 +19,6 @@ const routes: Routes = [
   {
     path: 'crud-productos',
     component: CrudProductos
-  },
-  {
-    path: 'paciente',
-    component: PacienteComponent
   },
   {
     path: '**',

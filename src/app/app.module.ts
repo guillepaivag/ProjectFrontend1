@@ -12,7 +12,6 @@ import { CrudProductos } from './crud-productos/crud-productos.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { MenuComponent } from './menu/menu.component';
-import { PacienteComponent } from './paciente/paciente.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +22,6 @@ import { PacienteComponent } from './paciente/paciente.component';
     FooterComponent,
     CrudProductos,
     MenuComponent,
-    PacienteComponent
   ],
   imports: [
     BrowserModule,

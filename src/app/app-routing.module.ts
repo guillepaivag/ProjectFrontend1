@@ -22,9 +22,13 @@ const routes: Routes = [
     component: CrudProductos
   },
   {
+    path: '**',
+    component: HomeComponent
+  },
+  {
     path: 'paciente',
-    component: PacienteComponent
-  }
+  component: PacienteComponent
+}
 ];
 
 @NgModule({

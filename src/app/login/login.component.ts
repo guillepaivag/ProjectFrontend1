@@ -1,8 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ServicePersonaService } from '../service/servicepersona.service';
-import { ActivatedRoute , Router, ParamMap} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { lastValueFrom } from 'rxjs';
-import { Compartido } from '../service/global.service';
 
 @Component({
   selector: 'app-login',
@@ -18,38 +17,34 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private personaService: ServicePersonaService,
-    private route : ActivatedRoute,
-    private router : Router,
-    private compartido: Compartido) {
-      if(this.compartido.estaLogeado == true) {
-        this.router.navigateByUrl('inicio');
-      }
+    private router: Router,
+    private route : ActivatedRoute,) {
+    const aux = localStorage.getItem('logueado')
+    if (aux == 'true') {
+      this.router.navigateByUrl('inicio');
+    }
   }
 
   ngOnInit(): void {
   }
 
-  public async iniciarSesion(){
+  public async iniciarSesion() {
 
     this.usuarios = this.personaService.getUsuarios();
     this.usuarios = await lastValueFrom(this.usuarios);
-    //this.router.navigateByUrl('/inicio');
 
     console.log(this.usuarios.lista)
 
     for (let index = 0; index < this.usuarios.lista.length; index++) {
       const element = this.usuarios.lista[index];
-      if(element.soloUsuariosDelSistema == null)
-
-        if(this.usuario == element.email) {
-          this.compartido.estaLogeado = true
-          this.compartido.usuario = this.usuario
+      if (element.soloUsuariosDelSistema == null)
+        if (this.usuario == element.email) {
+          localStorage.setItem('usuarioNombre', element.nombre)
+          localStorage.setItem('logueado', 'true')
           this.router.navigateByUrl('inicio');
           return
         }
-
     }
-    this.mensajeError="Usuario Incorrecto"
+    this.mensajeError = "Usuario Incorrecto"
   }
-
 }

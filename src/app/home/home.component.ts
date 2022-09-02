@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Compartido } from '../service/global.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -8,15 +8,24 @@ import { Compartido } from '../service/global.service';
 })
 export class HomeComponent implements OnInit {
 
-  estaLogeado: boolean
-  constructor(private compartido: Compartido) {
-    this.estaLogeado = this.compartido.estaLogeado
-    console.log(this.estaLogeado)
+  estaLogeado : boolean
+  constructor(private router: Router) {
+    if (localStorage.getItem('logueado') == 'true'){
+      this.estaLogeado = true
+      this.router.navigateByUrl('inicio');
+    }else{
+      this.estaLogeado = false
+      this.router.navigateByUrl('login');
+    }
   }
 
   ngOnInit(): void {
-
+    if (localStorage.getItem('logueado') == 'true'){
+      this.estaLogeado = true
+      this.router.navigateByUrl('inicio');
+    }else{
+      this.estaLogeado = false
+      this.router.navigateByUrl('login');
+    }
   }
-
-
 }

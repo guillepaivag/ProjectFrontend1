@@ -7,11 +7,10 @@ import { Compartido } from '../service/global.service';
 })
 export class NavbarComponent implements OnInit {
 
+  nombreUsuario: string | null = ''
 
-  constructor(
-    private compartido: Compartido
-  ) { 
-
+  constructor() {
+    this.nombreUsuario = localStorage.getItem('usuarioNombre')
   }
 
   ngOnInit(): void {

@@ -58,4 +58,9 @@ export class CrudProductos implements OnInit {
       error: (error) => console.log("error: " + error),
     })
   };
+
+  editarCategoria(): void{
+
+  }
+
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Compartido } from '../service/global.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
@@ -9,11 +9,16 @@ import { Compartido } from '../service/global.service';
 export class MenuComponent implements OnInit {
 
   usuario: String
-  constructor( private compartido: Compartido) {
-    this.usuario = this.compartido.usuario
+  constructor(private router: Router) {
+    this.usuario = ''
   }
 
   ngOnInit(): void {
   }
 
+  salir(){
+    localStorage.setItem('usuarioNombre', '')
+    localStorage.setItem('logueado', 'false')
+    this.router.navigateByUrl('login');
+  }
 }

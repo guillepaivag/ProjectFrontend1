@@ -19,6 +19,10 @@ const routes: Routes = [
   {
     path: 'crud-productos',
     component: CrudProductos
+  },
+  {
+    path: '**',
+    component: HomeComponent
   }
 ];
 

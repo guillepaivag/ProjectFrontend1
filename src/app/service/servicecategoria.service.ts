@@ -29,8 +29,13 @@ export class ServicecategoriaService {
     );
   }
 
+
   getTipoProductos(): Observable<listadatos<TipoProducto>> {
     return this.http.get<listadatos<TipoProducto>>(`${this.api}/tipoProducto`);
+  }
+
+  getTipoProductosLike(buscar: string): Observable<listadatos<TipoProducto>> {
+    return this.http.get<listadatos<TipoProducto>>(`${this.api}/tipoProducto?like=S&ejemplo={"descripcion":"${buscar}"}`);
   }
 
   guardarTipoProductos(t: TipoProducto): Observable<TipoProducto> {

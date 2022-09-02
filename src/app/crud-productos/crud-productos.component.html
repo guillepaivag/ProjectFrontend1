@@ -4,67 +4,86 @@
   <div class="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
     <!-- <p>crud-productos works!</p> -->
 
-    <p *ngIf="mensaje!=''">{{ mensaje }}</p>
 
     <div class="col-xs-1" align="center">
+      <p *ngIf="mensaje!=''">{{ mensaje }}</p>
       <p>Agregar categoria</p>
       Descripcion: <input [(ngModel)]="categoriaGuardar.descripcion">
       <br>
-      <button class="mt-3" (click)="guardarCategoria()">Guardar</button>
+      <button class="btn btn-success mt-3" (click)="guardarCategoria()">Guardar</button>
     </div>
     <br>
     <div *ngIf="categorias.length>0">
-      <table border="1" style="margin-left: auto; margin-right: auto;">
-        <tr>
-          <td>Id</td>
-          <td>Descripcion</td>
-        </tr>
-        <tr *ngFor="let c of categorias">
-          <td>{{ c.idCategoria }}</td>
-          <td>{{ c.descripcion }}</td>
-        </tr>
+      <table class="table">
+        <thead>
+          <tr>
+            <td><b>Id</b></td>
+            <td><b>Descripcion</b></td>
+            <td><b>Accion</b></td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let c of categorias">
+            <td>{{ c.idCategoria }}</td>
+            <td>{{ c.descripcion }}</td>
+            <td><button class="btn btn-primary" (click)="guardarCategoria()">Editar</button></td>
+            <td><button class="btn btn-danger" (click)="guardarCategoria()">Eliminar</button></td>
+          </tr>
+        </tbody>
       </table>
     </div>
     <br>
     <br>
+    <hr>
     <div class="col-xs-1" align="center">
       <p>Agregar Tipo productos</p>
       Descripcion: <input [(ngModel)]="TipoProductoGuardar.descripcion">
       <br>
       idCategoria: <input [(ngModel)]="TipoProductoGuardar.idCategoria.idCategoria">
       <br>
-      <button class="mt-3" (click)="guardarTipoProductos()">Guardar</button>
+      <button class="btn btn-success mt-3" (click)="guardarTipoProductos()">Guardar</button>
     </div>
 
     <div *ngIf="tipoProductos.length>0" class="mt-4">
-      <table border="1" style="margin-left: auto; margin-right: auto;">
-        <tr>
-          <td>Id</td>
-          <td>Descripcion</td>
-          <td>ID Categoria</td>
-        </tr>
-        <tr *ngFor="let t of tipoProductos">
-          <td>{{ t.idTipoProducto }}</td>
-          <td>{{ t.descripcion }}</td>
-          <td>{{ t.idCategoria.idCategoria }}</td>
-        </tr>
+      <table class="table">
+        <thead>
+          <tr>
+            <td>Id</td>
+            <td>Descripcion</td>
+            <td>ID Categoria</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let t of tipoProductos">
+            <td>{{ t.idTipoProducto }}</td>
+            <td>{{ t.descripcion }}</td>
+            <td>{{ t.idCategoria.idCategoria }}</td>
+            <td><button class="m-10 btn btn-primary " (click)="guardarCategoria()">Editar</button></td>
+            <td><button class="m-10 btn btn-danger" (click)="guardarCategoria()">Eliminar</button></td>
+          </tr>
+        </tbody>
       </table>
     </div>
-
-    <p class="col-xs-1 mt-4" align="center" >Presentacion Productos</p>
-
+    <hr>
+    <p class="col-xs-1 mt-4" align="center">Presentacion Productos</p>
     <div *ngIf="presentacionProductos.length>0" class="mt-4">
-      <table border="1" style="margin-left: auto; margin-right: auto;">
-        <tr>
-          <td>idPresentacionProducto</td>
-          <td>nombre</td>
-          <td>idProducto</td>
-        </tr>
-        <tr *ngFor="let p of presentacionProductos">
-          <td>{{ p.idPresentacionProducto }}</td>
-          <td>{{ p.nombre }}</td>
-          <td>{{ p.idProducto.idProducto }}</td>
-        </tr>
+      <table class="table">
+        <thead>
+          <tr>
+            <td>idPresentacionProducto</td>
+            <td>nombre</td>
+            <td>idProducto</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let p of presentacionProductos">
+            <td>{{ p.idPresentacionProducto }}</td>
+            <td>{{ p.nombre }}</td>
+            <td>{{ p.idProducto.idProducto }}</td>
+            <td><button class="m-10 btn btn-primary " (click)="guardarCategoria()">Editar</button></td>
+            <td><button class="m-10 btn btn-danger" (click)="guardarCategoria()">Eliminar</button></td>
+          </tr>
+        </tbody>
       </table>
     </div>
   </div>

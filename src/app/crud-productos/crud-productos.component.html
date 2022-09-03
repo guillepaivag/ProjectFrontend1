@@ -8,9 +8,11 @@
     <div class="col-xs-1" align="center">
       <p *ngIf="mensaje!=''">{{ mensaje }}</p>
       <p>Agregar categoria</p>
-      Descripcion: <input [(ngModel)]="categoriaGuardar.descripcion">
-      <br>
-      <button class="btn btn-success mt-3" (click)="guardarCategoria()">Guardar</button>
+      <form #f="ngForm" (ngSubmit)="guardarCategoria()" novalidate id="formCategoria">
+        Descripcion: <input [(ngModel)]="categoriaGuardar.descripcion" [ngModelOptions]="{standalone: true}">
+        <br>
+        <input class="btn btn-success mt-3" type="submit" value="Guardar">
+      </form>
     </div>
     <br>
     <div class="container" *ngIf="categorias.length>0">
@@ -22,8 +24,7 @@
       <div class="row mt-2" *ngFor="let c of categorias">
         <div class="col-3 align-middle text-center my-auto"><span>{{ c.idCategoria }}</span></div>
         <div class="col-3 align-middle text-center my-auto"><span>{{ c.descripcion }}</span></div>
-        <div class="col-3 align-middle text-center my-auto"><button type="button" class="btn btn-primary" data-bs-toggle="modal"
-            data-bs-target="#exampleModal">Editar</button></div>
+        <div class="col-3 align-middle text-center my-auto"><button type="button" class="btn btn-primary" data-bs-toggle="modal"data-bs-target="#exampleModal">Editar</button></div>
         <div class="col-3 align-middle text-center my-auto"><button class="btn btn-danger" (click)="guardarCategoria()">Eliminar</button></div>
       </div>
     </div>
@@ -38,32 +39,26 @@
       <br>
       <button class="btn btn-success mt-3" (click)="guardarTipoProductos()">Guardar</button>
     </div>
-    <div class="col-xs-1" align="left">
+    <div class="col-xs-1 mb-4" align="left">
       <p></p>
       Filtrar por Descripcion: <input [(ngModel)]="TipoProductoBuscar">
       &nbsp;
       <button class="btn btn-primary" (click)="getTipoProductosLike()">Filtrar</button>
     </div>
-
-    <div *ngIf="tipoProductos.length>0" class="mt-4">
-      <table class="table">
-        <thead>
-          <tr>
-            <td>Id</td>
-            <td>Descripcion</td>
-            <td>ID Categoria</td>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let t of tipoProductos">
-            <td>{{ t.idTipoProducto }}</td>
-            <td>{{ t.descripcion }}</td>
-            <td>{{ t.idCategoria.idCategoria }}</td>
-            <td><button class="m-10 btn btn-primary " (click)="guardarCategoria()">Editar</button></td>
-            <td><button class="m-10 btn btn-danger" (click)="guardarCategoria()">Eliminar</button></td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="container" *ngIf="tipoProductos.length>0">
+      <div class="row">
+        <div class="col-2 align-middle text-center my-auto"><b>Id</b></div>
+        <div class="col-2 align-middle text-center my-auto"><b>Descripcion</b></div>
+        <div class="col-2 align-middle text-center my-auto"><b>ID Categoria</b></div>
+        <div class="col-6 align-middle text-center my-auto"><b>Accion</b></div>
+      </div>
+      <div class="row mt-2" *ngFor="let t of tipoProductos">
+        <div class="col-2 align-middle text-center my-auto"><span>{{ t.idTipoProducto }}</span></div>
+        <div class="col-2 align-middle text-center my-auto"><span>{{ t.descripcion }}</span></div>
+        <div class="col-2 align-middle text-center my-auto"><span>{{ t.idCategoria.idCategoria }}</span></div>
+        <div class="col-3 align-middle text-center my-auto"><button type="button" class="btn btn-primary" data-bs-toggle="modal"data-bs-target="#exampleModal">Editar</button></div>
+        <div class="col-3 align-middle text-center my-auto"><button class="btn btn-danger" (click)="guardarCategoria()">Eliminar</button></div>
+      </div>
     </div>
     <hr>
     <p class="col-xs-1 mt-4" align="center">Presentacion Productos</p>

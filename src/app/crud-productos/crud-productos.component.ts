@@ -49,6 +49,8 @@ export class CrudProductos implements OnInit {
       },
       error: (error) => console.log("error: " + error),
     })
+    const form:HTMLFormElement  = <HTMLFormElement> document.getElementById("formCategoria");
+    form.reset()
   };
 
   guardarTipoProductos(): void{

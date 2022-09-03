@@ -54,19 +54,17 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <div class="col-xs-1" align="left">
-              <p></p>
-              Filtrar por Descripcion: <input [(ngModel)]="TipoProductoBuscarDescripcion">
+            <form #f="ngForm" (ngSubmit)="getTipoProductosLikeDescripcion()" novalidate id="formTipoProductoDesc">
+              Filtrar por Descripcion: <input [(ngModel)]="TipoProductoBuscarDescripcion" [ngModelOptions]="{standalone: true}">
               &nbsp;
-              <button class="btn btn-primary" (click)="getTipoProductosLikeDescripcion()">Filtrar</button>
-            </div>
+              <input class="btn btn-primary" type="submit" value="Filtrar">
+            </form>
             &nbsp;
-            <div class="col-xs-1" align="left">
-              <p></p>
-              Filtrar por ID: <input [(ngModel)]="TipoProductoBuscarId">
+            <form #f="ngForm" (ngSubmit)="getTipoProductosLikeId()" novalidate id="formTipoProductoId">
+              Filtrar por ID: <input [(ngModel)]="TipoProductoBuscarId" [ngModelOptions]="{standalone: true}">
               &nbsp;
-              <button class="btn btn-primary" (click)="getTipoProductosLikeId()">Filtrar</button>
-            </div>
+              <input class="btn btn-primary" type="submit" value="Filtrar">
+            </form>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

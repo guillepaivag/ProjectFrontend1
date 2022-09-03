@@ -13,6 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { MenuComponent } from './menu/menu.component';
 import { PacienteComponent } from './paciente/paciente.component';
+import { ReservaComponent } from './reserva/reserva.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { PacienteComponent } from './paciente/paciente.component';
     FooterComponent,
     CrudProductos,
     MenuComponent,
-    PacienteComponent
+    PacienteComponent,
+    ReservaComponent
   ],
   imports: [
     BrowserModule,

@@ -16,6 +16,7 @@ export class CrudProductos implements OnInit {
 
   categoriaGuardar: Categoria = new Categoria();
   TipoProductoGuardar: TipoProducto = new TipoProducto()
+  TipoProductoBuscar: string = '';
   presentacionProductoGuardar: PresentacionProducto = new PresentacionProducto()
 
   categorias: Categoria[] = [];
@@ -63,4 +64,11 @@ export class CrudProductos implements OnInit {
 
   }
 
+
+  getTipoProductosLike(): void{
+    this.servicioCategorias.getTipoProductosLike(this.TipoProductoBuscar).subscribe({
+      next: (entity) => this.tipoProductos = entity.lista,
+      error: (error) => console.log('no se pudieron conseguir los productos con el filtro', error),
+    });
+  };
 }

@@ -38,13 +38,43 @@
       <br>
       <button class="btn btn-success mt-3" (click)="guardarTipoProductos()">Guardar</button>
     </div>
-    <div class="col-xs-1" align="left">
-      <p></p>
-      Filtrar por Descripcion: <input [(ngModel)]="TipoProductoBuscar">
-      &nbsp;
-      <button class="btn btn-primary" (click)="getTipoProductosLike()">Filtrar</button>
-    </div>
+    <!-- Filtro de Tipo Productos -->
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      Filtrar
+    </button>
 
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Filtro</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="col-xs-1" align="left">
+              <p></p>
+              Filtrar por Descripcion: <input [(ngModel)]="TipoProductoBuscarDescripcion">
+              &nbsp;
+              <button class="btn btn-primary" (click)="getTipoProductosLikeDescripcion()">Filtrar</button>
+            </div>
+            &nbsp;
+            <div class="col-xs-1" align="left">
+              <p></p>
+              Filtrar por ID: <input [(ngModel)]="TipoProductoBuscarId">
+              &nbsp;
+              <button class="btn btn-primary" (click)="getTipoProductosLikeId()">Filtrar</button>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Tabla de Tipo Productos -->
     <div *ngIf="tipoProductos.length>0" class="mt-4">
       <table class="table">
         <thead>
@@ -66,6 +96,7 @@
       </table>
     </div>
     <hr>
+    <!-- Presentacion Productos -->
     <p class="col-xs-1 mt-4" align="center">Presentacion Productos</p>
     <div *ngIf="presentacionProductos.length>0" class="mt-4">
       <table class="table">

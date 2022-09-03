@@ -16,7 +16,8 @@ export class CrudProductos implements OnInit {
 
   categoriaGuardar: Categoria = new Categoria();
   TipoProductoGuardar: TipoProducto = new TipoProducto()
-  TipoProductoBuscar: string = '';
+  TipoProductoBuscarDescripcion: string = '';
+  TipoProductoBuscarId: string = '';
   presentacionProductoGuardar: PresentacionProducto = new PresentacionProducto()
 
   categorias: Categoria[] = [];
@@ -65,10 +66,26 @@ export class CrudProductos implements OnInit {
   }
 
 
-  getTipoProductosLike(): void{
-    this.servicioCategorias.getTipoProductosLike(this.TipoProductoBuscar).subscribe({
+  getTipoProductosLikeDescripcion(): void{
+    this.servicioCategorias.getTipoProductosLikeDescripcion(this.TipoProductoBuscarDescripcion).subscribe({
       next: (entity) => this.tipoProductos = entity.lista,
       error: (error) => console.log('no se pudieron conseguir los productos con el filtro', error),
     });
+  };
+
+  getTipoProductosLikeId(): void{
+    //si llega un campo vacío retorno la lista completa
+    if(this.TipoProductoBuscarId == null) {
+      this.servicioCategorias.getTipoProductos().subscribe({
+        next: (entity) => this.tipoProductos = entity.lista,
+        error: (error) => console.log('no se pudieron conseguir los productos con el filtro', error),
+      });
+    }
+    else {
+      this.servicioCategorias.getTipoProductosLikeId(this.TipoProductoBuscarId).subscribe({
+        next: (entity) => this.tipoProductos = entity.lista,
+        error: (error) => console.log('no se pudieron conseguir los productos con el filtro', error),
+      });
+    }
   };
 }

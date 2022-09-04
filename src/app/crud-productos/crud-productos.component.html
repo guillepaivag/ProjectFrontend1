@@ -70,7 +70,7 @@
       <button class="btn btn-success mt-3" (click)="guardarTipoProductos()">Guardar</button>
     </div>
 
-    
+
     <!-- Filtro de Tipo Productos -->
     &nbsp;
     <div class="col-xs-1" align="center">
@@ -107,8 +107,8 @@
                   <td>{{c.idCategoria.idCategoria}}</td>
                   <td>
                       <div class="btn-group" role="group" aria-label="Basic outlined example">
-                          <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="editarTipoProductos()">Modificar</button>
-                          <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="eliminarTipoProductos(c)">Eliminar</button>
+                          <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2" (click)="editarTipoProductos()">Modificar</button>
+                          <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2" (click)="eliminarTipoProductos(c)">Eliminar</button>
                       </div>
                   </td>
               </tr>
@@ -163,8 +163,8 @@
                 <td>{{c.idProducto.idProducto}}</td>
                 <td>
                     <div class="btn-group" role="group" aria-label="Basic outlined example">
-                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="editarPresentacionProducto()">Modificar</button>
-                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="guardarCategoria()">Eliminar</button>
+                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal3" (click)="editarPresentacionProducto()">Modificar</button>
+                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal3" (click)="guardarCategoria()">Eliminar</button>
                     </div>
                 </td>
             </tr>
@@ -216,13 +216,13 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Categoria</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Tipo Producto</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <p>Id: {{categoriaAEditar.idCategoria}}</p>
-        <p>Descripcion actual: {{categoriaGuardar.descripcion}}</p>
-        <p>Descripcion nueva: <input [(ngModel)]="categoriaAEditar.descripcion" [ngModelOptions]="{standalone: true}"></p>
+        <p>Id categoria: {{tipoProdcutoAEditar.idCategoria.idCategoria}}</p>
+        <p>Descripcion actual: {{TipoProductoGuardar.descripcion}}</p>
+        <p>Descripcion nueva: <input [(ngModel)]="tipoProdcutoAEditar.descripcion" [ngModelOptions]="{standalone: true}"></p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>

@@ -111,6 +111,18 @@ export class CrudProductos implements OnInit {
     })
   };
 
+  editarCategoria(c: Categoria): void{
+
+  };
+
+  editarTipoProductos(t: TipoProducto): void{
+
+  };
+
+  editarPresentacionProducto(p: PresentacionProducto): void{
+
+  };
+
   eliminarCategoria(c: Categoria): void{
     this.servicioCategorias.eliminarCategoria(c).subscribe({
       next: (entity) => {

@@ -107,7 +107,7 @@
                   <td>{{c.idCategoria.idCategoria}}</td>
                   <td>
                       <div class="btn-group" role="group" aria-label="Basic outlined example">
-                          <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2" (click)="editarTipoProductos()">Modificar</button>
+                          <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2" (click)="setAModificarTipoProducto(c)">Modificar</button>
                           <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2" (click)="eliminarTipoProductos(c)">Eliminar</button>
                       </div>
                   </td>
@@ -163,8 +163,8 @@
                 <td>{{c.idProducto.idProducto}}</td>
                 <td>
                     <div class="btn-group" role="group" aria-label="Basic outlined example">
-                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal3" (click)="editarPresentacionProducto()">Modificar</button>
-                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal3" (click)="guardarCategoria()">Eliminar</button>
+                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal3" (click)="setAModificarPresentacionProducto(c)">Modificar</button>
+                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal3" (click)="eliminarPresentacionProducto(c)">Eliminar</button>
                     </div>
                 </td>
             </tr>

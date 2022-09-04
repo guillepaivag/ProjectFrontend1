@@ -1,0 +1,46 @@
+<app-navbar></app-navbar>
+<br><br><br>
+<div style="text-align: center;">
+    <h1>PACIENTES</h1>
+</div>
+
+<div *ngIf="collectionSize>0" class="container">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Apellido</th>
+                <th scope="col">Email</th>
+                <th scope="col">Telefono</th>
+                <th scope="col">RUC</th>
+                <th scope="col">Cedula</th>
+                <th scope="col">Tipo Persona</th>
+                <th scope="col">Fecha de Nac.</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let paciente of listaPacientes">
+                <td>{{paciente.nombre}}</td>
+                <td>{{paciente.apellido}}</td>
+                <td>{{paciente.email}}</td>
+                <td>{{paciente.telefono}}</td>
+                <td>{{paciente.ruc}}</td>
+                <td>{{paciente.cedula}}</td>
+                <td>{{paciente.tipoPersona}}</td>
+                <td>{{paciente.fechaNacimiento}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="d-flex justify-content-between p-2">
+        <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize"
+            (pageChange)="refresh()">
+        </ngb-pagination>
+
+        <select class="form-select" style="width: auto" [(ngModel)]="pageSize" (ngModelChange)="refresh()">
+            <option [ngValue]="10">10 por pagina</option>
+            <option [ngValue]="20">20 por pagina</option>
+            <option [ngValue]="30">30 por pagina</option>
+        </select>
+    </div>
+</div>

@@ -123,16 +123,15 @@ export class CrudProductos implements OnInit {
 
   getTipoProductosLikeId(): void{
     //si llega un campo vacío retorno la lista completa
-    if(this.TipoProductoBuscarId == null) {
+    if(this.TipoProductoBuscarId == "") {
       this.servicioCategorias.getTipoProductos().subscribe({
         next: (entity) => {
           this.tipoProductos = entity.lista
           this.collectionSize2 = this.tipoProductos.length
           this.refreshTipoProductos()
         },
-        error: (error) => console.log('no se pudieron conseguir los productos con el filtro', error),
+        error: (error) => console.log('no se pudieron conseguir los productos', error),
       });
-      this.refreshTipoProductos()
     }
     else {
       this.servicioCategorias.getTipoProductosLikeId(this.TipoProductoBuscarId).subscribe({

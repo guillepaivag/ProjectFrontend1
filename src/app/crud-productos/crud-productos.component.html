@@ -25,7 +25,7 @@
         <div class="col-3 align-middle text-center my-auto"><span>{{ c.idCategoria }}</span></div>
         <div class="col-3 align-middle text-center my-auto"><span>{{ c.descripcion }}</span></div>
         <div class="col-3 align-middle text-center my-auto"><button type="button" class="btn btn-primary"
-            data-bs-toggle="modal" data-bs-target="#exampleModal">Editar</button></div>
+            data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="editarCategoria(c)">Editar</button></div>
         <div class="col-3 align-middle text-center my-auto"><button class="btn btn-danger"
             (click)="eliminarCategoria(c)">Eliminar</button></div>
       </div>
@@ -70,7 +70,7 @@
         <div class="col-2 align-middle text-center my-auto"><span>{{ t.descripcion }}</span></div>
         <div class="col-2 align-middle text-center my-auto"><span>{{ t.idCategoria.idCategoria }}</span></div>
         <div class="col-3 align-middle text-center my-auto"><button type="button" class="btn btn-primary"
-            data-bs-toggle="modal" data-bs-target="#exampleModal">Editar</button></div>
+          data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="editarTipoProductos(t)">Editar</button></div>
             <div class="col-3 align-middle text-center my-auto"><button class="btn btn-danger"
               (click)="eliminarTipoProductos(t)">Eliminar</button></div>
       </div>
@@ -99,7 +99,8 @@
         <div class="col-2 align-middle text-center my-auto"><span>{{ p.idPresentacionProducto }}</span></div>
         <div class="col-2 align-middle text-center my-auto"><span>{{ p.nombre }}</span></div>
         <div class="col-2 align-middle text-center my-auto"><span>{{ p.idProducto.idProducto }}</span></div>
-        <button class="m-10 btn btn-primary " (click)="guardarCategoria()">Editar</button>
+        <div class="col-3 align-middle text-center my-auto"><button type="button" class="btn btn-primary"
+          data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="editarPresentacionProducto(p)">Editar</button></div>
         <button class="m-10 btn btn-danger" (click)="guardarCategoria()">Eliminar</button>
       </div>
     </div>

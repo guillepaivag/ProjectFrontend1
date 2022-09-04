@@ -92,25 +92,20 @@
     <hr>
     <!-- Presentacion Productos -->
     <p class="col-xs-1 mt-4" align="center">Presentacion Productos</p>
-    <div *ngIf="presentacionProductos.length>0" class="mt-4">
-      <table class="table">
-        <thead>
-          <tr>
-            <td>idPresentacionProducto</td>
-            <td>nombre</td>
-            <td>idProducto</td>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let p of presentacionProductos">
-            <td>{{ p.idPresentacionProducto }}</td>
-            <td>{{ p.nombre }}</td>
-            <td>{{ p.idProducto.idProducto }}</td>
-            <td><button class="m-10 btn btn-primary " (click)="guardarCategoria()">Editar</button></td>
-            <td><button class="m-10 btn btn-danger" (click)="guardarCategoria()">Eliminar</button></td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="container" *ngIf="tipoProductos.length>0">
+      <div class="row">
+        <div class="col-2 align-middle text-center my-auto"><b>idPresentacionProducto</b></div>
+        <div class="col-2 align-middle text-center my-auto"><b>nombre</b></div>
+        <div class="col-2 align-middle text-center my-auto"><b>idProducto</b></div>
+        <div class="col-6 align-middle text-center my-auto"><b>Accion</b></div>
+      </div>
+      <div class="row mt-2" *ngFor="let p of presentacionProductos">
+        <div class="col-2 align-middle text-center my-auto"><span>{{ p.idPresentacionProducto }}</span></div>
+        <div class="col-2 align-middle text-center my-auto"><span>{{ p.nombre }}</span></div>
+        <div class="col-2 align-middle text-center my-auto"><span>{{ p.idProducto.idProducto }}</span></div>
+        <button class="m-10 btn btn-primary " (click)="guardarCategoria()">Editar</button>
+        <button class="m-10 btn btn-danger" (click)="guardarCategoria()">Eliminar</button>
+      </div>
     </div>
   </div>
   <!-- Modal -->

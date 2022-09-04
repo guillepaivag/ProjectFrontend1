@@ -28,7 +28,9 @@ export class CrudProductos implements OnInit {
   TipoProductoBuscarId: string = '';
 
   //modificacion
-  index1: number = 0;
+  categoriaAEditar: Categoria = new Categoria();
+  tipoProdcutoAEditar: TipoProducto = new TipoProducto();
+  presentacionProductoAEditar: PresentacionProducto = new PresentacionProducto();
 
   //para paginacion
   page = 1;
@@ -61,9 +63,20 @@ export class CrudProductos implements OnInit {
       .map((listaCategorias, i) => ({id: i + 1, ...listaCategorias}))
       .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
   }
-  
-  setIndex(index:number){
-    this.index1=index
+
+  setAModificarCategoria(c: Categoria){
+    this.categoriaGuardar = { ...c };
+    this.categoriaAEditar = c
+  }
+
+  setAModificarTipoProducto(t: TipoProducto){
+    this.TipoProductoGuardar = { ...t };
+    this.tipoProdcutoAEditar = t
+  }
+
+  setAModificarPresentacionProducto(p: PresentacionProducto){
+    this.presentacionProductoGuardar = { ...p };
+    this.presentacionProductoAEditar = p
   }
 
   getTipoProductosLikeDescripcion(): void{
@@ -111,15 +124,29 @@ export class CrudProductos implements OnInit {
     })
   };
 
-  editarCategoria(c: Categoria): void{
-
+  editarCategoria(): void{
+    this.servicioCategorias.editarCategoria(this.categoriaAEditar).subscribe({
+      next: (entity) => {
+        this.mensaje = 'Editado exitosamente'
+        this.categorias.splice(this.categorias.indexOf(this.categoriaAEditar))
+        this.categorias.push(entity)
+      },
+      error: (error) => console.log("error: " + error),
+    })
   };
 
-  editarTipoProductos(t: TipoProducto): void{
-
+  editarTipoProductos(): void{
+    this.servicioCategorias.editarTipoProducto(this.tipoProdcutoAEditar).subscribe({
+      next: (entity) => {
+        this.mensaje = 'Editado exitosamente'
+        this.tipoProductos.splice(this.tipoProductos.indexOf(this.tipoProdcutoAEditar))
+        this.tipoProductos.push(entity)
+      },
+      error: (error) => console.log("error: " + error),
+    })
   };
 
-  editarPresentacionProducto(p: PresentacionProducto): void{
+  editarPresentacionProducto(): void{
 
   };
 

@@ -66,4 +66,28 @@ export class ServicecategoriaService {
       })
     );
   }
+
+  editarCategoria(c: Categoria): Observable<Categoria> {
+    let aux: Categoria = new Categoria()
+    aux.idCategoria = c.idCategoria
+    aux.descripcion = c.descripcion
+    return this.http.put<Categoria>(`${this.api}/categoria`, aux).pipe(
+      tap({
+        next: (data) => console.log('modificado ' + data),
+        error: (error) => console.log("error: " + error),
+      })
+    );
+  }
+
+  editarTipoProducto(t: TipoProducto): Observable<TipoProducto> {
+    let aux: TipoProducto = new TipoProducto()
+    aux.idCategoria.idCategoria = t.idCategoria.idCategoria
+    aux.descripcion = t.descripcion
+    return this.http.put<TipoProducto>(`${this.api}/tipoProducto`, aux).pipe(
+      tap({
+        next: (data) => console.log('modificado ' + data),
+        error: (error) => console.log("error: " + error),
+      })
+    );
+  }
 }

@@ -32,7 +32,7 @@
                   <td>{{c.descripcion}}</td>
                   <td>
                       <div class="btn-group" role="group" aria-label="Basic outlined example">
-                          <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="setIndex(i)">Modificar</button>
+                          <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="setAModificarCategoria(c)">Modificar</button>
                           <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="eliminarCategoria(c)">Eliminar</button>
                       </div>
                   </td>
@@ -72,7 +72,7 @@
         <div class="col-3 align-middle text-center my-auto"><span>{{ c.idCategoria }}</span></div>
         <div class="col-3 align-middle text-center my-auto"><span>{{ c.descripcion }}</span></div>
         <div class="col-3 align-middle text-center my-auto"><button type="button" class="btn btn-primary"
-            data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="editarCategoria(c)">Editar</button></div>
+            data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="editarCategoria()">Editar</button></div>
         <div class="col-3 align-middle text-center my-auto"><button class="btn btn-danger"
             (click)="eliminarCategoria(c)">Eliminar</button></div>
       </div>
@@ -117,7 +117,7 @@
         <div class="col-2 align-middle text-center my-auto"><span>{{ t.descripcion }}</span></div>
         <div class="col-2 align-middle text-center my-auto"><span>{{ t.idCategoria.idCategoria }}</span></div>
         <div class="col-3 align-middle text-center my-auto"><button type="button" class="btn btn-primary"
-          data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="editarTipoProductos(t)">Editar</button></div>
+          data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="setAModificarTipoProducto(t)">Editar</button></div>
             <div class="col-3 align-middle text-center my-auto"><button class="btn btn-danger"
               (click)="eliminarTipoProductos(t)">Eliminar</button></div>
       </div>
@@ -128,14 +128,14 @@
       <p *ngIf="mensaje!=''">{{ mensaje }}</p>
       <p>Agregar presentacion producto</p>
       <form #f="ngForm" (ngSubmit)="guardarCategoria()" novalidate id="formCategoria">
-        Descripcion: <input [(ngModel)]="categoriaGuardar.descripcion" [ngModelOptions]="{standalone: true}">
+        Descripcion: <input [(ngModel)]="presentacionProductoGuardar.descripcion" [ngModelOptions]="{standalone: true}">
         <br>
         <input class="btn btn-success mt-3" type="submit" value="Guardar">
       </form>
     </div>
 
     <p class="col-xs-1 mt-4" align="center">Presentacion Productos</p>
-    <div class="container" *ngIf="tipoProductos.length>0">
+    <div class="container" *ngIf="presentacionProductos.length>0">
       <div class="row">
         <div class="col-2 align-middle text-center my-auto"><b>idPresentacionProducto</b></div>
         <div class="col-2 align-middle text-center my-auto"><b>nombre</b></div>
@@ -147,7 +147,7 @@
         <div class="col-2 align-middle text-center my-auto"><span>{{ p.nombre }}</span></div>
         <div class="col-2 align-middle text-center my-auto"><span>{{ p.idProducto.idProducto }}</span></div>
         <div class="col-3 align-middle text-center my-auto"><button type="button" class="btn btn-primary"
-          data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="editarPresentacionProducto(p)">Editar</button></div>
+          data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="setAModificarPresentacionProducto(p)">Editar</button></div>
         <button class="m-10 btn btn-danger" (click)="guardarCategoria()">Eliminar</button>
       </div>
     </div>
@@ -159,19 +159,63 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Categoria</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          ...
+          <p>Id: {{categoriaAEditar.idCategoria}}</p>
+          <p>Descripcion actual: {{categoriaGuardar.descripcion}}</p>
+          <p>Descripcion nueva: <input [(ngModel)]="categoriaAEditar.descripcion" [ngModelOptions]="{standalone: true}"></p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-primary" (click)="editarCategoria()">Actualizar</button>
         </div>
       </div>
     </div>
   </div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Categoria</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Id: {{categoriaAEditar.idCategoria}}</p>
+        <p>Descripcion actual: {{categoriaGuardar.descripcion}}</p>
+        <p>Descripcion nueva: <input [(ngModel)]="categoriaAEditar.descripcion" [ngModelOptions]="{standalone: true}"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" (click)="editarCategoria()">Actualizar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Categoria</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Id: {{categoriaAEditar.idCategoria}}</p>
+        <p>Descripcion actual: {{categoriaGuardar.descripcion}}</p>
+        <p>Descripcion nueva: <input [(ngModel)]="categoriaAEditar.descripcion" [ngModelOptions]="{standalone: true}"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" (click)="editarCategoria()">Actualizar</button>
+      </div>
+    </div>
+  </div>
+</div>
 </section>
 
 <!-- Section: Design Block -->

@@ -19,9 +19,13 @@ export class CrudProductos implements OnInit {
   presentacionProductoGuardar: PresentacionProducto = new PresentacionProducto()
 
   categorias: Categoria[] = [];
-  listaCategorias: Categoria[] = [];
   tipoProductos: TipoProducto[] = [];
   presentacionProductos: PresentacionProducto[] = [];
+
+  //listas auxiliares para paginación
+  listaCategorias: Categoria[] = [];
+  listaTipoProductos: TipoProducto[] = [];
+  listaPresentacion: PresentacionProducto[] = [];
 
   //filtro
   TipoProductoBuscarDescripcion: string = '';
@@ -32,10 +36,16 @@ export class CrudProductos implements OnInit {
   tipoProdcutoAEditar: TipoProducto = new TipoProducto();
   presentacionProductoAEditar: PresentacionProducto = new PresentacionProducto();
 
-  //para paginacion
-  page = 1;
-  pageSize = 10;
-  collectionSize = 0;
+  //para paginacion, 1=categoria, 2=tipoProducto, 3=presentacion
+  page1= 1;
+  page2= 1;
+  page3= 1;
+  pageSize1 = 10;
+  pageSize2 = 10;
+  pageSize3 = 10;
+  collectionSize1 = 0;
+  collectionSize2 = 0;
+  collectionSize3 = 0;
 
   constructor(private servicioCategorias: ServicecategoriaService, private servicioProductos: PresentacionProductoService) { }
 
@@ -43,25 +53,45 @@ export class CrudProductos implements OnInit {
     this.servicioCategorias.getCategorias().subscribe({
       next: (entity) => {
         this.categorias = entity.lista
-        this.collectionSize = this.categorias.length
+        this.collectionSize1 = this.categorias.length
         this.refreshCategorias()
       },
       error: (error) => console.log('no se pudieron conseguir las categorias', error),
     });
     this.servicioCategorias.getTipoProductos().subscribe({
-      next: (entity) => this.tipoProductos = entity.lista,
+      next: (entity) => {
+        this.tipoProductos = entity.lista
+        this.collectionSize2 = this.tipoProductos.length
+        this.refreshTipoProductos()
+      },
       error: (error) => console.log('no se pudieron conseguir los productos', error),
     });
     this.servicioProductos.getPresentacionProducto().subscribe({
-      next: (entity) => this.presentacionProductos = entity.lista,
-      error: (error) => console.log('no se pudieron conseguir las categorias', error),
+      next: (entity) => {
+        this.presentacionProductos = entity.lista
+        this.collectionSize3 = this.presentacionProductos.length
+        this.refreshPresentacion()
+      },
+      error: (error) => console.log('no se pudieron conseguir las presentaciones', error),
     });
   }
 
   refreshCategorias() {
     this.listaCategorias = this.categorias
       .map((listaCategorias, i) => ({id: i + 1, ...listaCategorias}))
-      .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
+      .slice((this.page1- 1) * this.pageSize1, (this.page1- 1) * this.pageSize1 + this.pageSize1);
+  }
+
+  refreshTipoProductos() {
+    this.listaTipoProductos = this.tipoProductos
+      .map((listaCategorias, i) => ({id: i + 1, ...listaCategorias}))
+      .slice((this.page2- 1) * this.pageSize2, (this.page2- 1) * this.pageSize2 + this.pageSize2);
+  }
+
+  refreshPresentacion() {
+    this.listaPresentacion = this.presentacionProductos
+      .map((listaCategorias, i) => ({id: i + 1, ...listaCategorias}))
+      .slice((this.page3- 1) * this.pageSize3, (this.page3- 1) * this.pageSize3 + this.pageSize3);
   }
 
   setAModificarCategoria(c: Categoria){
@@ -81,22 +111,36 @@ export class CrudProductos implements OnInit {
 
   getTipoProductosLikeDescripcion(): void{
     this.servicioCategorias.getTipoProductosLikeDescripcion(this.TipoProductoBuscarDescripcion).subscribe({
-      next: (entity) => this.tipoProductos = entity.lista,
+      next: (entity) => {
+        this.tipoProductos = entity.lista
+        this.collectionSize2 = this.tipoProductos.length
+        this.refreshTipoProductos()
+      },
       error: (error) => console.log('no se pudieron conseguir los productos con el filtro', error),
     });
+    this.refreshTipoProductos()
   };
 
   getTipoProductosLikeId(): void{
     //si llega un campo vacío retorno la lista completa
     if(this.TipoProductoBuscarId == null) {
       this.servicioCategorias.getTipoProductos().subscribe({
-        next: (entity) => this.tipoProductos = entity.lista,
+        next: (entity) => {
+          this.tipoProductos = entity.lista
+          this.collectionSize2 = this.tipoProductos.length
+          this.refreshTipoProductos()
+        },
         error: (error) => console.log('no se pudieron conseguir los productos con el filtro', error),
       });
+      this.refreshTipoProductos()
     }
     else {
       this.servicioCategorias.getTipoProductosLikeId(this.TipoProductoBuscarId).subscribe({
-        next: (entity) => this.tipoProductos = entity.lista,
+        next: (entity) => {
+          this.tipoProductos = entity.lista
+          this.collectionSize2 = this.tipoProductos.length
+          this.refreshTipoProductos()
+        },
         error: (error) => console.log('no se pudieron conseguir los productos con el filtro', error),
       });
     }

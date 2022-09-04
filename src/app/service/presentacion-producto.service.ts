@@ -27,4 +27,13 @@ export class PresentacionProductoService {
       })
     );
   }
+
+  eliminarPresentacionProducto(t: PresentacionProducto): Observable<PresentacionProducto> {
+    return this.http.delete<PresentacionProducto>(`${this.api}/presentacionProducto/${t.idPresentacionProducto}`).pipe(
+      tap({
+        next: (data) => console.log('eliminado ' + data),
+        error: (error) => console.log("error: " + error),
+      })
+    );
+  }
 }

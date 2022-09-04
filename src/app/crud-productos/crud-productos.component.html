@@ -24,8 +24,10 @@
       <div class="row mt-2" *ngFor="let c of categorias">
         <div class="col-3 align-middle text-center my-auto"><span>{{ c.idCategoria }}</span></div>
         <div class="col-3 align-middle text-center my-auto"><span>{{ c.descripcion }}</span></div>
-        <div class="col-3 align-middle text-center my-auto"><button type="button" class="btn btn-primary" data-bs-toggle="modal"data-bs-target="#exampleModal">Editar</button></div>
-        <div class="col-3 align-middle text-center my-auto"><button class="btn btn-danger" (click)="guardarCategoria()">Eliminar</button></div>
+        <div class="col-3 align-middle text-center my-auto"><button type="button" class="btn btn-primary"
+            data-bs-toggle="modal" data-bs-target="#exampleModal">Editar</button></div>
+        <div class="col-3 align-middle text-center my-auto"><button class="btn btn-danger"
+            (click)="eliminarCategoria(c)">Eliminar</button></div>
       </div>
     </div>
     <br>
@@ -34,45 +36,27 @@
     <div class="col-xs-1" align="center">
       <p>Agregar Tipo productos</p>
       Descripcion: <input [(ngModel)]="TipoProductoGuardar.descripcion">
-      <br>
+      &nbsp;
       idCategoria: <input [(ngModel)]="TipoProductoGuardar.idCategoria.idCategoria">
       <br>
       <button class="btn btn-success mt-3" (click)="guardarTipoProductos()">Guardar</button>
     </div>
     <!-- Filtro de Tipo Productos -->
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-      Filtrar
-    </button>
-
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Filtro</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <form #f="ngForm" (ngSubmit)="getTipoProductosLikeDescripcion()" novalidate id="formTipoProductoDesc">
-              Filtrar por Descripcion: <input [(ngModel)]="TipoProductoBuscarDescripcion" [ngModelOptions]="{standalone: true}">
-              &nbsp;
-              <input class="btn btn-primary" type="submit" value="Filtrar">
-            </form>
-            &nbsp;
-            <form #f="ngForm" (ngSubmit)="getTipoProductosLikeId()" novalidate id="formTipoProductoId">
-              Filtrar por ID: <input [(ngModel)]="TipoProductoBuscarId" [ngModelOptions]="{standalone: true}">
-              &nbsp;
-              <input class="btn btn-primary" type="submit" value="Filtrar">
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
-          </div>
-        </div>
-      </div>
+    &nbsp;
+    <div class="col-xs-1" align="center">
+      &nbsp;
+      <form #f="ngForm" (ngSubmit)="getTipoProductosLikeDescripcion()" novalidate id="formTipoProductoDesc">
+        Filtrar por Descripcion: <input [(ngModel)]="TipoProductoBuscarDescripcion" [ngModelOptions]="{standalone: true}">
+        &nbsp;
+        <input class="btn btn-primary" type="submit" value="Filtrar">
+      </form>
+      <form #f="ngForm" (ngSubmit)="getTipoProductosLikeId()" novalidate id="formTipoProductoId">
+        Filtrar por ID categoria: <input [(ngModel)]="TipoProductoBuscarId" [ngModelOptions]="{standalone: true}">
+        &nbsp;
+        <input class="btn btn-primary" type="submit" value="Filtrar">
+      </form>
     </div>
+    &nbsp;
     <!-- Tabla de Tipo Productos -->
     <div class="container" *ngIf="tipoProductos.length>0">
       <div class="row">
@@ -85,12 +69,24 @@
         <div class="col-2 align-middle text-center my-auto"><span>{{ t.idTipoProducto }}</span></div>
         <div class="col-2 align-middle text-center my-auto"><span>{{ t.descripcion }}</span></div>
         <div class="col-2 align-middle text-center my-auto"><span>{{ t.idCategoria.idCategoria }}</span></div>
-        <div class="col-3 align-middle text-center my-auto"><button type="button" class="btn btn-primary" data-bs-toggle="modal"data-bs-target="#exampleModal">Editar</button></div>
-        <div class="col-3 align-middle text-center my-auto"><button class="btn btn-danger" (click)="guardarCategoria()">Eliminar</button></div>
+        <div class="col-3 align-middle text-center my-auto"><button type="button" class="btn btn-primary"
+            data-bs-toggle="modal" data-bs-target="#exampleModal">Editar</button></div>
+            <div class="col-3 align-middle text-center my-auto"><button class="btn btn-danger"
+              (click)="eliminarTipoProductos(t)">Eliminar</button></div>
       </div>
     </div>
     <hr>
     <!-- Presentacion Productos -->
+    <div class="col-xs-1" align="center">
+      <p *ngIf="mensaje!=''">{{ mensaje }}</p>
+      <p>Agregar presentacion producto</p>
+      <form #f="ngForm" (ngSubmit)="guardarCategoria()" novalidate id="formCategoria">
+        Descripcion: <input [(ngModel)]="categoriaGuardar.descripcion" [ngModelOptions]="{standalone: true}">
+        <br>
+        <input class="btn btn-success mt-3" type="submit" value="Guardar">
+      </form>
+    </div>
+
     <p class="col-xs-1 mt-4" align="center">Presentacion Productos</p>
     <div class="container" *ngIf="tipoProductos.length>0">
       <div class="row">
@@ -108,6 +104,8 @@
       </div>
     </div>
   </div>
+
+
   <!-- Modal -->
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">

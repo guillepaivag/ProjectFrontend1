@@ -29,9 +29,17 @@ export class ServicecategoriaService {
     );
   }
 
-
   getTipoProductos(): Observable<listadatos<TipoProducto>> {
     return this.http.get<listadatos<TipoProducto>>(`${this.api}/tipoProducto`);
+  }
+
+  guardarTipoProductos(t: TipoProducto): Observable<TipoProducto> {
+    return this.http.post<TipoProducto>(`${this.api}/tipoProducto`, t).pipe(
+      tap({
+        next: (data) => console.log('agregado ' + data),
+        error: (error) => console.log("error: " + error),
+      })
+    );
   }
 
   getTipoProductosLikeDescripcion(buscar: string): Observable<listadatos<TipoProducto>> {
@@ -41,10 +49,19 @@ export class ServicecategoriaService {
     return this.http.get<listadatos<TipoProducto>>(`${this.api}/tipoProducto?ejemplo=%7B"idCategoria"%3A%7B"idCategoria"%3A%20${buscar}%7D%7D`);
   }
 
-  guardarTipoProductos(t: TipoProducto): Observable<TipoProducto> {
-    return this.http.post<TipoProducto>(`${this.api}/tipoProducto`, t).pipe(
+  eliminarCategoria(c: Categoria): Observable<Categoria> {
+    return this.http.delete<Categoria>(`${this.api}/categoria/${c.idCategoria}`).pipe(
       tap({
-        next: (data) => console.log('agregado ' + data),
+        next: (data) => console.log('eliminado ' + data),
+        error: (error) => console.log("error: " + error),
+      })
+    );
+  }
+
+  eliminarTipoProductos(t: TipoProducto): Observable<TipoProducto> {
+    return this.http.delete<TipoProducto>(`${this.api}/tipoProducto/${t.idTipoProducto}`).pipe(
+      tap({
+        next: (data) => console.log('eliminado ' + data),
         error: (error) => console.log("error: " + error),
       })
     );

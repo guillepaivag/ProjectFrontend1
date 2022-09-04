@@ -16,19 +16,34 @@ export class CrudProductos implements OnInit {
 
   categoriaGuardar: Categoria = new Categoria();
   TipoProductoGuardar: TipoProducto = new TipoProducto()
-  TipoProductoBuscarDescripcion: string = '';
-  TipoProductoBuscarId: string = '';
   presentacionProductoGuardar: PresentacionProducto = new PresentacionProducto()
 
   categorias: Categoria[] = [];
+  listaCategorias: Categoria[] = [];
   tipoProductos: TipoProducto[] = [];
   presentacionProductos: PresentacionProducto[] = [];
+
+  //filtro
+  TipoProductoBuscarDescripcion: string = '';
+  TipoProductoBuscarId: string = '';
+
+  //modificacion
+  index1: number = 0;
+
+  //para paginacion
+  page = 1;
+  pageSize = 10;
+  collectionSize = 0;
 
   constructor(private servicioCategorias: ServicecategoriaService, private servicioProductos: PresentacionProductoService) { }
 
   ngOnInit(): void {
     this.servicioCategorias.getCategorias().subscribe({
-      next: (entity) => this.categorias = entity.lista,
+      next: (entity) => {
+        this.categorias = entity.lista
+        this.collectionSize = this.categorias.length
+        this.refreshCategorias()
+      },
       error: (error) => console.log('no se pudieron conseguir las categorias', error),
     });
     this.servicioCategorias.getTipoProductos().subscribe({
@@ -39,6 +54,16 @@ export class CrudProductos implements OnInit {
       next: (entity) => this.presentacionProductos = entity.lista,
       error: (error) => console.log('no se pudieron conseguir las categorias', error),
     });
+  }
+
+  refreshCategorias() {
+    this.listaCategorias = this.categorias
+      .map((listaCategorias, i) => ({id: i + 1, ...listaCategorias}))
+      .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
+  }
+  
+  setIndex(index:number){
+    this.index1=index
   }
 
   getTipoProductosLikeDescripcion(): void{

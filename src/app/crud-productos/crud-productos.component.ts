@@ -8,15 +8,15 @@ import { ServicecategoriaService } from '../service/servicecategoria.service';
 @Component({
   selector: 'crud-productos',
   templateUrl: './crud-productos.component.html',
-  styleUrls: ['./crud-productos.component.css']
+  styleUrls: ['./crud-productos.component.css'],
 })
 export class CrudProductos implements OnInit {
-
   mensaje: String = '';
 
   categoriaGuardar: Categoria = new Categoria();
-  TipoProductoGuardar: TipoProducto = new TipoProducto()
-  presentacionProductoGuardar: PresentacionProducto = new PresentacionProducto()
+  TipoProductoGuardar: TipoProducto = new TipoProducto();
+  presentacionProductoGuardar: PresentacionProducto =
+    new PresentacionProducto();
 
   categorias: Categoria[] = [];
   tipoProductos: TipoProducto[] = [];
@@ -34,192 +34,246 @@ export class CrudProductos implements OnInit {
   //modificacion
   categoriaAEditar: Categoria = new Categoria();
   tipoProdcutoAEditar: TipoProducto = new TipoProducto();
-  presentacionProductoAEditar: PresentacionProducto = new PresentacionProducto();
+  presentacionProductoAEditar: PresentacionProducto =
+    new PresentacionProducto();
+
+  categoriaAEditarAux: Categoria = new Categoria();
+  tipoProdcutoAEditarAux: TipoProducto = new TipoProducto();
+  presentacionProductoAEditarAux: PresentacionProducto =
+    new PresentacionProducto();
 
   //para paginacion, 1=categoria, 2=tipoProducto, 3=presentacion
-  page1= 1;
-  page2= 1;
-  page3= 1;
-  pageSize1 = 10;
-  pageSize2 = 10;
-  pageSize3 = 10;
-  collectionSize1 = 0;
-  collectionSize2 = 0;
-  collectionSize3 = 0;
+  pageCategoria = 1;
+  pageTipoProducto = 1;
+  pagePresentacionProducto = 1;
 
-  constructor(private servicioCategorias: ServicecategoriaService, private servicioProductos: PresentacionProductoService) { }
+  pageSizeCategoria = 10;
+  pageSizeTipoProducto = 10;
+  pageSizePresentacion = 10;
+
+  collectionSizeCategoria = 0;
+  collectionSizeTipoProducto = 0;
+  collectionSizePresentacion = 0;
+
+  constructor(
+    private servicioCategorias: ServicecategoriaService,
+    private servicioProductos: PresentacionProductoService
+  ) { }
 
   ngOnInit(): void {
     this.servicioCategorias.getCategorias().subscribe({
       next: (entity) => {
-        this.categorias = entity.lista
-        this.collectionSize1 = this.categorias.length
-        this.refreshCategorias()
+        this.categorias = entity.lista;
+        this.collectionSizeCategoria = this.categorias.length;
+        this.refreshCategorias();
       },
-      error: (error) => console.log('no se pudieron conseguir las categorias', error),
+      error: (error) =>
+        console.log('no se pudieron conseguir las categorias', error),
     });
     this.servicioCategorias.getTipoProductos().subscribe({
       next: (entity) => {
-        this.tipoProductos = entity.lista
-        this.collectionSize2 = this.tipoProductos.length
-        this.refreshTipoProductos()
+        this.tipoProductos = entity.lista;
+        this.collectionSizeTipoProducto = this.tipoProductos.length;
+        this.refreshTipoProductos();
       },
-      error: (error) => console.log('no se pudieron conseguir los productos', error),
+      error: (error) =>
+        console.log('no se pudieron conseguir los productos', error),
     });
     this.servicioProductos.getPresentacionProducto().subscribe({
       next: (entity) => {
-        this.presentacionProductos = entity.lista
-        this.collectionSize3 = this.presentacionProductos.length
-        this.refreshPresentacion()
+        this.presentacionProductos = entity.lista;
+        this.collectionSizePresentacion = this.presentacionProductos.length;
+        this.refreshPresentacion();
       },
-      error: (error) => console.log('no se pudieron conseguir las presentaciones', error),
+      error: (error) =>
+        console.log('no se pudieron conseguir las presentaciones', error),
     });
   }
 
   refreshCategorias() {
     this.listaCategorias = this.categorias
-      .map((listaCategorias, i) => ({id: i + 1, ...listaCategorias}))
-      .slice((this.page1- 1) * this.pageSize1, (this.page1- 1) * this.pageSize1 + this.pageSize1);
+      .map((listaCategorias, i) => ({ id: i + 1, ...listaCategorias }))
+      .slice(
+        (this.pageCategoria - 1) * this.pageSizeCategoria,
+        (this.pageCategoria - 1) * this.pageSizeCategoria +
+        this.pageSizeCategoria
+      );
   }
 
   refreshTipoProductos() {
     this.listaTipoProductos = this.tipoProductos
-      .map((listaCategorias, i) => ({id: i + 1, ...listaCategorias}))
-      .slice((this.page2- 1) * this.pageSize2, (this.page2- 1) * this.pageSize2 + this.pageSize2);
+      .map((listaCategorias, i) => ({ id: i + 1, ...listaCategorias }))
+      .slice(
+        (this.pageTipoProducto - 1) * this.pageSizeTipoProducto,
+        (this.pageTipoProducto - 1) * this.pageSizeTipoProducto +
+        this.pageSizeTipoProducto
+      );
   }
 
   refreshPresentacion() {
     this.listaPresentacion = this.presentacionProductos
-      .map((listaCategorias, i) => ({id: i + 1, ...listaCategorias}))
-      .slice((this.page3- 1) * this.pageSize3, (this.page3- 1) * this.pageSize3 + this.pageSize3);
+      .map((listaCategorias, i) => ({ id: i + 1, ...listaCategorias }))
+      .slice(
+        (this.pagePresentacionProducto - 1) * this.pageSizePresentacion,
+        (this.pagePresentacionProducto - 1) * this.pageSizePresentacion +
+        this.pageSizePresentacion
+      );
   }
 
-  setAModificarCategoria(c: Categoria){
-    this.categoriaGuardar = { ...c };
-    this.categoriaAEditar = c
+  getTipoProductosLikeDescripcion(): void {
+    this.servicioCategorias
+      .getTipoProductosLikeDescripcion(this.TipoProductoBuscarDescripcion)
+      .subscribe({
+        next: (entity) => {
+          this.tipoProductos = entity.lista;
+          this.collectionSizeTipoProducto = this.tipoProductos.length;
+          this.refreshTipoProductos();
+        },
+        error: (error) =>
+          console.log(
+            'no se pudieron conseguir los productos con el filtro',
+            error
+          ),
+      });
+    this.refreshTipoProductos();
   }
 
-  setAModificarTipoProducto(t: TipoProducto){
-    this.TipoProductoGuardar = { ...t };
-    this.tipoProdcutoAEditar = t
-  }
-
-  setAModificarPresentacionProducto(p: PresentacionProducto){
-    this.presentacionProductoGuardar = { ...p };
-    this.presentacionProductoAEditar = p
-  }
-
-  getTipoProductosLikeDescripcion(): void{
-    this.servicioCategorias.getTipoProductosLikeDescripcion(this.TipoProductoBuscarDescripcion).subscribe({
-      next: (entity) => {
-        this.tipoProductos = entity.lista
-        this.collectionSize2 = this.tipoProductos.length
-        this.refreshTipoProductos()
-      },
-      error: (error) => console.log('no se pudieron conseguir los productos con el filtro', error),
-    });
-    this.refreshTipoProductos()
-  };
-
-  getTipoProductosLikeId(): void{
+  getTipoProductosLikeId(): void {
     //si llega un campo vacío retorno la lista completa
-    if(this.TipoProductoBuscarId == "") {
+    if (this.TipoProductoBuscarId == '') {
       this.servicioCategorias.getTipoProductos().subscribe({
         next: (entity) => {
-          this.tipoProductos = entity.lista
-          this.collectionSize2 = this.tipoProductos.length
-          this.refreshTipoProductos()
+          this.tipoProductos = entity.lista;
+          this.collectionSizeTipoProducto = this.tipoProductos.length;
+          this.refreshTipoProductos();
         },
-        error: (error) => console.log('no se pudieron conseguir los productos', error),
+        error: (error) =>
+          console.log('no se pudieron conseguir los productos', error),
       });
+    } else {
+      this.servicioCategorias
+        .getTipoProductosLikeId(this.TipoProductoBuscarId)
+        .subscribe({
+          next: (entity) => {
+            this.tipoProductos = entity.lista;
+            this.collectionSizeTipoProducto = this.tipoProductos.length;
+            this.refreshTipoProductos();
+          },
+          error: (error) =>
+            console.log(
+              'no se pudieron conseguir los productos con el filtro',
+              error
+            ),
+        });
     }
-    else {
-      this.servicioCategorias.getTipoProductosLikeId(this.TipoProductoBuscarId).subscribe({
-        next: (entity) => {
-          this.tipoProductos = entity.lista
-          this.collectionSize2 = this.tipoProductos.length
-          this.refreshTipoProductos()
-        },
-        error: (error) => console.log('no se pudieron conseguir los productos con el filtro', error),
-      });
-    }
-  };
+  }
 
-  guardarCategoria(): void{
+  guardarCategoria(): void {
     this.servicioCategorias.guardarCategoria(this.categoriaGuardar).subscribe({
       next: (entity) => {
-        this.mensaje = 'Agregado exitosamente'
-        this.categorias.push(entity)
+        this.mensaje = 'Agregado exitosamente';
+        this.categorias.push(entity);
       },
-      error: (error) => console.log("error: " + error),
-    })
-    const form:HTMLFormElement  = <HTMLFormElement> document.getElementById("formCategoria");
-    form.reset()
-  };
+      error: (error) => console.log('error: ' + error),
+    });
+    const form: HTMLFormElement = <HTMLFormElement>(
+      document.getElementById('formCategoria')
+    );
+    form.reset();
+  }
 
-  guardarTipoProductos(): void{
-    this.servicioCategorias.guardarTipoProductos(this.TipoProductoGuardar).subscribe({
-      next: (entity) => {
-        this.mensaje = 'Agregado exitosamente'
-        this.tipoProductos.push(entity)
-      },
-      error: (error) => console.log("error: " + error),
-    })
-  };
+  guardarTipoProductos(): void {
+    this.servicioCategorias
+      .guardarTipoProductos(this.TipoProductoGuardar)
+      .subscribe({
+        next: (entity) => {
+          this.mensaje = 'Agregado exitosamente';
+          this.tipoProductos.push(entity);
+        },
+        error: (error) => console.log('error: ' + error),
+      });
+  }
 
-  editarCategoria(): void{
-    this.servicioCategorias.editarCategoria(this.categoriaAEditar).subscribe({
-      next: (entity) => {
-        this.mensaje = 'Editado exitosamente'
-        this.categorias.splice(this.categorias.indexOf(this.categoriaAEditar))
-        this.categorias.push(entity)
-      },
-      error: (error) => console.log("error: " + error),
-    })
-  };
+  setAModificarCategoria(c: Categoria) {
+    this.categoriaAEditar = c;
+    this.categoriaAEditarAux.idCategoria = c.idCategoria;
+    this.categoriaAEditarAux.descripcion = c.descripcion;
+  }
 
-  editarTipoProductos(): void{
-    this.servicioCategorias.editarTipoProducto(this.tipoProdcutoAEditar).subscribe({
-      next: (entity) => {
-        this.mensaje = 'Editado exitosamente'
-        this.tipoProductos.splice(this.tipoProductos.indexOf(this.tipoProdcutoAEditar))
-        this.tipoProductos.push(entity)
-      },
-      error: (error) => console.log("error: " + error),
-    })
-  };
+  setAModificarTipoProducto(t: TipoProducto) {
+    this.tipoProdcutoAEditar = t;
+    this.tipoProdcutoAEditarAux.idCategoria = t.idCategoria;
+    this.tipoProdcutoAEditarAux.descripcion = t.descripcion;
+  }
 
-  editarPresentacionProducto(): void{
+  setAModificarPresentacionProducto(p: PresentacionProducto) {
+    this.presentacionProductoAEditar = p;
+    this.presentacionProductoAEditarAux.idPresentacionProducto =
+      p.idPresentacionProducto;
+    this.presentacionProductoAEditarAux.descripcion = p.descripcion;
+  }
 
-  };
+  editarCategoria(): void {
+    this.servicioCategorias
+      .editarCategoria(this.categoriaAEditarAux)
+      .subscribe({
+        next: (entity) => {
+          this.mensaje = 'Editado exitosamente';
+          this.categorias.splice(
+            this.categorias.indexOf(this.categoriaAEditar)
+          );
+          this.categorias.push(entity);
+        },
+        error: (error) => console.log('error: ' + error),
+      });
+  }
 
-  eliminarCategoria(c: Categoria): void{
+  editarTipoProductos(): void {
+    this.servicioCategorias
+      .editarTipoProducto(this.tipoProdcutoAEditarAux)
+      .subscribe({
+        next: (entity) => {
+          this.mensaje = 'Editado exitosamente';
+          this.tipoProductos.splice(
+            this.tipoProductos.indexOf(this.tipoProdcutoAEditar)
+          );
+          this.tipoProductos.push(entity);
+        },
+        error: (error) => console.log('error: ' + error),
+      });
+  }
+
+  editarPresentacionProducto(): void { }
+
+  eliminarCategoria(c: Categoria): void {
     this.servicioCategorias.eliminarCategoria(c).subscribe({
       next: (entity) => {
-        this.mensaje = 'Eliminar exitosamente'
-        this.categorias.splice(this.categorias.indexOf(entity))
+        this.mensaje = 'Eliminar exitosamente';
+        this.categorias.splice(this.categorias.indexOf(c));
       },
-      error: (error) => console.log("error: " + error),
-    })
+      error: (error) => console.log('error: ' + error),
+    });
   }
 
-  eliminarTipoProductos(t: TipoProducto): void{
+  eliminarTipoProductos(t: TipoProducto): void {
     this.servicioCategorias.eliminarTipoProductos(t).subscribe({
       next: (entity) => {
-        this.mensaje = 'Eliminar exitosamente'
-        this.tipoProductos.splice(this.tipoProductos.indexOf(entity))
+        this.mensaje = 'Eliminar exitosamente';
+        this.tipoProductos.splice(this.tipoProductos.indexOf(t));
       },
-      error: (error) => console.log("error: " + error),
-    })
+      error: (error) => console.log('error: ' + error),
+    });
   }
 
-  eliminarPresentacionProducto(p: PresentacionProducto): void{
+  eliminarPresentacionProducto(p: PresentacionProducto): void {
     this.servicioProductos.eliminarPresentacionProducto(p).subscribe({
       next: (entity) => {
-        this.mensaje = 'Eliminar exitosamente'
-        this.presentacionProductos.splice(this.presentacionProductos.indexOf(entity))
+        this.mensaje = 'Eliminar exitosamente';
+        this.presentacionProductos.splice(
+          this.presentacionProductos.indexOf(p)
+        );
       },
-      error: (error) => console.log("error: " + error),
-    })
+      error: (error) => console.log('error: ' + error),
+    });
   }
 }

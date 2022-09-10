@@ -215,7 +215,8 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="editarCategoria()">Actualizar</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+            (click)="editarCategoria()">Actualizar</button>
         </div>
       </div>
     </div>
@@ -232,12 +233,15 @@
         <div class="modal-body">
           <p>Id categoria: {{tipoProdcutoAEditar.idCategoria.idCategoria}}</p>
           <p>Descripcion actual: {{tipoProdcutoAEditar.descripcion}}</p>
+          <p>Id categoria nuevo: <input [(ngModel)]="tipoProdcutoAEditarAux.idCategoria.idCategoria"
+              [ngModelOptions]="{standalone: true}"></p>
           <p>Descripcion nueva: <input [(ngModel)]="tipoProdcutoAEditarAux.descripcion"
               [ngModelOptions]="{standalone: true}"></p>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-          <button type="button" class="btn btn-primary" (click)="editarTipoProductos()">Actualizar</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+            (click)="editarTipoProductos()">Actualizar</button>
         </div>
       </div>
     </div>
@@ -260,7 +264,8 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="editarCategoria()">Actualizar</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+            (click)="editarCategoria()">Actualizar</button>
         </div>
       </div>
     </div>

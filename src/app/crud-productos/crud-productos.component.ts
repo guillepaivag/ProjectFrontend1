@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Categoria } from '../model/categoria.model';
 import { PresentacionProducto } from '../model/presentacion-producto.model';
 import { TipoProducto } from '../model/tipo-producto.model';
-import { PresentacionProductoService } from '../service/presentacion-producto.service';
 import { ServicecategoriaService } from '../service/servicecategoria.service';
 
 @Component({
@@ -57,7 +56,6 @@ export class CrudProductos implements OnInit {
 
   constructor(
     private servicioCategorias: ServicecategoriaService,
-    private servicioProductos: PresentacionProductoService
   ) { }
 
   ngOnInit(): void {
@@ -79,7 +77,7 @@ export class CrudProductos implements OnInit {
       error: (error) =>
         console.log('no se pudieron conseguir los productos', error),
     });
-    this.servicioProductos.getPresentacionProducto().subscribe({
+    this.servicioCategorias.getPresentacionProducto().subscribe({
       next: (entity) => {
         this.presentacionProductos = entity.lista;
         this.collectionSizePresentacion = this.presentacionProductos.length;
@@ -202,7 +200,7 @@ export class CrudProductos implements OnInit {
 
   setAModificarTipoProducto(t: TipoProducto) {
     this.tipoProdcutoAEditar = t;
-    this.tipoProdcutoAEditarAux.idCategoria = t.idCategoria;
+    this.tipoProdcutoAEditarAux.idCategoria.idCategoria = t.idCategoria.idCategoria;
     this.tipoProdcutoAEditarAux.descripcion = t.descripcion;
   }
 
@@ -217,13 +215,7 @@ export class CrudProductos implements OnInit {
     this.servicioCategorias
       .editarCategoria(this.categoriaAEditarAux)
       .subscribe({
-        next: (entity) => {
-          this.mensaje = 'Editado exitosamente';
-          this.categorias.splice(
-            this.categorias.indexOf(this.categoriaAEditar)
-          );
-          this.categorias.push(entity);
-        },
+        next: () => this.categoriaAEditar.descripcion = this.categoriaAEditarAux.descripcion,
         error: (error) => console.log('error: ' + error),
       });
   }
@@ -232,12 +224,9 @@ export class CrudProductos implements OnInit {
     this.servicioCategorias
       .editarTipoProducto(this.tipoProdcutoAEditarAux)
       .subscribe({
-        next: (entity) => {
-          this.mensaje = 'Editado exitosamente';
-          this.tipoProductos.splice(
-            this.tipoProductos.indexOf(this.tipoProdcutoAEditar)
-          );
-          this.tipoProductos.push(entity);
+        next: () => {
+          this.tipoProdcutoAEditar.idCategoria.idCategoria = this.tipoProdcutoAEditarAux.idCategoria.idCategoria
+          this.tipoProdcutoAEditar.descripcion = this.tipoProdcutoAEditarAux.descripcion
         },
         error: (error) => console.log('error: ' + error),
       });
@@ -266,7 +255,7 @@ export class CrudProductos implements OnInit {
   }
 
   eliminarPresentacionProducto(p: PresentacionProducto): void {
-    this.servicioProductos.eliminarPresentacionProducto(p).subscribe({
+    this.servicioCategorias.eliminarPresentacionProducto(p).subscribe({
       next: (entity) => {
         this.mensaje = 'Eliminar exitosamente';
         this.presentacionProductos.splice(

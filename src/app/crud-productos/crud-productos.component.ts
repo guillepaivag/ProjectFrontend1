@@ -68,7 +68,7 @@ export class CrudProductos implements OnInit {
         this.refreshCategorias();
       },
       error: (error) =>
-        console.log('no se pudieron conseguir las categorias', error),
+        console.log('no se pudieron conseguir las categorias'+ JSON.stringify(error)),
     });
     this.servicioCategorias.getTipoProductos().subscribe({
       next: (entity) => {
@@ -77,7 +77,7 @@ export class CrudProductos implements OnInit {
         this.refreshTipoProductos();
       },
       error: (error) =>
-        console.log('no se pudieron conseguir los productos', error),
+        console.log('no se pudieron conseguir los productos'+ JSON.stringify(error)),
     });
     this.servicioCategorias.getPresentacionProducto().subscribe({
       next: (entity) => {
@@ -86,7 +86,7 @@ export class CrudProductos implements OnInit {
         this.refreshPresentacion();
       },
       error: (error) =>
-        console.log('no se pudieron conseguir las presentaciones', error),
+        console.log('no se pudieron conseguir las presentaciones'+ JSON.stringify(error)),
     });
   }
 
@@ -148,7 +148,7 @@ export class CrudProductos implements OnInit {
           this.refreshTipoProductos();
         },
         error: (error) =>
-          console.log('no se pudieron conseguir los productos', error),
+          console.log('no se pudieron conseguir los productos'+ JSON.stringify(error)),
       });
     } else {
       this.servicioCategorias
@@ -175,7 +175,7 @@ export class CrudProductos implements OnInit {
         this.categorias.push(entity);
         this.refreshCategorias();
       },
-      error: (error) => console.log('error: ' + error),
+      error: (error) => console.log('error: '+ JSON.stringify(error)),
     });
     const form: HTMLFormElement = <HTMLFormElement>(
       document.getElementById('formCategoria')
@@ -196,7 +196,7 @@ export class CrudProductos implements OnInit {
           // this.getTipoProductosLikeDescripcion()
           this.refreshTipoProductos();
         },
-        error: (error) => console.log('error: ' + error),
+        error: (error) => console.log('error: '+ JSON.stringify(error)),
       });
   }
 
@@ -210,7 +210,7 @@ export class CrudProductos implements OnInit {
           this.collectionSizeTipoProducto = this.presentacionProductos.length;
           this.refreshPresentacion();
         },
-        error: (error) => console.log('error: ' + error),
+        error: (error) => console.log('error: '+ JSON.stringify(error)),
       });
   }
 
@@ -239,7 +239,7 @@ export class CrudProductos implements OnInit {
       .editarCategoria(this.categoriaAEditarAux)
       .subscribe({
         next: () => this.categoriaAEditar.descripcion = this.categoriaAEditarAux.descripcion,
-        error: (error) => console.log('error: ' + error),
+        error: (error) => console.log('error: '+ JSON.stringify(error)),
       });
   }
 
@@ -251,7 +251,7 @@ export class CrudProductos implements OnInit {
           this.tipoProdcutoAEditar.idCategoria.idCategoria = this.tipoProdcutoAEditarAux.idCategoria.idCategoria
           this.tipoProdcutoAEditar.descripcion = this.tipoProdcutoAEditarAux.descripcion
         },
-        error: (error) => console.log('error: ' + error),
+        error: (error) => console.log('error: '+ JSON.stringify(error)),
       });
   }
 
@@ -260,7 +260,7 @@ export class CrudProductos implements OnInit {
       .editarPresentacion(this.presentacionProductoAEditarAux)
       .subscribe({
         next: () => this.presentacionProductoAEditar.descripcion = this.presentacionProductoAEditarAux.descripcion,
-        error: (error) => console.log('error: ' + error),
+        error: (error) => console.log('error: '+ JSON.stringify(error)),
       });
   }
 
@@ -273,7 +273,7 @@ export class CrudProductos implements OnInit {
         this.categorias.splice(index, 1);
         this.refreshCategorias();
       },
-      error: (error) => console.log('error: ' + error),
+      error: (error) => console.log('error: '+ JSON.stringify(error)),
     });
   }
 
@@ -286,7 +286,7 @@ export class CrudProductos implements OnInit {
         this.tipoProductos.splice(index, 1);
         this.refreshTipoProductos();
       },
-      error: (error) => console.log('error: ' + error),
+      error: (error) => console.log('error: '+ JSON.stringify(error)),
     });
   }
 
@@ -299,7 +299,7 @@ export class CrudProductos implements OnInit {
         this.presentacionProductos.splice(index, 1);
         this.refreshPresentacion();
       },
-      error: (error) => console.log('error: ' + error),
+      error: (error) => console.log('error: '+ JSON.stringify(error)),
     });
   }
 }

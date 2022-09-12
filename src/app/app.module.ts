@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 import { MenuComponent } from './menu/menu.component';
 import { PacienteComponent } from './paciente/paciente.component';
 import { ReservaComponent } from './reserva/reserva.component';
+import { FichaClinicaComponent } from './ficha-clinica/ficha-clinica.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { ReservaComponent } from './reserva/reserva.component';
     MenuComponent,
 
     PacienteComponent,
-    ReservaComponent
+    ReservaComponent,
+    FichaClinicaComponent
 
   ],
   imports: [

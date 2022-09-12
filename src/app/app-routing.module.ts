@@ -5,6 +5,7 @@ import { HomeComponent } from './home/home.component';
 
 import { PacienteComponent } from './paciente/paciente.component';
 import { ReservaComponent } from './reserva/reserva.component';
+import { FichaClinicaComponent } from './ficha-clinica/ficha-clinica.component';
 
 
 const routes: Routes = [
@@ -32,6 +33,10 @@ const routes: Routes = [
   {
     path: 'reserva',
     component: ReservaComponent
+  },
+  {
+    path: 'ficha-clinica',
+    component: FichaClinicaComponent
   },
   {
     path: '**',

@@ -10,7 +10,9 @@ import { ServicecategoriaService } from '../service/servicecategoria.service';
   styleUrls: ['./crud-productos.component.css'],
 })
 export class CrudProductos implements OnInit {
-  mensaje: String = '';
+  mensajeCategoria: String = '';
+  mensajeTipoProducto: String = '';
+  mensajePresentacion: String = '';
 
   categoriaGuardar: Categoria = new Categoria();
   TipoProductoGuardar: TipoProducto = new TipoProducto();
@@ -100,7 +102,7 @@ export class CrudProductos implements OnInit {
 
   refreshTipoProductos() {
     this.listaTipoProductos = this.tipoProductos
-      .map((listaCategorias, i) => ({ id: i + 1, ...listaCategorias }))
+      .map((listaTipoProductos, i) => ({ id: i + 1, ...listaTipoProductos }))
       .slice(
         (this.pageTipoProducto - 1) * this.pageSizeTipoProducto,
         (this.pageTipoProducto - 1) * this.pageSizeTipoProducto +
@@ -169,8 +171,9 @@ export class CrudProductos implements OnInit {
   guardarCategoria(): void {
     this.servicioCategorias.guardarCategoria(this.categoriaGuardar).subscribe({
       next: (entity) => {
-        this.mensaje = 'Agregado exitosamente';
+        this.mensajeCategoria = 'Agregado exitosamente';
         this.categorias.push(entity);
+        this.refreshCategorias();
       },
       error: (error) => console.log('error: ' + error),
     });
@@ -185,8 +188,27 @@ export class CrudProductos implements OnInit {
       .guardarTipoProductos(this.TipoProductoGuardar)
       .subscribe({
         next: (entity) => {
-          this.mensaje = 'Agregado exitosamente';
+          this.mensajeTipoProducto = 'Agregado exitosamente';
           this.tipoProductos.push(entity);
+          this.collectionSizeTipoProducto = this.tipoProductos.length;
+          //ejecutamos un filtro vacio para que nos traiga toda la lista, para evitar un bug
+          // this.TipoProductoBuscarDescripcion = "";
+          // this.getTipoProductosLikeDescripcion()
+          this.refreshTipoProductos();
+        },
+        error: (error) => console.log('error: ' + error),
+      });
+  }
+
+  guardarPresentacionProducto(): void {
+    this.servicioCategorias
+      .guardarPresentacionProducto(this.presentacionProductoGuardar)
+      .subscribe({
+        next: (entity) => {
+          this.mensajePresentacion = 'Agregado exitosamente';
+          this.presentacionProductos.push(entity);
+          this.collectionSizeTipoProducto = this.presentacionProductos.length;
+          this.refreshPresentacion();
         },
         error: (error) => console.log('error: ' + error),
       });
@@ -200,6 +222,7 @@ export class CrudProductos implements OnInit {
 
   setAModificarTipoProducto(t: TipoProducto) {
     this.tipoProdcutoAEditar = t;
+    this.tipoProdcutoAEditarAux.idTipoProducto = t.idTipoProducto;
     this.tipoProdcutoAEditarAux.idCategoria.idCategoria = t.idCategoria.idCategoria;
     this.tipoProdcutoAEditarAux.descripcion = t.descripcion;
   }
@@ -232,13 +255,23 @@ export class CrudProductos implements OnInit {
       });
   }
 
-  editarPresentacionProducto(): void { }
+  editarPresentacionProducto(): void {
+    this.servicioCategorias
+      .editarPresentacion(this.presentacionProductoAEditarAux)
+      .subscribe({
+        next: () => this.presentacionProductoAEditar.descripcion = this.presentacionProductoAEditarAux.descripcion,
+        error: (error) => console.log('error: ' + error),
+      });
+  }
 
   eliminarCategoria(c: Categoria): void {
     this.servicioCategorias.eliminarCategoria(c).subscribe({
       next: (entity) => {
-        this.mensaje = 'Eliminar exitosamente';
-        this.categorias.splice(this.categorias.indexOf(c));
+        this.mensajeCategoria = 'Eliminar exitosamente';
+        let out = this.categorias.find(element => element.idCategoria == c.idCategoria);
+        let index = this.categorias.indexOf(out!);
+        this.categorias.splice(index,1);
+        this.refreshCategorias();
       },
       error: (error) => console.log('error: ' + error),
     });
@@ -247,8 +280,11 @@ export class CrudProductos implements OnInit {
   eliminarTipoProductos(t: TipoProducto): void {
     this.servicioCategorias.eliminarTipoProductos(t).subscribe({
       next: (entity) => {
-        this.mensaje = 'Eliminar exitosamente';
-        this.tipoProductos.splice(this.tipoProductos.indexOf(t));
+        this.mensajeTipoProducto = 'Eliminar exitosamente';
+        let out = this.tipoProductos.find(element => element.idTipoProducto == t.idTipoProducto);
+        let index = this.tipoProductos.indexOf(out!);
+        this.tipoProductos.splice(index,1);
+        this.refreshTipoProductos();
       },
       error: (error) => console.log('error: ' + error),
     });
@@ -257,10 +293,11 @@ export class CrudProductos implements OnInit {
   eliminarPresentacionProducto(p: PresentacionProducto): void {
     this.servicioCategorias.eliminarPresentacionProducto(p).subscribe({
       next: (entity) => {
-        this.mensaje = 'Eliminar exitosamente';
-        this.presentacionProductos.splice(
-          this.presentacionProductos.indexOf(p)
-        );
+        this.mensajePresentacion = 'Eliminar exitosamente';
+        let out = this.presentacionProductos.find(element => element.idPresentacionProducto == p.idPresentacionProducto);
+        let index = this.presentacionProductos.indexOf(out!);
+        this.presentacionProductos.splice(index,1);
+        this.refreshPresentacion();
       },
       error: (error) => console.log('error: ' + error),
     });

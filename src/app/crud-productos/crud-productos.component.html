@@ -5,7 +5,7 @@
     <!-- <p>crud-productos works!</p> -->
 
     <div class="col-xs-1" align="center">
-      <p *ngIf="mensaje!=''">{{ mensaje }}</p>
+      <p *ngIf="mensajeCategoria!=''">{{ mensajeCategoria }}</p>
       <p>Agregar categoria</p>
       <form #f="ngForm" (ngSubmit)="guardarCategoria()" novalidate id="formCategoria">
         <label>Descripcion&nbsp;</label><input [(ngModel)]="categoriaGuardar.descripcion"
@@ -63,7 +63,9 @@
     <br>
     <br>
     <hr>
+    <!-- Tipo Productos -->
     <div class="col-xs-1" align="center">
+      <p *ngIf="mensajeTipoProducto!=''">{{ mensajeTipoProducto }}</p>
       <p>Agregar Tipo productos</p>
       <label>Descripcion</label>&nbsp;<input [(ngModel)]="TipoProductoGuardar.descripcion">
       &nbsp;
@@ -143,9 +145,9 @@
     <hr>
     <!-- Presentacion Productos -->
     <div class="col-xs-1" align="center">
-      <p *ngIf="mensaje!=''">{{ mensaje }}</p>
+      <p *ngIf="mensajePresentacion!=''">{{ mensajePresentacion }}</p>
       <p>Agregar presentacion producto</p>
-      <form #f="ngForm" (ngSubmit)="guardarCategoria()" novalidate id="formCategoria">
+      <form #f="ngForm" (ngSubmit)="guardarPresentacionProducto()" novalidate id="formCategoria">
         <label>Descripcion</label> <input [(ngModel)]="presentacionProductoGuardar.descripcion"
           [ngModelOptions]="{standalone: true}">
         <br>

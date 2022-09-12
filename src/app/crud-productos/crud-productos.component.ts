@@ -270,7 +270,7 @@ export class CrudProductos implements OnInit {
         this.mensajeCategoria = 'Eliminar exitosamente';
         let out = this.categorias.find(element => element.idCategoria == c.idCategoria);
         let index = this.categorias.indexOf(out!);
-        this.categorias.splice(index,1);
+        this.categorias.splice(index, 1);
         this.refreshCategorias();
       },
       error: (error) => console.log('error: ' + error),
@@ -283,7 +283,7 @@ export class CrudProductos implements OnInit {
         this.mensajeTipoProducto = 'Eliminar exitosamente';
         let out = this.tipoProductos.find(element => element.idTipoProducto == t.idTipoProducto);
         let index = this.tipoProductos.indexOf(out!);
-        this.tipoProductos.splice(index,1);
+        this.tipoProductos.splice(index, 1);
         this.refreshTipoProductos();
       },
       error: (error) => console.log('error: ' + error),
@@ -296,7 +296,7 @@ export class CrudProductos implements OnInit {
         this.mensajePresentacion = 'Eliminar exitosamente';
         let out = this.presentacionProductos.find(element => element.idPresentacionProducto == p.idPresentacionProducto);
         let index = this.presentacionProductos.indexOf(out!);
-        this.presentacionProductos.splice(index,1);
+        this.presentacionProductos.splice(index, 1);
         this.refreshPresentacion();
       },
       error: (error) => console.log('error: ' + error),

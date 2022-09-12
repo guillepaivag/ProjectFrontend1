@@ -63,7 +63,6 @@ export class ReservaComponent implements OnInit {
 
   refresh() {
     this.listaReserva = this.reserva
-      .map((listaPacientes, i) => ({id: i + 1, ...listaPacientes}))
       .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
   }
 

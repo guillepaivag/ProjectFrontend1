@@ -5,6 +5,12 @@
 </div>
 
 <div class="container">
+    <script type="text/javascript">
+        function buscarSubcategoria() {
+            console.log("Executing action");
+            // getTipoProductosLikeId();
+        }
+    </script>
     <h4>Filtros de busqueda</h4>
     <table class="mb-3">
         <tr>
@@ -29,6 +35,22 @@
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
         <button type="button" class="btn btn-primary btn-sm" (click)="filtrar()">Filtrar</button>
     </div>
+    <!-- Lista dessplegable de Categorias -->
+    <label for="form-categoria">Categoria:</label>
+    <select id="form-categoria" (click)="getTipoProductosLikeId();" [(ngModel)]="idCategoriaSeleccionada" >
+        <option *ngFor="let categoria of listaCategorias"
+                [value]="categoria.idCategoria">
+                {{categoria.descripcion}}
+        </option>
+    </select>
+    &nbsp;
+    <label for="form-tipo-productos">Subcategoria:</label>
+    <select id="form-tipo-productos" [(ngModel)]="idTipoProductoSeleccionado" >
+        <option *ngFor="let tipoProducto of listaTipoProducto"
+                [value]="tipoProducto.idTipoProducto" >
+                {{tipoProducto.descripcion}}
+        </option>
+    </select>
 </div>
 <br>
 

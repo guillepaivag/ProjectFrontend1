@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FichaClinicaService } from '../service/ficha-clinica.service';
 import { FichaClinica } from '../model/ficha-clinica.model';
+import { Categoria } from '../model/categoria.model';
+import { TipoProducto } from '../model/tipo-producto.model';
+import { ServicecategoriaService } from '../service/servicecategoria.service';
 
 @Component({
   selector: 'app-ficha-clinica',
@@ -18,6 +21,10 @@ export class FichaClinicaComponent implements OnInit {
   fechaHasta: any;
   nombreEmpleado: any;
   nombreCliente: any;
+  listaCategorias: Categoria[] = [];
+  listaTipoProducto: TipoProducto[] = [];
+  idCategoriaSeleccionada: string = '';
+  idTipoProductoSeleccionado: any;
   mensajeErrorFiltro = ''
 
   //modificacion
@@ -30,7 +37,7 @@ export class FichaClinicaComponent implements OnInit {
   pageSize = 10;
   collectionSize = 0;
 
-  constructor(private fichaClinicaService: FichaClinicaService){
+  constructor(private fichaClinicaService: FichaClinicaService,private servicioCategorias: ServicecategoriaService){
     this.refresh();
   }
 
@@ -41,7 +48,6 @@ export class FichaClinicaComponent implements OnInit {
         this.fichas = entity.lista;
         for (let index = 0; index < this.fichas.length; index++) {
           let fechaCadena = this.fichas[index].fechaHoraCadena
-          console.log('fechaCadena',fechaCadena)
           this.fichas[index].fechaHoraCadena=fechaCadena.substring(0, 4)+"-"+fechaCadena.substring(4, 6)+"-"+fechaCadena.substring(6, 8)
           let modificarValores = {
             idFichaClinica:this.fichas[index].idFichaClinica,
@@ -59,8 +65,23 @@ export class FichaClinicaComponent implements OnInit {
       },
       error: (error) => console.log('no se pudieron conseguir las fichas', error),
     });
+
+    //para la lista de Categorias y Tipo de Producto (subcategorias)
+    this.servicioCategorias.getCategorias().subscribe({
+      next: (entity) => { this.listaCategorias = entity.lista; },
+      error: (error) => console.log('no se pudieron conseguir las categorias'+ JSON.stringify(error)),
+    });
   }
 
+  getTipoProductosLikeId(){
+    if (this.idCategoriaSeleccionada){
+      console.log('gettipoproductoslikeid '+this.idCategoriaSeleccionada)
+      this.servicioCategorias.getTipoProductosLikeId(this.idCategoriaSeleccionada).subscribe({
+        next: (entity) => { this.listaTipoProducto = entity.lista; },
+        error: (error) => console.log('no se pudieron conseguir los productos con el filtro'+ JSON.stringify(error))
+      });
+    }
+  }
 
 
   refresh() {
@@ -127,6 +148,29 @@ export class FichaClinicaComponent implements OnInit {
       }
       nuevoFichas=aux2
     }
+
+
+    if(this.idCategoriaSeleccionada){
+      let aux2 = []
+      for (let index = 0; index < nuevoFichas.length; index++) {
+        element = nuevoFichas[index];
+        if(element.idTipoProducto.idCategoria.idCategoria == this.idCategoriaSeleccionada )
+          aux2.push(element)
+      }
+      nuevoFichas=aux2
+    }
+
+    if(this.idTipoProductoSeleccionado){
+      let aux2 = []
+      for (let index = 0; index < nuevoFichas.length; index++) {
+        element = nuevoFichas[index];
+        if(element.idTipoProducto.idTipoProducto == this.idTipoProductoSeleccionado )
+          aux2.push(element)
+      }
+      nuevoFichas=aux2
+    }
+
+
 
     this.collectionSize=nuevoFichas.length
     this.fichas=nuevoFichas

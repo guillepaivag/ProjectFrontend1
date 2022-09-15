@@ -1,7 +1,7 @@
-import { Datos } from './datos.model';
+import { listadatos } from './datos.model';
 
 describe('Datos', () => {
   it('should create an instance', () => {
-    expect(new Datos()).toBeTruthy();
+    expect(new listadatos()).toBeTruthy();
   });
 });

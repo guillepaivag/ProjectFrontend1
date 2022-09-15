@@ -76,6 +76,7 @@ export class FichaClinicaComponent implements OnInit {
   getTipoProductosLikeId(){
     if (this.idCategoriaSeleccionada){
       console.log('gettipoproductoslikeid '+this.idCategoriaSeleccionada)
+      this.idTipoProductoSeleccionado = ''
       this.servicioCategorias.getTipoProductosLikeId(this.idCategoriaSeleccionada).subscribe({
         next: (entity) => { this.listaTipoProducto = entity.lista; },
         error: (error) => console.log('no se pudieron conseguir los productos con el filtro'+ JSON.stringify(error))
@@ -88,6 +89,16 @@ export class FichaClinicaComponent implements OnInit {
     console.log('refresh')
     this.listaFichas = this.fichas
       .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
+  }
+
+  Limpiar(){
+    this.idCategoriaSeleccionada = ''
+    this.idTipoProductoSeleccionado = ''
+    this.nombreEmpleado = ''
+    this.nombreCliente = ''
+    this.fechaDesde = ''
+    this.fechaHasta = ''
+    this.filtrar()
   }
 
   filtrar(){

@@ -32,10 +32,7 @@
     <div style="color: red; display: inline;">{{mensajeErrorFiltro}} </div>
     <div style="display: inline; cursor: pointer;" *ngIf="mensajeErrorFiltro" (click)="mensajeErrorFiltro=''">x</div>
 
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <button type="button" class="btn btn-primary btn-sm" (click)="filtrar()">Filtrar</button>
-    </div>
-    <!-- Lista dessplegable de Categorias -->
+    <!-- Lista desplegable de Categorias -->
     <label for="form-categoria">Categoria:</label>
     <select id="form-categoria" (click)="getTipoProductosLikeId();" [(ngModel)]="idCategoriaSeleccionada" >
         <option *ngFor="let categoria of listaCategorias"
@@ -51,6 +48,13 @@
                 {{tipoProducto.descripcion}}
         </option>
     </select>
+    <br>
+    <br>
+
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <button type="button" class="btn btn-primary btn-sm" (click)="filtrar()">Buscar</button>
+        <button type="button" class="btn btn-primary btn-sm" (click)="Limpiar()">Limpiar</button>
+    </div>
 </div>
 <br>
 
@@ -94,6 +98,10 @@
             <option [ngValue]="20">20 por pagina</option>
             <option [ngValue]="30">30 por pagina</option>
         </select>
+    </div>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <button type="button" class="btn btn-primary btn-sm" (click)="Limpiar()">Agregar Ficha</button>
+        <a href="/reserva">Agregar Ficha</a>
     </div>
 </div>
 <br>

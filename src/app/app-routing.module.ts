@@ -2,11 +2,14 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CrudProductos } from './crud-productos/crud-productos.component';
 import { HomeComponent } from './home/home.component';
-
 import { PacienteComponent } from './paciente/paciente.component';
 import { ReservaComponent } from './reserva/reserva.component';
+import { RealizarReservaComponent } from './realizar-reserva/realizar-reserva.component';
+import { HorarioAtencionComponent } from './horario-atencion/horario-atencion.component';
+import { HorarioExcepcionComponent } from './horario-excepcion/horario-excepcion.component';
 import { FichaClinicaComponent } from './ficha-clinica/ficha-clinica.component';
 import { AgregarFichaComponent } from './agregar-ficha/agregar-ficha.component';
+import { ServiciosComponent} from './servicios/servicios.component';
 
 
 const routes: Routes = [
@@ -27,7 +30,6 @@ const routes: Routes = [
     component: CrudProductos
   },
   {
-
     path: 'paciente',
     component: PacienteComponent
   },
@@ -36,12 +38,28 @@ const routes: Routes = [
     component: ReservaComponent
   },
   {
+    path: 'agregar-reserva',
+    component: RealizarReservaComponent
+  },
+  {
+    path: 'horario-atencion',
+    component: HorarioAtencionComponent
+  },
+  {
+    path: 'horario-excepcion',
+    component: HorarioExcepcionComponent
+  },
+  {
     path: 'ficha-clinica',
     component: FichaClinicaComponent
   },
   {
     path: 'ficha-clinica/agregar-ficha',
     component: AgregarFichaComponent
+  },
+  {
+    path: 'servicios',
+    component: ServiciosComponent
   },
   {
     path: '**',

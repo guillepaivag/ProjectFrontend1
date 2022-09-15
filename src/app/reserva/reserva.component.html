@@ -17,10 +17,12 @@
                 <input id="FechaHasta" class="form-control" type="date" [(ngModel)]="fechaHasta" />
             </td>
         </tr>
-    </table>    
+    </table>
     <form class="mb-3">
-        Empleado <input type="email" class="form-control" placeholder="Nombre" [(ngModel)]="nombreEmpleado" [ngModelOptions]="{standalone: true}">
-        Cliente <input type="email" class="form-control" placeholder="Nombre" [(ngModel)]="nombreCliente" [ngModelOptions]="{standalone: true}">
+        Empleado <input type="email" class="form-control" placeholder="Nombre" [(ngModel)]="nombreEmpleado"
+            [ngModelOptions]="{standalone: true}">
+        Cliente <input type="email" class="form-control" placeholder="Nombre" [(ngModel)]="nombreCliente"
+            [ngModelOptions]="{standalone: true}">
     </form>
 
     <div style="color: red; display: inline;">{{mensajeErrorFiltro}} </div>
@@ -31,7 +33,7 @@
     </div>
 </div>
 <br>
-<div *ngIf="collectionSize>0" class="container">
+<div *ngIf="collectionSize>0" class="container mb-3">
     <table class="table table-striped">
         <thead>
             <tr>
@@ -52,8 +54,10 @@
                 <td>{{reserva.idCliente.nombre}} {{reserva.idEmpleado.apellido}}</td>
                 <td>
                     <div class="btn-group" role="group" aria-label="Basic outlined example">
-                        <button type="button" class="btn btn-outline-primary" (click)="cancelarReserva(reserva.idReserva)">Cancelar</button>
-                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="setIndex(i)">Modificar</button>
+                        <button type="button" class="btn btn-outline-primary"
+                            (click)="cancelarReserva(reserva.idReserva)">Cancelar</button>
+                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal" (click)="setIndex(i)">Modificar</button>
                         <button type="button" class="btn btn-outline-primary">Nueva Ficha</button>
                     </div>
                 </td>
@@ -62,8 +66,8 @@
     </table>
 
 
-  
- 
+
+
 
     <div class="grid text-center">
         <div class="g-col-6">
@@ -79,30 +83,47 @@
             </div>
         </div>
     </div>
-
-     <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Editar</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            <form class="mb-3">
-                Observación <input type="email" class="form-control" placeholder="Nota" [(ngModel)]="modificar[index1].observacion" [ngModelOptions]="{standalone: true}">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="{{modificar[index1].flagAsistio}}" [(ngModel)]="modificar[index1].flagAsistio" [ngModelOptions]="{standalone: true}" id="flexCheckDefault">
-                    <label class="form-check-label" for="flexCheckDefault">
-                      Asistió
-                    </label>
-                  </div>
-            </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" (click)="guardarEdicion()">Save changes</button>
-        </div>
-      </div>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <button type="button" class="btn btn-primary btn-sm" [routerLink]="['/','agregar-reserva']">Agregar
+            Reserva</button>
     </div>
-  </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Editar</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="mb-3">
+                        Observación <input type="email" class="form-control" placeholder="Nota"
+                            [(ngModel)]="modificar[index1].observacion" [ngModelOptions]="{standalone: true}">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="{{modificar[index1].flagAsistio}}"
+                                [(ngModel)]="modificar[index1].flagAsistio" [ngModelOptions]="{standalone: true}"
+                                id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                Asistió
+                            </label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" (click)="guardarEdicion()">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="collectionSize==0" class="container">
+        <h4>Lista Vacía, filtre otros valores</h4>
+    </div>
+</div>
+
+
+
+<app-footer *ngIf="collectionSize==0"></app-footer>
+

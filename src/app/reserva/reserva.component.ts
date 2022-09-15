@@ -25,6 +25,7 @@ export class ReservaComponent implements OnInit {
   index1: number = 0;
   flagAsistio: any = null
 
+  // paginacion
   page = 1;
   pageSize = 10;
   collectionSize = 0;

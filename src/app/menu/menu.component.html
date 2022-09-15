@@ -3,13 +3,28 @@
     <br>
     <h2>Bienvenido! {{usuario}}</h2>
     <h3>Menu</h3>
-    <a href="/reserva">Reserva</a>
-    <br>
-    <a href="/ficha-clinica">Fichas Clinicas</a>
-    <br>
-    <a href="/paciente">CRUD Pacientes</a>
-    <br>
-    <a href="/crud-productos">CRUD Categorias, subcategorias y productos</a>
-    <button (click)="salir()">Desloguear</button>
+    <div class="container mb-4">
+        <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+            <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off" [routerLink]="['/','crud-productos']">
+            <label class="btn btn-outline-primary" for="btncheck1" >CRUD Productos y categorias</label>
+
+            <input type="checkbox" class="btn-check" id="btncheck2" autocomplete="off" [routerLink]="['/','paciente']">
+            <label class="btn btn-outline-primary" for="btncheck2">CRUD Pacientes</label>
+
+            <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="off" [routerLink]="['/','horario-atencion']">
+            <label class="btn btn-outline-primary" for="btncheck3">CRUD Horario Atencion</label>
+
+            <input type="checkbox" class="btn-check" id="btncheck4" autocomplete="off" [routerLink]="['/','horario-excepcion']">
+            <label class="btn btn-outline-primary" for="btncheck4">CRUD Horario Excepcion</label>
+          
+            <input type="checkbox" class="btn-check" id="btncheck5" autocomplete="off" [routerLink]="['/','reserva']">
+            <label class="btn btn-outline-primary" for="btncheck5">Reservas</label>
+          
+            <input type="checkbox" class="btn-check" id="btncheck6" autocomplete="off" [routerLink]="['/','ficha-clinica']">
+            <label class="btn btn-outline-primary" for="btncheck6">Ficha Clinica</label>
+          </div>
+
+    </div>
+    <button (click)="salir()" class="mb-4 btn btn-info">Desloguear</button>
 </div>
 </section>

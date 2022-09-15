@@ -1,7 +1,7 @@
 <app-navbar></app-navbar>
 <br><br><br>
 <div style="text-align: center;">
-    <h1>FICHA CLINICA</h1>
+    <h1>SERVICIOS</h1>
 </div>
 
 <div class="container">
@@ -26,28 +26,8 @@
     <div style="color: red; display: inline;">{{mensajeErrorFiltro}} </div>
     <div style="display: inline; cursor: pointer;" *ngIf="mensajeErrorFiltro" (click)="mensajeErrorFiltro=''">x</div>
 
-    <!-- Lista desplegable de Categorias -->
-    <label for="form-categoria">Categoria:</label>
-    <select id="form-categoria" (click)="getTipoProductosLikeId();" [(ngModel)]="idCategoriaSeleccionada" >
-        <option *ngFor="let categoria of listaCategorias"
-                [value]="categoria.idCategoria">
-                {{categoria.descripcion}}
-        </option>
-    </select>
-    &nbsp;
-    <label for="form-tipo-productos">Subcategoria:</label>
-    <select id="form-tipo-productos" [(ngModel)]="idTipoProductoSeleccionado" >
-        <option *ngFor="let tipoProducto of listaTipoProducto"
-                [value]="tipoProducto.idTipoProducto" >
-                {{tipoProducto.descripcion}}
-        </option>
-    </select>
-    <br>
-    <br>
-
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <button type="button" class="btn btn-primary btn-sm" (click)="filtrar()">Buscar</button>
-        <button type="button" class="btn btn-primary btn-sm" (click)="Limpiar()">Limpiar</button>
+        <button type="button" class="btn btn-primary btn-sm" (click)="filtrar()">Filtrar</button>
     </div>
 </div>
 <br>
@@ -57,25 +37,27 @@
         <thead>
             <tr>
                 <th scope="col">Fecha</th>
+                <th scope="col">id Ficha</th>
+                <th scope="col">Fecha Ficha</th>
                 <th scope="col">Profesional</th>
                 <th scope="col">Cliente</th>
                 <th scope="col">Categoria</th>
-                <th scope="col">Subcategoria</th>
                 <th scope="col">Acciones</th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let ficha of listaFichas">
-                <td>{{ficha.fechaHora}}</td>
-                <td>{{ficha.idEmpleado.nombre}}</td>
-                <td>{{ficha.idCliente.nombre}}</td>
-                <td>{{ficha.idTipoProducto.idCategoria.idCategoria }}</td>
-                <td>{{ficha.idTipoProducto.idTipoProducto}}</td>
+            <tr *ngFor="let servicio of listaServicios">
+                <td>{{servicio.fechaHora}}</td>
+                <td>{{servicio.idFichaClinica.idFichaClinica}}</td>
+                <td>{{servicio.idFichaClinica.fechaHora}}</td>
+                <td>{{servicio.idEmpleado.apellido}} {{servicio.idEmpleado.nombre}}</td>
+                <td>{{servicio.idFichaClinica.idCliente.apellido}} {{servicio.idFichaClinica.idCliente.nombre}}</td>
+                <td>{{servicio.idFichaClinica.idTipoProducto.idCategoria.descripcion }}</td>
                 <td>
                     <div class="btn-group" role="group" aria-label="Basic outlined example">
-                        <button type="button" class="btn btn-outline-primary" (click)="refresh()">Cancelar</button>
-                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="refresh()">Modificar</button>
-                        <button type="button" class="btn btn-outline-primary">Crear Servicio</button>
+
+                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="refresh()">Editar Servicio</button>
+                        <button type="button" class="btn btn-outline-primary">Ver</button>
                     </div>
                 </td>
             </tr>
@@ -94,9 +76,9 @@
         </select>
     </div>
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <button type="button" class="btn btn-primary btn-sm" (click)="Limpiar()">Agregar Ficha</button>
-        <a href="/ficha-clinica/agregar-ficha">Agregar Ficha</a>
-    </div>
+      <button type="button" class="btn btn-primary btn-sm" [routerLink]="['/','agregar-servicio']">Agregar
+          Servicio</button>
+  </div>
 </div>
 <br>
 <br>

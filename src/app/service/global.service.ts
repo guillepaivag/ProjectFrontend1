@@ -6,4 +6,5 @@ import { Injectable } from '@angular/core';
 export class Compartido {
   public estaLogeado = false;
   public usuario: String= "";
+  public idUsuario: number=0;
 }

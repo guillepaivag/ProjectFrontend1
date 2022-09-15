@@ -17,7 +17,7 @@ export class ReservaService {
     return this.http.get<listadatos<Reserva>>(`${this.api}/reserva`);
   }
 
-  guardarReserva(p: Reserva): Observable<any> {
+  agregarReserva(p: any): Observable<any> {
     return this.http.post(`${this.api}/reserva`, p).pipe(
       tap({
         next: (data) => console.log('agregado ' + data),
@@ -43,4 +43,18 @@ export class ReservaService {
       })
     );
   }
+
+  obtenerTodasHorasReservas(filtros:String[],idEmpelado:number,fecha:string,flagDisponible:string): Observable<Reserva[]> {
+    
+    if(filtros.includes('Disponible')){
+      return this.http.get<Reserva[]>
+      (`${this.api}/persona/${idEmpelado}/agenda?fecha=${fecha}&disponible=${flagDisponible}`)
+    } else{
+      return this.http.get<Reserva[]>
+      (`${this.api}/persona/${idEmpelado}/agenda?fecha=${fecha}`)
+    }  
+  }
+
+
+
 }

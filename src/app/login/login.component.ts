@@ -39,7 +39,8 @@ export class LoginComponent implements OnInit {
       const element = this.usuarios.lista[index];
       if (element.soloUsuariosDelSistema == null)
         if (this.usuario == element.email) {
-          localStorage.setItem('usuarioNombre', element.nombre)
+          localStorage.setItem('usuarioNombre', element.email)
+          localStorage.setItem('usuarioId', element.idPersona)
           localStorage.setItem('logueado', 'true')
           this.router.navigateByUrl('inicio');
           return

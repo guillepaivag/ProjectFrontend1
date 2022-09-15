@@ -15,6 +15,7 @@ import { MenuComponent } from './menu/menu.component';
 import { PacienteComponent } from './paciente/paciente.component';
 import { ReservaComponent } from './reserva/reserva.component';
 import { FichaClinicaComponent } from './ficha-clinica/ficha-clinica.component';
+import { AgregarFichaComponent } from './agregar-ficha/agregar-ficha.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { FichaClinicaComponent } from './ficha-clinica/ficha-clinica.component';
 
     PacienteComponent,
     ReservaComponent,
-    FichaClinicaComponent
+    FichaClinicaComponent,
+    AgregarFichaComponent
 
   ],
   imports: [

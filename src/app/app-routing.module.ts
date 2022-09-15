@@ -5,6 +5,9 @@ import { HomeComponent } from './home/home.component';
 
 import { PacienteComponent } from './paciente/paciente.component';
 import { ReservaComponent } from './reserva/reserva.component';
+import { RealizarReservaComponent } from './realizar-reserva/realizar-reserva.component';
+import { HorarioAtencionComponent } from './horario-atencion/horario-atencion.component';
+import { HorarioExcepcionComponent } from './horario-excepcion/horario-excepcion.component';
 
 
 const routes: Routes = [
@@ -32,6 +35,18 @@ const routes: Routes = [
   {
     path: 'reserva',
     component: ReservaComponent
+  },
+  {
+    path: 'agregar-reserva',
+    component: RealizarReservaComponent
+  },
+  {
+    path: 'horario-atencion',
+    component: HorarioAtencionComponent
+  },
+  {
+    path: 'horario-excepcion',
+    component: HorarioExcepcionComponent
   },
   {
     path: '**',

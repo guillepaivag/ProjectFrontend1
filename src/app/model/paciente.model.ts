@@ -1,4 +1,5 @@
 export class Paciente {
+  idPersona!:String
   nombre!: String;
   apellido!: String;
   email!: String;

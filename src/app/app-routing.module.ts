@@ -2,12 +2,12 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CrudProductos } from './crud-productos/crud-productos.component';
 import { HomeComponent } from './home/home.component';
-
 import { PacienteComponent } from './paciente/paciente.component';
 import { ReservaComponent } from './reserva/reserva.component';
 import { RealizarReservaComponent } from './realizar-reserva/realizar-reserva.component';
 import { HorarioAtencionComponent } from './horario-atencion/horario-atencion.component';
 import { HorarioExcepcionComponent } from './horario-excepcion/horario-excepcion.component';
+import { FichaClinicaComponent } from './ficha-clinica/ficha-clinica.component';
 
 
 const routes: Routes = [
@@ -28,7 +28,6 @@ const routes: Routes = [
     component: CrudProductos
   },
   {
-
     path: 'paciente',
     component: PacienteComponent
   },
@@ -47,6 +46,10 @@ const routes: Routes = [
   {
     path: 'horario-excepcion',
     component: HorarioExcepcionComponent
+  },
+  {
+    path: 'ficha-clinica',
+    component: FichaClinicaComponent
   },
   {
     path: '**',

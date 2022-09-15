@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -17,6 +16,8 @@ import { ReservaComponent } from './reserva/reserva.component';
 import { RealizarReservaComponent } from './realizar-reserva/realizar-reserva.component';
 import { HorarioAtencionComponent } from './horario-atencion/horario-atencion.component';
 import { HorarioExcepcionComponent } from './horario-excepcion/horario-excepcion.component';
+import { FichaClinicaComponent } from './ficha-clinica/ficha-clinica.component';
+
 
 @NgModule({
   declarations: [
@@ -27,13 +28,12 @@ import { HorarioExcepcionComponent } from './horario-excepcion/horario-excepcion
     FooterComponent,
     CrudProductos,
     MenuComponent,
-
     PacienteComponent,
     ReservaComponent,
     RealizarReservaComponent,
     HorarioAtencionComponent,
-    HorarioExcepcionComponent
-
+    HorarioExcepcionComponent,
+    FichaClinicaComponent
   ],
   imports: [
     BrowserModule,

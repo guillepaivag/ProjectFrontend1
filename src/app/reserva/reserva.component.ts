@@ -64,7 +64,6 @@ export class ReservaComponent implements OnInit {
 
   refresh() {
     this.listaReserva = this.reserva
-      .map((listaPacientes, i) => ({id: i + 1, ...listaPacientes}))
       .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
   }
 
@@ -116,7 +115,7 @@ export class ReservaComponent implements OnInit {
       for (let index = 0; index < nuevoReservas.length; index++) {
         element = nuevoReservas[index];
         console.log('this.nombreEmpleado',this.nombreEmpleado ,'element.idEmpleado.nombre', element.idEmpleado.nombre)
-        if(element.idEmpleado.nombre.trim() == this.nombreEmpleado.trim()  )
+        if(element.idEmpleado.nombre.toLowerCase().includes(this.nombreEmpleado.toLowerCase())  )
           aux2.push(element)
       }
       console.log(aux2,nuevoReservas)
@@ -129,7 +128,7 @@ export class ReservaComponent implements OnInit {
       let aux2 = []
       for (let index = 0; index < nuevoReservas.length; index++) {
         element = nuevoReservas[index];
-        if(element.idCliente.nombre.trim()  == this.nombreCliente.trim()  )
+        if(element.idCliente.nombre.toLowerCase().includes(this.nombreCliente.toLowerCase())  )
           aux2.push(element)
       }
       nuevoReservas=aux2

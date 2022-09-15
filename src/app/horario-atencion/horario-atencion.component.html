@@ -1,0 +1,72 @@
+<app-navbar></app-navbar>
+<br><br><br>
+<div style="text-align: center;">
+    <h1>Horario Atención</h1>
+</div>
+
+
+
+<div *ngIf="collectionSize>0" class="container">
+    <h3 *ngIf="add">Agregar</h3>
+    <h3 *ngIf="!add">Editar</h3>
+    <form class="mb-3">
+        Dia <input type="email" class="form-control" placeholder="0" [(ngModel)]="dia"
+            [ngModelOptions]="{standalone: true}">
+        Hora Apertura Cadena <input type="email" class="form-control" placeholder="0900" [(ngModel)]="horaAperturaCadena"
+        [ngModelOptions]="{standalone: true}">
+        Hora Cierre Cadena <input type="email" class="form-control" placeholder="1100" [(ngModel)]="horaCierreCadena"
+        [ngModelOptions]="{standalone: true}">
+        Intervalo Minutos <input type="email" class="form-control" placeholder="15" [(ngModel)]="intervaloMinutos"
+        [ngModelOptions]="{standalone: true}">
+        Id Empleado <input type="email" class="form-control" placeholder="3" [(ngModel)]="idEmpleado.idPersona"
+        [ngModelOptions]="{standalone: true}">
+    </form>
+    <div *ngIf="add" class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <button type="button" class="btn btn-primary btn-sm" (click)="agregar()">Agregar</button>
+    </div>
+    <div *ngIf="!add" class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <button type="button" class="btn btn-primary btn-sm" (click)="modificar()">Modificar</button>
+    </div>
+
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Dia</th>
+                <th scope="col">Hora Apertura Cadena</th>
+                <th scope="col">Hora Cierre Cadena</th>
+                <th scope="col">Intervalo Minutos</th>
+                <th scope="col">Id Empleado</th>
+                <th scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let elemento of listaHorarioAtencion; let i = index">
+                <td>{{elemento.dia}}</td>
+                <td>{{elemento.horaAperturaCadena}}</td>
+                <td>{{elemento.horaCierreCadena}}</td>
+                <td>{{elemento.intervaloMinutos}}</td>
+                <td>{{elemento.idEmpleado.idPersona}}</td>
+                <td>
+                    <div class="btn-group" role="group" aria-label="Basic outlined example">
+                    <button type="button" class="btn btn-outline-primary"
+                        (click)="idPersonaHorarioAgenda=elemento.idPersonaHorarioAgenda;eliminar()">Eliminar</button>
+                    <button type="button" class="btn btn-outline-primary" (click)="setDatosModificar(elemento)">Modificar</button>
+                </div>
+            </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="d-flex justify-content-between p-2">
+        <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize"
+            (pageChange)="refresh()">
+        </ngb-pagination>
+
+        <select class="form-select" style="width: auto" [(ngModel)]="pageSize" (ngModelChange)="refresh()">
+            <option [ngValue]="10">10 por pagina</option>
+            <option [ngValue]="20">20 por pagina</option>
+            <option [ngValue]="30">30 por pagina</option>
+        </select>
+    </div>
+</div>

@@ -14,7 +14,11 @@ import { FormsModule } from '@angular/forms';
 import { MenuComponent } from './menu/menu.component';
 import { PacienteComponent } from './paciente/paciente.component';
 import { ReservaComponent } from './reserva/reserva.component';
+import { RealizarReservaComponent } from './realizar-reserva/realizar-reserva.component';
+import { HorarioAtencionComponent } from './horario-atencion/horario-atencion.component';
+import { HorarioExcepcionComponent } from './horario-excepcion/horario-excepcion.component';
 import { FichaClinicaComponent } from './ficha-clinica/ficha-clinica.component';
+
 
 @NgModule({
   declarations: [
@@ -25,9 +29,11 @@ import { FichaClinicaComponent } from './ficha-clinica/ficha-clinica.component';
     FooterComponent,
     CrudProductos,
     MenuComponent,
-
     PacienteComponent,
     ReservaComponent,
+    RealizarReservaComponent,
+    HorarioAtencionComponent,
+    HorarioExcepcionComponent
     FichaClinicaComponent
 
   ],

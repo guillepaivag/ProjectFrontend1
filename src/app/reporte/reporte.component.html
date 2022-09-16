@@ -26,13 +26,10 @@
     <div style="color: red; display: inline;">{{mensajeErrorFiltro}} </div>
     <div style="display: inline; cursor: pointer;" *ngIf="mensajeErrorFiltro" (click)="mensajeErrorFiltro=''">x</div>
 
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <br>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-1">
         <button type="button" class="btn btn-primary btn-sm" (click)="filtrar()">Filtrar</button>
-    </div>
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
         <button type="button" class="btn btn-primary btn-sm" (click)="export()">Exportar a Excel</button>
-    </div>
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
         <button type="button" class="btn btn-primary btn-sm" (click)="openPDF()">Exportar a PDF</button>
     </div>
 </div>

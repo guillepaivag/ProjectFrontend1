@@ -9,6 +9,7 @@ import { HorarioAtencionComponent } from './horario-atencion/horario-atencion.co
 import { HorarioExcepcionComponent } from './horario-excepcion/horario-excepcion.component';
 import { FichaClinicaComponent } from './ficha-clinica/ficha-clinica.component';
 import { ServiciosComponent} from './servicios/servicios.component';
+import { AgregarServicioComponent } from './agregar-servicio/agregar-servicio.component';
 
 
 const routes: Routes = [
@@ -55,6 +56,10 @@ const routes: Routes = [
   {
     path: 'servicios',
     component: ServiciosComponent
+  },
+  {
+    path: 'agregar-servicio',
+    component: AgregarServicioComponent
   },
   {
     path: '**',

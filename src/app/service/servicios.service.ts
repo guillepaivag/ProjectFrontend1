@@ -19,6 +19,16 @@ export class ServiciosService {
     return this.http.get<listadatos<Servicio>>(`${this.api}/servicio`);
   }
 
+  getServiciosFiltrado(empleado:string, cliente: string): Observable<listadatos<Servicio>> {
+    if(empleado && cliente)
+      return this.http.get<listadatos<Servicio>>(`${this.api}/servicio?ejemplo=%7B%22idEmpleado%22%3A%7B%22idPersona%22%3A${empleado}%7D%2C%22idFichaClinica%22%3A%7B%22idCliente%22%3A%7B%22idPersona%22%3A${cliente}%7D%7D%7D`);
+    else if (empleado)
+      return this.http.get<listadatos<Servicio>>(`${this.api}/servicio?ejemplo=%7B%22idEmpleado%22%3A%7B%22idPersona%22%3A${empleado}%7D%7D`);
+    else
+    return this.http.get<listadatos<Servicio>>(`${this.api}/servicio?ejemplo=%7B%22idFichaClinica%22%3A%7B%22idCliente%22%3A%7B%22idPersona%22%3A${cliente}%7D%7D%7D%0A`);
+  }
+
+
   agregarServicio(p: any): Observable<any> {
     return this.http.post(`${this.api}/servicio`, p).pipe(
       tap({

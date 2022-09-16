@@ -1,6 +1,11 @@
 <nav class="navbar navbar-dark bg-dark fixed-top">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">Frontend</a>
+        <ul class="navbar-nav">
+          <li class="nav-item" style="color: white;">
+            Bienvenido <b>{{ nombreUsuario }}</b>
+          </li>
+        </ul>
       <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -9,15 +14,36 @@
           <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Frontend</h5>
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
-        <div class="offcanvas-body">
+        <div class="offcanvas-body" *ngIf="nombreUsuario">
           <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+              <a class="nav-link active" aria-current="page" [routerLink]="['']">Inicio</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Login</a>
+              <a class="nav-link active" aria-current="page" [routerLink]="['/','crud-productos']">Crud Categoria y Productos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" [routerLink]="['/','paciente']">CRUD Pacientes</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" [routerLink]="['/','horario-atencion']">CRUD Horario Atencion</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" [routerLink]="['/','horario-excepcion']">CRUD Horario Excepcion</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" [routerLink]="['/','reserva']">Reservas</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" [routerLink]="['/','servicios']">Servicios</a>
+            </li>
+            <li class="nav-item">
+              <div class="d-grid gap-2 d-md-flex mt-2 ">
+                <button type="button" class="btn btn-info btn-sm" (click)="salir()" >Desloguear</button>
+              </div>
             </li>
           </ul>
+          
         </div>
       </div>
     </div>

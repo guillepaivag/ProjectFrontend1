@@ -9,7 +9,24 @@ export class FichaClinica {
     diagnostico!: String;
     tratamiento!: String;
     observacion!: String;
-    idEmpleado: Persona = new Persona;
-    idCliente: Persona = new Persona;
-    idTipoProducto: TipoProducto = new TipoProducto;
+    //idEmpleado: Persona = new Persona;
+    //idCliente: Persona = new Persona;
+    //idTipoProducto: TipoProducto = new TipoProducto;
+    idEmpleado!: {
+        "idPersona": number,
+        apellido : String,
+        nombre : String,
+    };
+    idCliente!: {
+        "idPersona": number
+        apellido : String
+        nombre : String
+    };
+    idTipoProducto!: {
+        "idTipoProducto": number
+        "idCategoria" : {
+            idCategoria : String,
+            descripcion : String,
+        },
+    };
 }

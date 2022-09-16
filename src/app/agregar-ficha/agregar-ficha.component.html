@@ -49,8 +49,7 @@
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
         <button type="button" class="btn btn-primary btn-sm" (click)="guardar()">Guardar</button>
         <button type="button" class="btn btn-primary btn-sm" (click)="limpiar()">Limpiar</button>
-        <button type="button" class="btn btn-primary btn-sm" (click)="limpiar()">Cancelar</button>
-        <a href="/ficha-clinica">Cancelar</a>
+        <a class="btn btn-primary btn-sm" href="/ficha-clinica">Cancelar</a>
     </div>
 </div>
 <br>
@@ -89,10 +88,6 @@
             <option [ngValue]="20">20 por pagina</option>
             <option [ngValue]="30">30 por pagina</option>
         </select>
-    </div>
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <button type="button" class="btn btn-primary btn-sm" (click)="limpiar()">Agregar Ficha</button>
-        <a href="/ficha-clinica/agregar-ficha">Agregar Ficha</a>
     </div>
 </div>
 <br>

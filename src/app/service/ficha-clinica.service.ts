@@ -16,4 +16,13 @@ export class FichaClinicaService {
   getFichaClinica(): Observable<listadatos<FichaClinica>> {
     return this.http.get<listadatos<FichaClinica>>(`${this.api}/fichaClinica`);
   }
+
+  guardar(p: any): Observable<any> {
+    return this.http.post(`${this.api}/fichaClinica`, p).pipe(
+      tap({
+        next: (data) => console.log('agregado ' + data),
+        error: (error) => console.log("error: " + error),
+      })
+    );
+  }
 }

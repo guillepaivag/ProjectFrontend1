@@ -42,7 +42,7 @@ export class AgregarFichaComponent implements OnInit {
   pageSize = 10;
   collectionSize = 0;
 
-  constructor(private ServicioService: ServicioService,private servicioCategorias: ServicecategoriaService){
+  constructor(private ServicioService: ServicioService,private servicioCategorias: ServicecategoriaService, private fichaClinicaService: FichaClinicaService) { 
     this.refresh();
   }
 
@@ -87,6 +87,34 @@ export class AgregarFichaComponent implements OnInit {
 
   guardar() {
     console.log('guardar')
+    let ficha = new FichaClinica();
+    //ficha.fechaHora = this.fecha;
+    ficha.motivo_consulta = this.motivo_consulta;
+    ficha.diagnostico = this.diagnostico;
+    ficha.observacion = this.observacion;
+    //todo: empleado, cliente y tipoproducto deben ser variables de tipo persona y tipoproducto
+    ficha.idEmpleado = {
+      "idPersona": this.nombreEmpleado.idPersona,
+      "nombre": "",
+      "apellido": "",
+    };
+    ficha.idCliente = {
+      "idPersona": this.nombreCliente,
+      "nombre": "",
+      "apellido": "",
+    };
+    ficha.idTipoProducto = {
+      "idTipoProducto": this.idTipoProductoSeleccionado,
+      "idCategoria" : {
+        "idCategoria": this.idCategoriaSeleccionada,
+        "descripcion": "",
+      },
+    };
+
+    this.fichaClinicaService.guardar(ficha).subscribe({
+      next: (entity) => {console.log("Guardado ", entity); alert("Paciente Guardado")},
+      error: (error) => console.log('no se pudo guardar', error),
+    });
   }
 
   limpiar(){

@@ -23,6 +23,7 @@ export class Servicio {
   };
 
 
+  presupuesto!: number;
   fechaHora= {FechaHora : String};
   observacion! : String;
   fechaHoraCadena! : String;

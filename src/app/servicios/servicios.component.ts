@@ -38,10 +38,13 @@ export class ServiciosComponent implements OnInit {
       next: (entity) => {
         this.servicios = entity.lista;
         console.log(entity);
-        /*for (let index = 0; index < this.fichas.length; index++) {
+
+        for (let index = 0; index < this.servicios.length; index++){
+          let fechaCadena = this.servicios[index].fechaHoraCadena
+          this.servicios[index].fechaHoraCadena=fechaCadena.substring(0, 4)+"-"+fechaCadena.substring(4, 6)+"-"+fechaCadena.substring(6, 8)
         }
 
-        this.fichasCopia = this.fichas.map((x) => x)*/
+        this.ServiciosCopia = this.servicios.map((x) => x)
         this.collectionSize = this.servicios.length;
         this.refresh()
       },
@@ -61,7 +64,6 @@ export class ServiciosComponent implements OnInit {
 
     this.servicios = this.ServiciosCopia.map((x) => x)
 
-
     if(this.fechaDesde > this.fechaHasta){
       this.mensajeErrorFiltro="Las fecha desde debe ser menor a la fecha hasta"
       return
@@ -70,12 +72,11 @@ export class ServiciosComponent implements OnInit {
       return
     }
 
-    let nuevoFichas = []
+    let nuevoServicios = []
     let element: any;
 
     if(this.fechaDesde){
-
-      for (let index = 0; index < this.servicios.length; index++) {
+      for (let index = 0; index < this.ServiciosCopia.length; index++) {
 
         element = this.servicios[index];
         let date1 = new Date(element.fechaHoraCadena).getTime();
@@ -83,10 +84,10 @@ export class ServiciosComponent implements OnInit {
         let date3 = new Date(this.fechaHasta).getTime();
 
         if(date1 >= date2 && date1 <= date3 )
-          nuevoFichas.push(this.servicios[index])
+        nuevoServicios.push(this.servicios[index])
       }
     } else{
-      nuevoFichas = this.servicios
+      nuevoServicios = this.servicios
     }
 
 
@@ -94,30 +95,30 @@ export class ServiciosComponent implements OnInit {
     if(this.nombreEmpleado){
       let aux2 = []
 
-      for (let index = 0; index < nuevoFichas.length; index++) {
-        element = nuevoFichas[index];
+      for (let index = 0; index < nuevoServicios.length; index++) {
+        element = nuevoServicios[index];
         console.log('this.nombreEmpleado',this.nombreEmpleado ,'element.idEmpleado.nombre', element.idEmpleado.nombre)
         if( element.idEmpleado.nombre.toLowerCase().includes(this.nombreEmpleado.toLowerCase())  )
           aux2.push(element)
       }
-      console.log(aux2,nuevoFichas)
-      nuevoFichas=aux2
+      console.log(aux2,nuevoServicios)
+      nuevoServicios=aux2
     }
 
 
 
     if(this.nombreCliente){
       let aux2 = []
-      for (let index = 0; index < nuevoFichas.length; index++) {
-        element = nuevoFichas[index];
+      for (let index = 0; index < nuevoServicios.length; index++) {
+        element = nuevoServicios[index];
         if(element.idCliente.nombre.toLowerCase().includes(this.nombreCliente.toLowerCase()) )
           aux2.push(element)
       }
-      nuevoFichas=aux2
+      nuevoServicios=aux2
     }
 
-    this.collectionSize=nuevoFichas.length
-    this.servicios=nuevoFichas
+    this.collectionSize=nuevoServicios.length
+    this.servicios=nuevoServicios
     this.refresh()
 
 

@@ -9,6 +9,7 @@ import { Servicio } from '../model/servicio.model';
 import { PacientesService } from '../service/pacientes.service';
 import { Persona } from '../model/persona.model';
 import { Paciente } from '../model/paciente.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-agregar-ficha',
@@ -50,7 +51,8 @@ export class AgregarFichaComponent implements OnInit {
     private ServicioService: ServicioService,
     private servicioCategorias: ServicecategoriaService,
     private fichaClinicaService: FichaClinicaService,
-    private pacientesService: PacientesService
+    private pacientesService: PacientesService,
+    private router: Router
   ) {
     this.refresh();
   }
@@ -135,6 +137,10 @@ export class AgregarFichaComponent implements OnInit {
         alert('Ficha no se pudo crear');
      },
     });
+
+    alert('Se guardo correctamente')
+    this.router.navigate(['/ficha-clinica']);
+
   };
 
   buscarEmpleado() {

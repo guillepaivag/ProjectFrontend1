@@ -32,4 +32,20 @@ export class FichaClinicaService {
       })
     );
   }
+
+  modificar(p: any): Observable<any> {
+
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'usuario': 'usuario1' });
+
+    let options = { headers: headers };
+
+    return this.http.put(`${this.api}/fichaClinica`, p, options).pipe(
+      tap({
+        next: (data) => console.log('agregado ' + data),
+        error: (error) => console.log("error: " + error),
+      })
+    );
+  }
 }

@@ -4,14 +4,14 @@ import { FichaClinica } from '../model/ficha-clinica.model';
 import { Categoria } from '../model/categoria.model';
 import { TipoProducto } from '../model/tipo-producto.model';
 import { ServicecategoriaService } from '../service/servicecategoria.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-ficha-clinica',
   templateUrl: './ficha-clinica.component.html',
-  styleUrls: ['./ficha-clinica.component.css']
+  styleUrls: ['./ficha-clinica.component.css'],
 })
 export class FichaClinicaComponent implements OnInit {
-
   fichas: FichaClinica[] = [];
   listaFichas: FichaClinica[] = [];
   fichasCopia: FichaClinica[] = [];
@@ -25,170 +25,256 @@ export class FichaClinicaComponent implements OnInit {
   listaTipoProducto: TipoProducto[] = [];
   idCategoriaSeleccionada: string = '';
   idTipoProductoSeleccionado: any;
-  mensajeErrorFiltro = ''
+  mensajeErrorFiltro = '';
+  fichaSeleccionada: FichaClinica = new FichaClinica();
+  nuevaObs: String = '';
 
   //modificacion
-  modificar:Modificar[]=[]
+  modificar: Modificar[] = [];
   index1: number = 0;
-  flagAsistio: any = null
+  flagAsistio: any = null;
 
   //paginacion
   page = 1;
   pageSize = 10;
   collectionSize = 0;
 
-  constructor(private fichaClinicaService: FichaClinicaService,private servicioCategorias: ServicecategoriaService){
+  constructor(
+    private fichaClinicaService: FichaClinicaService,
+    private servicioCategorias: ServicecategoriaService,
+    private router: Router
+  ) {
     this.refresh();
   }
 
   ngOnInit(): void {
-
     this.fichaClinicaService.getFichaClinica().subscribe({
       next: (entity) => {
         this.fichas = entity.lista;
         for (let index = 0; index < this.fichas.length; index++) {
-          let fechaCadena = this.fichas[index].fechaHoraCadena
-          this.fichas[index].fechaHoraCadena=fechaCadena.substring(0, 4)+"-"+fechaCadena.substring(4, 6)+"-"+fechaCadena.substring(6, 8)
+          let fechaCadena = this.fichas[index].fechaHoraCadena;
+          this.fichas[index].fechaHoraCadena =
+            fechaCadena.substring(0, 4) +
+            '-' +
+            fechaCadena.substring(4, 6) +
+            '-' +
+            fechaCadena.substring(6, 8);
           let modificarValores = {
-            idFichaClinica:this.fichas[index].idFichaClinica,
-            motivo_consulta:this.fichas[index].motivoConsulta,
-            diagnostico:this.fichas[index].diagnostico,
-            tratamiento:this.fichas[index].tratamiento,
-            observacion:this.fichas[index].observacion,
-          }
-          this.modificar[index]=modificarValores
+            idFichaClinica: this.fichas[index].idFichaClinica,
+            motivo_consulta: this.fichas[index].motivoConsulta,
+            diagnostico: this.fichas[index].diagnostico,
+            tratamiento: this.fichas[index].tratamiento,
+            observacion: this.fichas[index].observacion,
+          };
+          this.modificar[index] = modificarValores;
         }
 
-        this.fichasCopia = this.fichas.map((x) => x)
+        this.fichasCopia = this.fichas.map((x) => x);
         this.collectionSize = this.fichas.length;
-        console.log(this.fichasCopia)
-        this.refresh()
+        console.log(this.fichasCopia);
+        this.refresh();
       },
-      error: (error) => console.log('no se pudieron conseguir las fichas', error),
+      error: (error) =>
+        console.log('no se pudieron conseguir las fichas', error),
     });
 
     //para la lista de Categorias y Tipo de Producto (subcategorias)
     this.servicioCategorias.getCategorias().subscribe({
-      next: (entity) => { this.listaCategorias = entity.lista; },
-      error: (error) => console.log('no se pudieron conseguir las categorias'+ JSON.stringify(error)),
+      next: (entity) => {
+        this.listaCategorias = entity.lista;
+      },
+      error: (error) =>
+        console.log(
+          'no se pudieron conseguir las categorias' + JSON.stringify(error)
+        ),
     });
   }
 
-  getTipoProductosLikeId(){
-    if (this.idCategoriaSeleccionada){
-      console.log('gettipoproductoslikeid '+this.idCategoriaSeleccionada)
-      this.idTipoProductoSeleccionado = ''
-      this.servicioCategorias.getTipoProductosLikeId(this.idCategoriaSeleccionada).subscribe({
-        next: (entity) => { this.listaTipoProducto = entity.lista; },
-        error: (error) => console.log('no se pudieron conseguir los productos con el filtro'+ JSON.stringify(error))
-      });
+  getTipoProductosLikeId() {
+    if (this.idCategoriaSeleccionada) {
+      console.log('gettipoproductoslikeid ' + this.idCategoriaSeleccionada);
+      this.idTipoProductoSeleccionado = '';
+      this.servicioCategorias
+        .getTipoProductosLikeId(this.idCategoriaSeleccionada)
+        .subscribe({
+          next: (entity) => {
+            this.listaTipoProducto = entity.lista;
+          },
+          error: (error) =>
+            console.log(
+              'no se pudieron conseguir los productos con el filtro' +
+                JSON.stringify(error)
+            ),
+        });
     }
   }
 
+  setFicha(f: FichaClinica) {
+    this.fichaSeleccionada = f;
+    this.nuevaObs = f.observacion;
+  }
+
+  modificarFichaClinica() {
+    let aux = {
+      "idFichaClinica": this.fichaSeleccionada.idFichaClinica,
+      "observacion": this.nuevaObs,
+    };
+    this.fichaClinicaService.modificar(aux).subscribe({
+      next: (entity) => {
+        this.router.navigate(['/ficha-clinica']);
+        this.fichaClinicaService.getFichaClinica().subscribe({
+          next: (entity) => {
+            this.fichas = entity.lista;
+            for (let index = 0; index < this.fichas.length; index++) {
+              let fechaCadena = this.fichas[index].fechaHoraCadena;
+              this.fichas[index].fechaHoraCadena =
+                fechaCadena.substring(0, 4) +
+                '-' +
+                fechaCadena.substring(4, 6) +
+                '-' +
+                fechaCadena.substring(6, 8);
+              let modificarValores = {
+                idFichaClinica: this.fichas[index].idFichaClinica,
+                motivo_consulta: this.fichas[index].motivoConsulta,
+                diagnostico: this.fichas[index].diagnostico,
+                tratamiento: this.fichas[index].tratamiento,
+                observacion: this.fichas[index].observacion,
+              };
+              this.modificar[index] = modificarValores;
+            }
+
+            this.fichasCopia = this.fichas.map((x) => x);
+            this.collectionSize = this.fichas.length;
+            console.log(this.fichasCopia);
+            this.refresh();
+          },
+          error: (error) =>
+            console.log('no se pudieron conseguir las fichas', error),
+        });
+      },
+      error: (error) =>
+        console.log(
+          'no se puso modificar la ficha clinica' +
+            JSON.stringify(error)
+        ),
+    });
+  }
 
   refresh() {
-    console.log('refresh')
-    this.listaFichas = this.fichas
-      .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
+    console.log('refresh');
+    this.listaFichas = this.fichas.slice(
+      (this.page - 1) * this.pageSize,
+      (this.page - 1) * this.pageSize + this.pageSize
+    );
   }
 
-  Limpiar(){
-    this.idCategoriaSeleccionada = ''
-    this.idTipoProductoSeleccionado = ''
-    this.nombreEmpleado = ''
-    this.nombreCliente = ''
-    this.fechaDesde = ''
-    this.fechaHasta = ''
-    this.filtrar()
+  Limpiar() {
+    this.idCategoriaSeleccionada = '';
+    this.idTipoProductoSeleccionado = '';
+    this.nombreEmpleado = '';
+    this.nombreCliente = '';
+    this.fechaDesde = '';
+    this.fechaHasta = '';
+    this.filtrar();
   }
 
-  filtrar(){
+  filtrar() {
+    this.fichas = this.fichasCopia.map((x) => x);
 
-    this.fichas = this.fichasCopia.map((x) => x)
-
-
-    if(this.fechaDesde > this.fechaHasta){
-      this.mensajeErrorFiltro="Las fecha desde debe ser menor a la fecha hasta"
-      return
-    } else if(!this.fechaDesde && this.fechaHasta || this.fechaDesde && !this.fechaHasta){
-      this.mensajeErrorFiltro="Debe colocar ambas fechas"
-      return
+    if (this.fechaDesde > this.fechaHasta) {
+      this.mensajeErrorFiltro =
+        'Las fecha desde debe ser menor a la fecha hasta';
+      return;
+    } else if (
+      (!this.fechaDesde && this.fechaHasta) ||
+      (this.fechaDesde && !this.fechaHasta)
+    ) {
+      this.mensajeErrorFiltro = 'Debe colocar ambas fechas';
+      return;
     }
 
-    let nuevoFichas = []
+    let nuevoFichas = [];
     let element: any;
 
-    if(this.fechaDesde){
-
+    if (this.fechaDesde) {
       for (let index = 0; index < this.fichas.length; index++) {
-
         element = this.fichas[index];
         let date1 = new Date(element.fechaHoraCadena).getTime();
         let date2 = new Date(this.fechaDesde).getTime();
         let date3 = new Date(this.fechaHasta).getTime();
 
-        if(date1 >= date2 && date1 <= date3 )
-          nuevoFichas.push(this.fichas[index])
+        if (date1 >= date2 && date1 <= date3)
+          nuevoFichas.push(this.fichas[index]);
       }
-    } else{
-      nuevoFichas = this.fichas
+    } else {
+      nuevoFichas = this.fichas;
     }
 
-
-
-    if(this.nombreEmpleado){
-      let aux2 = []
+    if (this.nombreEmpleado) {
+      let aux2 = [];
 
       for (let index = 0; index < nuevoFichas.length; index++) {
         element = nuevoFichas[index];
-        console.log('this.nombreEmpleado',this.nombreEmpleado ,'element.idEmpleado.nombre', element.idEmpleado.nombre)
-        if( element.idEmpleado.nombre.toLowerCase().includes(this.nombreEmpleado.toLowerCase())  )
-          aux2.push(element)
+        console.log(
+          'this.nombreEmpleado',
+          this.nombreEmpleado,
+          'element.idEmpleado.nombre',
+          element.idEmpleado.nombre
+        );
+        if (
+          element.idEmpleado.nombre
+            .toLowerCase()
+            .includes(this.nombreEmpleado.toLowerCase())
+        )
+          aux2.push(element);
       }
-      console.log(aux2,nuevoFichas)
-      nuevoFichas=aux2
+      console.log(aux2, nuevoFichas);
+      nuevoFichas = aux2;
     }
 
-
-
-    if(this.nombreCliente){
-      let aux2 = []
+    if (this.nombreCliente) {
+      let aux2 = [];
       for (let index = 0; index < nuevoFichas.length; index++) {
         element = nuevoFichas[index];
-        if(element.idCliente.nombre.toLowerCase().includes(this.nombreCliente.toLowerCase()) )
-          aux2.push(element)
+        if (
+          element.idCliente.nombre
+            .toLowerCase()
+            .includes(this.nombreCliente.toLowerCase())
+        )
+          aux2.push(element);
       }
-      nuevoFichas=aux2
+      nuevoFichas = aux2;
     }
 
-
-    if(this.idCategoriaSeleccionada){
-      let aux2 = []
+    if (this.idCategoriaSeleccionada) {
+      let aux2 = [];
       for (let index = 0; index < nuevoFichas.length; index++) {
         element = nuevoFichas[index];
-        if(element.idTipoProducto.idCategoria.idCategoria == this.idCategoriaSeleccionada )
-          aux2.push(element)
+        if (
+          element.idTipoProducto.idCategoria.idCategoria ==
+          this.idCategoriaSeleccionada
+        )
+          aux2.push(element);
       }
-      nuevoFichas=aux2
+      nuevoFichas = aux2;
     }
 
-    if(this.idTipoProductoSeleccionado){
-      let aux2 = []
+    if (this.idTipoProductoSeleccionado) {
+      let aux2 = [];
       for (let index = 0; index < nuevoFichas.length; index++) {
         element = nuevoFichas[index];
-        if(element.idTipoProducto.idTipoProducto == this.idTipoProductoSeleccionado )
-          aux2.push(element)
+        if (
+          element.idTipoProducto.idTipoProducto ==
+          this.idTipoProductoSeleccionado
+        )
+          aux2.push(element);
       }
-      nuevoFichas=aux2
+      nuevoFichas = aux2;
     }
 
-
-
-    this.collectionSize=nuevoFichas.length
-    this.fichas=nuevoFichas
-    this.refresh()
-
-
+    this.collectionSize = nuevoFichas.length;
+    this.fichas = nuevoFichas;
+    this.refresh();
   }
 }
 

@@ -51,11 +51,37 @@ export class AgregarServicioComponent implements OnInit {
   esActualizar = false
 
 
+
   constructor(private servicioServices: ServiciosService, private route: ActivatedRoute){
     this.refresh();
   }
 
   ngOnInit(): void {
+
+      this.route.params.subscribe(params => {
+        if(params['id'] !== "crear"){
+          this.idServicio = params['id']; 
+          this.esActualizar = true
+        } else
+          this.esActualizar = false
+    });
+
+    if(this.esActualizar) {
+      this.servicioServices.getServicio(this.idServicio).subscribe({
+        next: (entity) => {
+          this.servicioServices.getFichaClinicaServicio(entity.idFichaClinica.idFichaClinica).subscribe({
+            next: (entity2) => {
+              this.servicios[0] = entity2;
+              this.collectionSize = 1;
+              this.refresh()
+              this.serviciosCopia = this.servicios.map((x) => x)
+            },
+            error: (error) => console.log('no se pudieron conseguir los servicios', error),
+          })
+        },
+        error: (error) => console.log('no se pudieron conseguir los servicios', error),
+      })
+    }
 
     this.servicioServices.getFichaClinica().subscribe({
       next: (entity) => {

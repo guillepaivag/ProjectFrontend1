@@ -34,6 +34,14 @@ export class ServiciosService {
     return this.http.get<listadatos<FichaClinica>>(`${this.api}/fichaClinica`);
   }
 
+  getServicio(idServicio: any): Observable<Servicio> {
+    return this.http.get<Servicio>(`${this.api}/servicio/${idServicio}`);
+  }
+
+  getFichaClinicaServicio(idFicha: any): Observable<FichaClinica> {
+    return this.http.get<FichaClinica>(`${this.api}/fichaClinica/${idFicha}`);
+  }
+
   getFichaClinicaFiltrado(empleado:string, cliente:string, fecha:string): Observable<listadatos<FichaClinica>>{
     if(empleado && cliente)
       return this.http.get<listadatos<FichaClinica>>(`${this.api}/fichaClinica?ejemplo=%7B%22fechaDesdeCadena%22%3A%22${fecha}%22%2C%22fechaHastaCadena%22%3A%22${fecha}%22%2C%22idCliente%22%3A%7B%22idPersona%22%3A${cliente}%7D%2C%22idEmpleado%22%3A%7B%22idPersona%22%3A${empleado}%7D%7D%0A`);

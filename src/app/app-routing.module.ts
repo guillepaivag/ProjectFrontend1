@@ -58,7 +58,7 @@ const routes: Routes = [
     component: ServiciosComponent
   },
   {
-    path: 'agregar-servicio',
+    path: 'agregar-servicio/:id',
     component: AgregarServicioComponent
   },
   {

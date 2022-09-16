@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { InicioUsuarioComponent } from './crud-productos.component';
+import { InicioUsuarioComponent } from './inicio-usuario.component';
 
 describe('InicioUsuarioComponent', () => {
   let component: InicioUsuarioComponent;

@@ -11,32 +11,31 @@
             Bienvenido al sistema de seguimiento de pacientes del Centro de Rehabilitación Fisioterapéutico <b>Nomas Rodillas Lesionadas.</b>
           </p>
         </div>
-
+  
         <div class="col-lg-6 mb-5 mb-lg-0 position-relative">
           <div id="radius-shape-1" class="position-absolute rounded-circle shadow-5-strong"></div>
           <div id="radius-shape-2" class="position-absolute shadow-5-strong"></div>
-
+  
           <div class="card bg-glass">
             <div class="card-body px-4 py-5 px-md-5">
               <form>
-
+  
                 <div class="form-floating mb-3">
-                    <input type="email" class="form-control" placeholder="name@example.com" [(ngModel)]="usuario" [ngModelOptions]="{standalone: true}">
+                    <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
                     <label for="floatingInput">Email address</label>
                 </div>
-
+  
                 <!-- Password input -->
                 <div class="form-floating mb-3">
-                    <input type="password" class="form-control" placeholder="Password" [(ngModel)]="contrasenha" [ngModelOptions]="{standalone: true}">
+                    <input type="email" class="form-control" id="floatingInput" placeholder="Password">
                     <label for="floatingInput">Password</label>
                   </div>
-
+  
                 <!-- Submit button -->
                 <div class="d-grid gap-2">
-                    <button class="btn btn-primary" type="button" (click)="iniciarSesion()">Sign in</button>
+                    <button class="btn btn-primary" type="button">Sign in</button>
                 </div>
               </form>
-              <p style="color: red;">{{mensajeError}}</p>
             </div>
           </div>
         </div>

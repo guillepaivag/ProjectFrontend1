@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Servicio } from '../model/servicio.model';
 import { ServiciosService } from '../service/servicios.service';
+import { FichaClinica } from '../model/ficha-clinica.model';
+import { ActivatedRoute } from '@angular/router';
+import { Detalle } from '../model/detalle.model';
+
 
 
 @Component({
@@ -10,14 +14,14 @@ import { ServiciosService } from '../service/servicios.service';
 })
 export class AgregarServicioComponent implements OnInit {
 
-  servicios: Servicio[] = [];
-  listaServicios: Servicio[] = [];
-  serviciosCopia: Servicio[] = [];
-  servicioSeleccionado?:Servicio
+  servicios: FichaClinica[] = [];
+  listaServicios: FichaClinica[] = [];
+  serviciosCopia: FichaClinica[] = [];
+  servicioSeleccionado?:FichaClinica
   observacion:String=''
 
   //filtros
-  fecha: any;
+  fecha = formatDate(String(new Date()))
   empleado: any;
   cliente: any;
   mensajeErrorFiltro = ''
@@ -31,13 +35,29 @@ export class AgregarServicioComponent implements OnInit {
   pageSize = 10;
   collectionSize = 0;
 
-  constructor(private servicioServices: ServiciosService){
+  // item
+  categoria?:string
+  subcategoria?:string
+  tipoServicio?:string
+  precio?:string
+  cantidad?:string
+
+  idServicio?:string='2'
+  listaDetalles?:Detalle[]
+  detalles?:Detalle[]
+
+  // modal
+  seGuardo=false
+  esActualizar = false
+
+
+  constructor(private servicioServices: ServiciosService, private route: ActivatedRoute){
     this.refresh();
   }
 
   ngOnInit(): void {
 
-    this.servicioServices.getServicios().subscribe({
+    this.servicioServices.getFichaClinica().subscribe({
       next: (entity) => {
         this.servicios = entity.lista;
         console.log(entity);
@@ -58,6 +78,8 @@ export class AgregarServicioComponent implements OnInit {
   }
 
 
+
+
   filtrar(){
 
     if(!this.empleado && !this.cliente){ 
@@ -65,7 +87,10 @@ export class AgregarServicioComponent implements OnInit {
       return
     }
 
-    this.servicioServices.getServiciosFiltrado(this.empleado,this.cliente).subscribe({
+    let fecha = formatDateBD(this.fecha)
+
+    console.log(this.empleado,this.cliente, fecha)
+    this.servicioServices.getFichaClinicaFiltrado(this.empleado,this.cliente, fecha).subscribe({
       next: (entity) => {
         console.log(entity)
         this.servicios=entity.lista
@@ -79,22 +104,97 @@ export class AgregarServicioComponent implements OnInit {
   }
 
   agregar(){
-    let p = new Servicio
+    let p = {
+      idFichaClinica:{
+        idFichaClinica:''
+      },
+      observacion:''
+    }
 
     if(this.servicioSeleccionado){
     
-      p.idFichaClinica.idFichaClinica=this.servicioSeleccionado.idFichaClinica.idFichaClinica
-      p.observacion=this.observacion
+      p.idFichaClinica={
+        idFichaClinica: String(this.servicioSeleccionado.idFichaClinica)
+      }
+      
+      p.observacion=String(this.observacion)
 
       this.servicioServices.agregarServicio(p).subscribe({
-        next: (entity) => {console.log("Guardado ", entity); alert("Servicio Guardado")},
+        next: (entity) => {
+          console.log("Guardado ", entity); 
+          alert("Servicio Guardado");
+          if(entity.idServicio)
+            this.idServicio = entity.idServicio
+        },
         error: (error) => console.log('no se pudo guardar', error),
       });
 
+      this.seGuardo = true
+
+      
+
     }else{
+      this.seGuardo = false
       alert("Seleccione una ficha")
     }
 
   }
 
+  agregarDetalle(){
+
+    let p = {
+      cantidad: this.cantidad,
+      idPresentacionProducto:{
+        idPresentacionProducto:this.tipoServicio
+      },
+      idServicio:{
+        idServicio:this.idServicio
+      }
+    }
+    
+    this.servicioServices.agregarDetalle(this.idServicio,p).subscribe({
+      next: (entity) => {console.log("Guardado ", entity); alert("Detalle Guardado")},
+      error: (error) => console.log('no se pudo guardar', error),
+    });
+  }
+
+  cancelar(){
+    this.categoria=''
+    this.subcategoria=''
+    this.tipoServicio=''
+    this.precio=''
+    this.cantidad=''
+  }
+
 }
+
+
+function formatDate(date: string) {
+  var d = new Date(date),
+    month = '' + (d.getMonth() + 1),
+    day = '' + d.getDate(),
+    year = d.getFullYear();
+
+  if (month.length < 2)
+    month = '0' + month;
+  if (day.length < 2)
+    day = '0' + day;
+
+  return [year, month, day].join('-');
+}
+
+function formatDateBD(date: string) {
+  var d = new Date(date),
+    month = '' + (d.getMonth() + 1),
+    day = '' + d.getDate(),
+    year = d.getFullYear();
+
+  if (month.length < 2)
+    month = '0' + month;
+  if (day.length < 2)
+    day = '0' + day;
+
+  return [year, month, day].join('');
+}
+
+

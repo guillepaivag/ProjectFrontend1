@@ -5,6 +5,8 @@ import { tap } from 'rxjs/operators';
 
 import { listadatos } from '../model/datos.model';
 import { Servicio } from '../model/servicio.model';
+import { FichaClinica } from '../model/ficha-clinica.model';
+import { Detalle } from '../model/detalle.model';
 
 @Injectable({
   providedIn: 'root'
@@ -28,9 +30,31 @@ export class ServiciosService {
     return this.http.get<listadatos<Servicio>>(`${this.api}/servicio?ejemplo=%7B%22idFichaClinica%22%3A%7B%22idCliente%22%3A%7B%22idPersona%22%3A${cliente}%7D%7D%7D%0A`);
   }
 
+  getFichaClinica(): Observable<listadatos<FichaClinica>> {
+    return this.http.get<listadatos<FichaClinica>>(`${this.api}/fichaClinica`);
+  }
+
+  getFichaClinicaFiltrado(empleado:string, cliente:string, fecha:string): Observable<listadatos<FichaClinica>>{
+    if(empleado && cliente)
+      return this.http.get<listadatos<FichaClinica>>(`${this.api}/fichaClinica?ejemplo=%7B%22fechaDesdeCadena%22%3A%22${fecha}%22%2C%22fechaHastaCadena%22%3A%22${fecha}%22%2C%22idCliente%22%3A%7B%22idPersona%22%3A${cliente}%7D%2C%22idEmpleado%22%3A%7B%22idPersona%22%3A${empleado}%7D%7D%0A`);
+    else if (empleado)
+      return this.http.get<listadatos<FichaClinica>>(`${this.api}/fichaClinica?ejemplo=%7B%22fechaDesdeCadena%22%3A%22${fecha}%22%2C%22fechaHastaCadena%22%3A%22${fecha}%22%2C%22idEmpleado%22%3A%7B%22idPersona%22%3A${empleado}%7D%7D%0A`);
+    else
+      return this.http.get<listadatos<FichaClinica>>(`${this.api}/fichaClinica?ejemplo=%7B%22fechaDesdeCadena%22%3A%22${fecha}%22%2C%22fechaHastaCadena%22%3A%22${fecha}%22%2C%22idCliente%22%3A%7B%22idPersona%22%3A${cliente}%7D%0A%7D%0A`);
+  }
+
 
   agregarServicio(p: any): Observable<any> {
     return this.http.post(`${this.api}/servicio`, p).pipe(
+      tap({
+        next: (data) => console.log('agregado ' + data),
+        error: (error) => console.log("error: " + error),
+      })
+    );
+  }
+
+  agregarDetalle(idServicio: any, p: any): Observable<any> {
+    return this.http.post(`${this.api}/servicio/${idServicio}/detalle`, p).pipe(
       tap({
         next: (data) => console.log('agregado ' + data),
         error: (error) => console.log("error: " + error),
@@ -54,6 +78,10 @@ export class ServiciosService {
         error: (error) => console.log("error: " + error),
       })
     );
+  }
+
+  getDetalles(id:any): Observable<listadatos<Detalle>> {
+    return this.http.get<listadatos<Detalle>>(`${this.api}/servicio/${id}/detalle`);
   }
 
   obtenerTodasHorasServicios(filtros:String[],idEmpelado:number,fecha:string,flagDisponible:string): Observable<Servicio[]> {

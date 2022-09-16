@@ -1,6 +1,6 @@
 export class Servicio {
   idFichaClinica={
-    idFichaClinica : String,
+    idFichaClinica: String,
     fechaHora : String,
     idCliente : {
       idCliente : String,

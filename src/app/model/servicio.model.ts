@@ -1,4 +1,5 @@
 export class Servicio {
+  idServicio!: String;
   idFichaClinica={
     idFichaClinica: String,
     fechaHora : String,
@@ -24,5 +25,6 @@ export class Servicio {
 
   fechaHora= {FechaHora : String};
   observacion! : String;
+  fechaHoraCadena! : String;
 }
 

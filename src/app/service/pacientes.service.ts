@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { Paciente } from '../model/paciente.model';
 import { listadatos } from '../model/datos.model';
+import { Persona } from '../model/persona.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,14 @@ export class PacientesService {
 
   getPacientes(): Observable<listadatos<Paciente>> {
     return this.http.get<listadatos<Paciente>>(`${this.api}/persona`);
+  }
+
+  getPacientePorNombre(nombre: String): Observable<listadatos<Paciente>> {
+    return this.http.get<listadatos<Paciente>>(`${this.api}/persona?ejemplo=%7B%22nombre%22%3A%22${nombre}%22%7D`);
+  }
+
+  getEmpleadoPorNombre(nombre: String): Observable<listadatos<Persona>> {
+    return this.http.get<listadatos<Persona>>(`${this.api}/persona?ejemplo=%7B%22nombre%22%3A%22${nombre}%22%7D`);
   }
 
   agregar(p: any): Observable<any> {

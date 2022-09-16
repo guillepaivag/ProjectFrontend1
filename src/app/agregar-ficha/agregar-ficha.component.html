@@ -1,0 +1,159 @@
+<app-navbar></app-navbar>
+<br><br><br>
+<div style="text-align: center;">
+    <h1>AGREGAR FICHA</h1>
+</div>
+
+<div class="container">
+    <h4>Filtros de busqueda</h4>
+    <table class="mb-3">
+        <tr>
+            <td>
+                <label for="Fecha">Fecha</label>
+                <input id="Fecha" class="form-control" type="text" [(ngModel)]="fecha" readonly/>
+            </td>
+        </tr>
+    </table>
+    <form class="mb-3">
+      <div class="row mt-3">
+        <div class="col-1">
+          <label>Empleado</label>
+        </div>
+        <div class="col-5">
+          <input type="text" class="form-control" placeholder="Nombre" [(ngModel)]="empleado.nombre" [ngModelOptions]="{standalone: true}" readonly>
+        </div>
+        <div class="col-6">
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#empleadoModal">Buscar</button>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-1">
+          <label>Cliente</label>
+        </div>
+        <div class="col-5">
+          <input type="text" class="form-control" placeholder="Nombre" [(ngModel)]="cliente.nombre" [ngModelOptions]="{standalone: true}" readonly>
+        </div>
+        <div class="col-6">
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#clienteModal">Buscar</button>
+        </div>
+      </div>
+    </form>
+
+    <div style="color: red; display: inline;">{{mensajeErrorFiltro}} </div>
+    <div style="display: inline; cursor: pointer;" *ngIf="mensajeErrorFiltro" (click)="mensajeErrorFiltro=''">x</div>
+
+    <!-- Lista desplegable de Categorias -->
+    <label for="form-categoria" class="mt-4">Categoria:</label>
+    <select id="form-categoria" (click)="getTipoProductosLikeId();" [(ngModel)]="idCategoriaSeleccionada" >
+        <option *ngFor="let categoria of listaCategorias"
+                [value]="categoria.idCategoria">
+                {{categoria.descripcion}}
+        </option>
+    </select>
+    &nbsp;
+    <label for="form-tipo-productos">Subcategoria:</label>
+    <select id="form-tipo-productos" [(ngModel)]="idTipoProductoSeleccionado" >
+        <option *ngFor="let tipoProducto of listaTipoProducto"
+                [value]="tipoProducto.idTipoProducto" >
+                {{tipoProducto.descripcion}}
+        </option>
+    </select>
+    <br>
+    <form class="mb-3 mt-3">
+        Motivo <input type="email" class="form-control" placeholder="Motivo" [(ngModel)]="motivo_consulta" [ngModelOptions]="{standalone: true}">
+        Diagnostico <input type="email" class="form-control" placeholder="Diagnostico" [(ngModel)]="diagnostico" [ngModelOptions]="{standalone: true}">
+        Observacion <input type="email" class="form-control" placeholder="Observacion" [(ngModel)]="observacion" [ngModelOptions]="{standalone: true}">
+    </form>
+    <br>
+
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <button type="button" class="btn btn-primary btn-sm" (click)="guardar()">Guardar</button>
+        <button type="button" class="btn btn-primary btn-sm" (click)="limpiar()">Limpiar</button>
+        <a class="btn btn-primary btn-sm" href="/ficha-clinica">Cancelar</a>
+    </div>
+</div>
+<br>
+
+<div *ngIf="collectionSize>0" class="container">
+    <h5>Servicios creados a partir de esta ficha</h5>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Fecha</th>
+                <th scope="col">Presupuesto</th>
+                <th scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let servicio of listaServicios">
+                <td>{{servicio.fechaHora}}</td>
+                <td>{{servicio.presupuesto}}</td>
+                <td>
+                    <div class="btn-group" role="group" aria-label="Basic outlined example">
+                        <button type="button" class="btn btn-outline-primary" (click)="refresh()">Ver Servicio</button>
+                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="refresh()">Editar Servicio</button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="d-flex justify-content-between p-2">
+        <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize"
+            (pageChange)="refresh()">
+        </ngb-pagination>
+
+        <select class="form-select" style="width: auto" [(ngModel)]="pageSize" (ngModelChange)="refresh()">
+            <option [ngValue]="10">10 por pagina</option>
+            <option [ngValue]="20">20 por pagina</option>
+            <option [ngValue]="30">30 por pagina</option>
+        </select>
+    </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+
+
+<!-- Modal -->
+<div class="modal fade" id="empleadoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Empleado</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Nombre del empleado: <input [(ngModel)]="nombreEmpleadoBuscar"[ngModelOptions]="{standalone: true}"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+        (click)="buscarEmpleado()">Buscar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="clienteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Cliente</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Nombre del cliente: <input [(ngModel)]="nombrePacienteBuscar"[ngModelOptions]="{standalone: true}"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+        (click)="buscarCliente()">Buscar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Section: Design Block -->
+<app-footer></app-footer>

@@ -1,3 +1,4 @@
+import { Paciente } from "./paciente.model";
 import { Persona } from "./persona.model";
 import { TipoProducto } from "./tipo-producto.model";
 
@@ -5,11 +6,11 @@ export class FichaClinica {
     idFichaClinica!: number;
     fechaHora!: String;
     fechaHoraCadena!:String;
-    motivo_consulta!: String;
+    motivoConsulta!: String;
     diagnostico!: String;
     tratamiento!: String;
     observacion!: String;
-    idEmpleado: Persona = new Persona;
-    idCliente: Persona = new Persona;
-    idTipoProducto: TipoProducto = new TipoProducto;
+    idEmpleado: any;
+    idCliente: any;
+    idTipoProducto: any;
 }

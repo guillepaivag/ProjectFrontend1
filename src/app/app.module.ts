@@ -20,6 +20,8 @@ import { FichaClinicaComponent } from './ficha-clinica/ficha-clinica.component';
 import { ServiciosComponent } from './servicios/servicios.component';
 import { AgregarServicioComponent } from './agregar-servicio/agregar-servicio.component';
 
+import { AgregarFichaComponent } from './agregar-ficha/agregar-ficha.component';
+
 
 @NgModule({
   declarations: [
@@ -36,6 +38,7 @@ import { AgregarServicioComponent } from './agregar-servicio/agregar-servicio.co
     HorarioAtencionComponent,
     HorarioExcepcionComponent,
     FichaClinicaComponent,
+    AgregarFichaComponent,
     ServiciosComponent,
     AgregarServicioComponent
   ],

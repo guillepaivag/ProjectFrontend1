@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ReservaService } from '../service/reserva.service';
 import { Reserva } from '../model/reserva.model';
 
-
 @Component({
   selector: 'app-realizar-reserva',
   templateUrl: './realizar-reserva.component.html',

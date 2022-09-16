@@ -26,8 +26,28 @@
     <div style="color: red; display: inline;">{{mensajeErrorFiltro}} </div>
     <div style="display: inline; cursor: pointer;" *ngIf="mensajeErrorFiltro" (click)="mensajeErrorFiltro=''">x</div>
 
+    <!-- Lista desplegable de Categorias -->
+    <label for="form-categoria">Categoria:</label>
+    <select id="form-categoria" (click)="getTipoProductosLikeId();" [(ngModel)]="idCategoriaSeleccionada" >
+        <option *ngFor="let categoria of listaCategorias"
+                [value]="categoria.idCategoria">
+                {{categoria.descripcion}}
+        </option>
+    </select>
+    &nbsp;
+    <label for="form-tipo-productos">Subcategoria:</label>
+    <select id="form-tipo-productos" [(ngModel)]="idTipoProductoSeleccionado" >
+        <option *ngFor="let tipoProducto of listaTipoProducto"
+                [value]="tipoProducto.idTipoProducto" >
+                {{tipoProducto.descripcion}}
+        </option>
+    </select>
+    <br>
+    <br>
+
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <button type="button" class="btn btn-primary btn-sm" (click)="filtrar()">Filtrar</button>
+        <button type="button" class="btn btn-primary btn-sm" (click)="filtrar()">Buscar</button>
+        <button type="button" class="btn btn-primary btn-sm" (click)="Limpiar()">Limpiar</button>
     </div>
 </div>
 <br>
@@ -53,8 +73,7 @@
                 <td>{{ficha.idTipoProducto.idTipoProducto}}</td>
                 <td>
                     <div class="btn-group" role="group" aria-label="Basic outlined example">
-                        <button type="button" class="btn btn-outline-primary" (click)="refresh()">Cancelar</button>
-                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="refresh()">Modificar</button>
+                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="setFicha(ficha)">Modificar</button>
                         <button type="button" class="btn btn-outline-primary">Crear Servicio</button>
                     </div>
                 </td>
@@ -73,11 +92,38 @@
             <option [ngValue]="30">30 por pagina</option>
         </select>
     </div>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <a class="btn btn-primary btn-sm" href="/ficha-clinica/agregar-ficha">Agregar Ficha</a>
+    </div>
 </div>
 <br>
 <br>
 <br>
 <br>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Ficha Clinica</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      <p>Id: {{ fichaSeleccionada.idFichaClinica }}</p>
+      <p>Fecha: {{ fichaSeleccionada.fechaHoraCadena }}</p>
+      <p>Motivo de Consulta: {{ fichaSeleccionada.motivoConsulta }}</p>
+      <p>Diagnostico: {{ fichaSeleccionada.diagnostico }}</p>
+      <p>Observacion <input [(ngModel)]="nuevaObs"
+        [ngModelOptions]="{standalone: true}"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="modificarFichaClinica()">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 <!-- Section: Design Block -->

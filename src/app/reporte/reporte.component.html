@@ -1,7 +1,7 @@
 <app-navbar></app-navbar>
 <br><br><br>
 <div style="text-align: center;">
-    <h1>SERVICIOS</h1>
+    <h1>REPORTE</h1>
 </div>
 
 <div class="container">
@@ -26,13 +26,16 @@
     <div style="color: red; display: inline;">{{mensajeErrorFiltro}} </div>
     <div style="display: inline; cursor: pointer;" *ngIf="mensajeErrorFiltro" (click)="mensajeErrorFiltro=''">x</div>
 
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <br>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-1">
         <button type="button" class="btn btn-primary btn-sm" (click)="filtrar()">Filtrar</button>
+        <button type="button" class="btn btn-primary btn-sm" (click)="export()">Exportar a Excel</button>
+        <button type="button" class="btn btn-primary btn-sm" (click)="openPDF()">Exportar a PDF</button>
     </div>
 </div>
 <br>
 
-<div *ngIf="collectionSize>0" class="container">
+<div *ngIf="collectionSize>0" class="container" id="content" #content>
     <table class="table table-striped">
         <thead>
             <tr>
@@ -56,32 +59,19 @@
                 <td>
                     <div class="btn-group" role="group" aria-label="Basic outlined example">
 
-                        <button type="button" class="btn btn-outline-primary" [routerLink]="['/','agregar-servicio', servicio.idServicio]">Editar/Ver servicio</button>
+                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="refresh()">Editar Servicio</button>
+                        <button type="button" class="btn btn-outline-primary">Ver</button>
                     </div>
                 </td>
             </tr>
         </tbody>
     </table>
+</div>
 
-    <div class="d-flex justify-content-between p-2">
-        <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize"
-            (pageChange)="refresh()">
-        </ngb-pagination>
-
-        <select class="form-select" style="width: auto" [(ngModel)]="pageSize" (ngModelChange)="refresh()">
-            <option [ngValue]="10">10 por pagina</option>
-            <option [ngValue]="20">20 por pagina</option>
-            <option [ngValue]="30">30 por pagina</option>
-        </select>
-    </div>
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-      <button type="button" class="btn btn-primary btn-sm" [routerLink]="['/','agregar-servicio','crear']">Agregar
-          Servicio</button>
-    </div>
-    <br>
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <a class="btn btn-primary btn-sm" href="/reportes">Reporte Resumido</a>
-    </div>
+<div class="d-flex justify-content-between p-2">
+    <ngb-pagination hidden [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize"
+        (pageChange)="refresh()">
+    </ngb-pagination>
 </div>
 <br>
 <br>

@@ -21,6 +21,7 @@ import { ServiciosComponent } from './servicios/servicios.component';
 import { AgregarServicioComponent } from './agregar-servicio/agregar-servicio.component';
 
 import { AgregarFichaComponent } from './agregar-ficha/agregar-ficha.component';
+import { ReporteComponent } from './reporte/reporte.component';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { AgregarFichaComponent } from './agregar-ficha/agregar-ficha.component';
     FichaClinicaComponent,
     AgregarFichaComponent,
     ServiciosComponent,
-    AgregarServicioComponent
+    AgregarServicioComponent,
+    ReporteComponent
   ],
   imports: [
     BrowserModule,

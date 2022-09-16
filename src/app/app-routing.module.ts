@@ -11,6 +11,7 @@ import { FichaClinicaComponent } from './ficha-clinica/ficha-clinica.component';
 import { AgregarFichaComponent } from './agregar-ficha/agregar-ficha.component';
 import { ServiciosComponent} from './servicios/servicios.component';
 import { AgregarServicioComponent } from './agregar-servicio/agregar-servicio.component';
+import { ReporteComponent } from './reporte/reporte.component';
 
 
 const routes: Routes = [
@@ -55,16 +56,20 @@ const routes: Routes = [
     component: FichaClinicaComponent
   },
   {
-    path: 'servicios',
-    component: ServiciosComponent
-  },
-  {
     path: 'agregar-servicio/:id',
     component: AgregarServicioComponent
   },
   {
     path: 'ficha-clinica/agregar-ficha',
     component: AgregarFichaComponent
+  },
+  {
+    path: 'servicios',
+    component: ServiciosComponent
+  },
+  {
+    path: 'reportes',
+    component: ReporteComponent
   },
   {
     path: '**',

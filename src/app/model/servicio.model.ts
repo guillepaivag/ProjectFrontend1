@@ -1,11 +1,29 @@
-import { Persona } from "./persona.model";
-import { FichaClinica } from "./ficha-clinica.model";
 export class Servicio {
-  idServicio!: number;
+  idServicio!: String;
+  idFichaClinica={
+    idFichaClinica: String,
+    fechaHora : String,
+    idCliente : {
+      idCliente : String,
+      nombre : String,
+      apellido : String,
+    },
+    idTipoProducto : {
+      idCategoria : {
+        idCategoria : String,
+        descripcion : String,
+      },
+    },
+    observacion: String
+  };
+  idEmpleado={
+    idPersona : String,
+    apellido : String,
+    nombre : String,
+  };
+
+
   fechaHora= {FechaHora : String};
   observacion! : String;
-  presupuesto!: number;
-  idFichaClinica: FichaClinica = new FichaClinica;
-  idEmpleado: Persona = new Persona;
-  usuario: Persona = new Persona; //idCliente
+  fechaHoraCadena! : String;
 }

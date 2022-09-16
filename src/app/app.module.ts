@@ -22,6 +22,7 @@ import { AgregarServicioComponent } from './agregar-servicio/agregar-servicio.co
 
 import { AgregarFichaComponent } from './agregar-ficha/agregar-ficha.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,

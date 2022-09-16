@@ -14,7 +14,7 @@
           <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Frontend</h5>
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
-        <div class="offcanvas-body">
+        <div class="offcanvas-body" *ngIf="nombreUsuario">
           <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" [routerLink]="['']">Inicio</a>
@@ -35,8 +35,11 @@
               <a class="nav-link active" aria-current="page" [routerLink]="['/','reserva']">Reservas</a>
             </li>
             <li class="nav-item">
+              <a class="nav-link active" aria-current="page" [routerLink]="['/','servicios']">Servicios</a>
+            </li>
+            <li class="nav-item">
               <div class="d-grid gap-2 d-md-flex mt-2 ">
-                <button type="button" class="btn btn-info btn-sm" (click)="salir()">Desloguear</button>
+                <button type="button" class="btn btn-info btn-sm" (click)="salir()" >Desloguear</button>
               </div>
             </li>
           </ul>

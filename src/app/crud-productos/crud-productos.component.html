@@ -175,9 +175,11 @@
             <td>{{c.nombre}}</td>
             <td>{{c.idProducto.idProducto}}</td>
             <td>
-              <div class="btn-group" role="group" aria-label="Basic outlined example">
+              <div class="btn-toolbar" role="group" aria-label="Basic outlined example">
                 <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#presentacionModal"
                   (click)="setAModificarPresentacionProducto(c)">Modificar</button>
+                  &nbsp;
+                &nbsp;
                 <button type="button" class="btn btn-danger" (click)="eliminarPresentacionProducto(c)">Eliminar</button>
               </div>
             </td>

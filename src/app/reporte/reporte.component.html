@@ -32,10 +32,13 @@
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
         <button type="button" class="btn btn-primary btn-sm" (click)="export()">Exportar a Excel</button>
     </div>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <button type="button" class="btn btn-primary btn-sm" (click)="openPDF()">Exportar a PDF</button>
+    </div>
 </div>
 <br>
 
-<div *ngIf="collectionSize>0" class="container">
+<div *ngIf="collectionSize>0" class="container" id="content" #content>
     <table class="table table-striped">
         <thead>
             <tr>
@@ -66,12 +69,12 @@
             </tr>
         </tbody>
     </table>
+</div>
 
-    <div class="d-flex justify-content-between p-2">
-        <ngb-pagination hidden [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize"
-            (pageChange)="refresh()">
-        </ngb-pagination>
-    </div>
+<div class="d-flex justify-content-between p-2">
+    <ngb-pagination hidden [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize"
+        (pageChange)="refresh()">
+    </ngb-pagination>
 </div>
 <br>
 <br>

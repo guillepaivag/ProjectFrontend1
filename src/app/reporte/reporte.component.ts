@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Servicio } from '../model/servicio.model';
 import { ServiciosService } from '../service/servicios.service';
 import { Injectable } from '@angular/core';
 import { ExportExcelService } from '../service/export-excel.service';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 @Injectable({
   providedIn: 'root'
@@ -34,7 +36,7 @@ export class ReporteComponent implements OnInit {
   pageSize = 9999;
   collectionSize = 0;
 
-  constructor(private servicioServices: ServiciosService, private exportService: ExportExcelService) { 
+  constructor(private servicioServices: ServiciosService, private exportService: ExportExcelService) {
     this.refresh();
   }
 
@@ -135,5 +137,18 @@ export class ReporteComponent implements OnInit {
   //para exportar a excel
   export() {
     this.exportService.exportExcel(this.servicios, 'Reporte');
+  }
+
+  public openPDF(): void {
+    let DATA: any = document.getElementById('content');
+    html2canvas(DATA).then((canvas) => {
+      let fileWidth = 208;
+      let fileHeight = (canvas.height * fileWidth) / canvas.width;
+      const FILEURI = canvas.toDataURL('image/png');
+      let PDF = new jsPDF('p', 'mm', 'a4');
+      let position = 0;
+      PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight);
+      PDF.save('Reporte.pdf');
+    });
   }
 }

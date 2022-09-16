@@ -1,0 +1,123 @@
+<app-navbar></app-navbar>
+<br><br><br>
+<div style="text-align: center;">
+    <h1>SERVICIOS</h1>
+</div>
+
+<div class="container">
+    <h4>Filtros de busqueda</h4>
+    <table class="mb-3">
+        <tr>
+            <td>
+                <label for="FechaDesde">Fecha</label>
+                <input id="FechaDesde" class="form-control" type="date" [(ngModel)]="fecha" />
+            </td>
+        </tr>
+    </table>
+    <form class="mb-3">
+        Observación <input type="email" class="form-control" placeholder="observacion" [(ngModel)]="observacion" [ngModelOptions]="{standalone: true}">
+        Empleado <input type="email" class="form-control" placeholder="ID" [(ngModel)]="empleado" [ngModelOptions]="{standalone: true}">
+        Cliente <input type="email" class="form-control" placeholder="ID" [(ngModel)]="cliente" [ngModelOptions]="{standalone: true}">
+    </form>
+
+    <div style="color: red; display: inline;">{{mensajeErrorFiltro}} </div>
+    <div style="display: inline; cursor: pointer;" *ngIf="mensajeErrorFiltro" (click)="mensajeErrorFiltro=''">x</div>
+
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <button type="button" class="btn btn-primary btn-sm" (click)="filtrar()" *ngIf="!esActualizar">Filtrar</button>
+    </div>
+</div>
+<br>
+
+<div *ngIf="collectionSize>0" class="container table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">id Ficha</th>
+                <th scope="col">Categoria</th>
+                <th scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let servicio of listaServicios">
+                <td>{{servicio.idFichaClinica}}</td>
+                <td>{{servicio.idTipoProducto.idCategoria.idCategoria }} - {{servicio.idTipoProducto.idCategoria.descripcion }} </td>
+                <td>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" (click)="servicioSeleccionado=servicio">
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="d-flex justify-content-between p-2">
+        <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize"
+            (pageChange)="refresh()">
+        </ngb-pagination>
+
+        <select class="form-select" style="width: auto" [(ngModel)]="pageSize" (ngModelChange)="refresh()">
+            <option [ngValue]="10">10 por pagina</option>
+            <option [ngValue]="20">20 por pagina</option>
+            <option [ngValue]="30">30 por pagina</option>
+        </select>
+    </div>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+      <button type="button" class="btn btn-primary btn-sm" (click)="agregar();seGuardo=true">Guardar</button>
+  </div>
+  <hr>
+    <div *ngIf="seGuardo || esActualizar">
+        ID Servicio = {{idServicio}} <br>
+        Categoria <input type="email" class="form-control" placeholder="ID" [(ngModel)]="categoria" [ngModelOptions]="{standalone: true}">
+        Subcategoria <input type="email" class="form-control" placeholder="ID" [(ngModel)]="subcategoria" [ngModelOptions]="{standalone: true}">
+        Tipo Servicio <input type="email" class="form-control" placeholder="ID" [(ngModel)]="tipoServicio" [ngModelOptions]="{standalone: true}">
+        Precio <input type="email" class="form-control" placeholder="1000" [(ngModel)]="precio" [ngModelOptions]="{standalone: true}">
+        Cantidad <input type="email" class="form-control" placeholder="3" [(ngModel)]="cantidad" [ngModelOptions]="{standalone: true}">
+
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-2">
+            <button type="button" class="btn btn-primary btn-sm" (click)="agregarDetalle()">Agregar Detalle</button>
+        </div>
+
+        <div *ngIf="collectionSize>0" class="container table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">ID Detalle</th>
+                        <th scope="col">Presentacion</th>
+                        <th scope="col">Precio Unitario</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Total</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>---</td>
+                        <td>--- </td>
+                        <td>--- </td>
+                        <td>--- </td>
+                        <td>--- </td>
+                        <td>
+                            <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                <button type="button" class="btn btn-outline-primary">Eliminar</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+              <button type="button" class="btn btn-primary btn-sm" [routerLink]="['/','servicios']">Cancelar</button>
+          </div>
+
+
+    </div>
+
+</div>
+<br>
+<br>
+<br>
+<br>
+
+
+<!-- Section: Design Block -->
+<app-footer *ngIf="collectionSize == 0"></app-footer>

@@ -1,8 +1,0 @@
-{
-  "/stock-nutrinatalia/*": {
-    "target": "https://equipoyosh.com",
-    "secure": true,
-    "logLevel": "debug",
-    "changeOrigin": true
-  }
-}

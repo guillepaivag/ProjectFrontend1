@@ -1,5 +1,6 @@
 .background-radial-gradient {
-    min-height: 95hv;
+    /* responsive height */
+    height: 100vh;
     background-color: hsl(218, 41%, 15%);
     background-image: radial-gradient(650px circle at 0% 0%,
             hsl(218, 41%, 35%) 15%,

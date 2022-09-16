@@ -3,8 +3,8 @@
     <br>
     <h2>Bienvenido! {{usuario}}</h2>
     <h3>Menu</h3>
-    <div class="container mb-4">
-        <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+    <div class="container mb-4 menu">
+        <div class="btn-group-vertical" role="group" aria-label="Basic checkbox toggle button group">
             <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off" [routerLink]="['/','crud-productos']">
             <label class="btn btn-outline-primary" for="btncheck1" >CRUD Productos y categorias</label>
 
@@ -28,6 +28,5 @@
           </div>
 
     </div>
-    <button (click)="salir()" class="mb-4 btn btn-info">Desloguear</button>
 </div>
 </section>

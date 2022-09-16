@@ -8,8 +8,6 @@ import { RealizarReservaComponent } from './realizar-reserva/realizar-reserva.co
 import { HorarioAtencionComponent } from './horario-atencion/horario-atencion.component';
 import { HorarioExcepcionComponent } from './horario-excepcion/horario-excepcion.component';
 import { FichaClinicaComponent } from './ficha-clinica/ficha-clinica.component';
-import { ServiciosComponent} from './servicios/servicios.component';
-import { AgregarServicioComponent } from './agregar-servicio/agregar-servicio.component';
 
 
 const routes: Routes = [
@@ -52,14 +50,6 @@ const routes: Routes = [
   {
     path: 'ficha-clinica',
     component: FichaClinicaComponent
-  },
-  {
-    path: 'servicios',
-    component: ServiciosComponent
-  },
-  {
-    path: 'agregar-servicio/:id',
-    component: AgregarServicioComponent
   },
   {
     path: '**',

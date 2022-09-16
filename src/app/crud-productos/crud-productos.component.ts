@@ -201,6 +201,8 @@ export class CrudProductos implements OnInit {
   }
 
   guardarPresentacionProducto(): void {
+    this.presentacionProductoGuardar.codigo = this.presentacionProductos[this.presentacionProductos.length - 1].codigo + 1
+    console.log(this.presentacionProductoGuardar)
     this.servicioCategorias
       .guardarPresentacionProducto(this.presentacionProductoGuardar)
       .subscribe({
@@ -229,8 +231,9 @@ export class CrudProductos implements OnInit {
 
   setAModificarPresentacionProducto(p: PresentacionProducto) {
     this.presentacionProductoAEditar = p;
-    this.presentacionProductoAEditarAux.idPresentacionProducto =
-      p.idPresentacionProducto;
+    this.presentacionProductoAEditarAux.idPresentacionProducto = p.idPresentacionProducto;
+    this.presentacionProductoAEditarAux.idProducto = p.idProducto
+    this.presentacionProductoAEditarAux.codigo = p.codigo;
     this.presentacionProductoAEditarAux.descripcion = p.descripcion;
   }
 
@@ -259,7 +262,7 @@ export class CrudProductos implements OnInit {
     this.servicioCategorias
       .editarPresentacion(this.presentacionProductoAEditarAux)
       .subscribe({
-        next: () => this.presentacionProductoAEditar.descripcion = this.presentacionProductoAEditarAux.descripcion,
+        next: () => this.presentacionProductoAEditar.nombre = this.presentacionProductoAEditarAux.nombre,
         error: (error) => console.log('error: '+ JSON.stringify(error)),
       });
   }

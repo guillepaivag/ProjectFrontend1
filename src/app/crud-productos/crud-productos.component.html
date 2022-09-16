@@ -148,7 +148,10 @@
       <p *ngIf="mensajePresentacion!=''">{{ mensajePresentacion }}</p>
       <p>Agregar presentacion producto</p>
       <form #f="ngForm" (ngSubmit)="guardarPresentacionProducto()" novalidate id="formCategoria">
-        <label>Descripcion</label> <input [(ngModel)]="presentacionProductoGuardar.descripcion"
+        <label>Nombre&nbsp;</label><input [(ngModel)]="presentacionProductoGuardar.nombre"
+          [ngModelOptions]="{standalone: true}">
+        &nbsp;
+        <label>idProducto&nbsp;</label><input [(ngModel)]="presentacionProductoGuardar.idProducto.idProducto"
           [ngModelOptions]="{standalone: true}">
         <br>
         <input class="btn btn-success mt-3" type="submit" value="Guardar">
@@ -258,9 +261,9 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <p>Id: {{presentacionProductoAEditaridPresentacionProducto }</p>
-          <p>Descripcion actual: {{presentacionProductoAEditar.descripcion}}</p>
-          <p>Descripcion nueva: <input [(ngModel)]="presentacionProductoAEditarAux.descripcion"
+          <p>Id: {{presentacionProductoAEditar.idPresentacionProducto }}</p>
+          <p>Nombre actual: {{presentacionProductoAEditar.nombre}}</p>
+          <p>Nombre nuevo: <input [(ngModel)]="presentacionProductoAEditarAux.nombre"
               [ngModelOptions]="{standalone: true}">
           </p>
         </div>

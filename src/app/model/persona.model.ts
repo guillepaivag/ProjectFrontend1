@@ -23,7 +23,6 @@ export class Persona {
   soloPersonasTaxfree!: string
   nombreCompleto!: string
   limiteCredito!: string
-  fechaNacimiento!: string
   soloProximosCumpleanhos!: string
   todosLosCampos!: string
   incluirLimiteDeCredito!: string

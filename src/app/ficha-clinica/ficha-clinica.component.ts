@@ -51,7 +51,7 @@ export class FichaClinicaComponent implements OnInit {
           this.fichas[index].fechaHoraCadena=fechaCadena.substring(0, 4)+"-"+fechaCadena.substring(4, 6)+"-"+fechaCadena.substring(6, 8)
           let modificarValores = {
             idFichaClinica:this.fichas[index].idFichaClinica,
-            motivo_consulta:this.fichas[index].motivo_consulta,
+            motivo_consulta:this.fichas[index].motivoConsulta,
             diagnostico:this.fichas[index].diagnostico,
             tratamiento:this.fichas[index].tratamiento,
             observacion:this.fichas[index].observacion,
@@ -61,6 +61,7 @@ export class FichaClinicaComponent implements OnInit {
 
         this.fichasCopia = this.fichas.map((x) => x)
         this.collectionSize = this.fichas.length;
+        console.log(this.fichasCopia)
         this.refresh()
       },
       error: (error) => console.log('no se pudieron conseguir las fichas', error),

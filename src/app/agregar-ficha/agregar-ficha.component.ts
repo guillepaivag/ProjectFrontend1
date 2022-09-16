@@ -6,14 +6,16 @@ import { TipoProducto } from '../model/tipo-producto.model';
 import { ServicecategoriaService } from '../service/servicecategoria.service';
 import { ServicioService } from '../service/servicio.service';
 import { Servicio } from '../model/servicio.model';
+import { PacientesService } from '../service/pacientes.service';
+import { Persona } from '../model/persona.model';
+import { Paciente } from '../model/paciente.model';
 
 @Component({
   selector: 'app-agregar-ficha',
   templateUrl: './agregar-ficha.component.html',
-  styleUrls: ['./agregar-ficha.component.css']
+  styleUrls: ['./agregar-ficha.component.css'],
 })
 export class AgregarFichaComponent implements OnInit {
-
   servicios: Servicio[] = [];
   listaServicios: Servicio[] = [];
   serviciosCopia: Servicio[] = [];
@@ -23,110 +25,162 @@ export class AgregarFichaComponent implements OnInit {
   motivo_consulta: String = '';
   diagnostico: String = '';
   observacion: String = '';
-  nombreEmpleado: any;
-  nombreCliente: any;
+  empleado: Persona = new Persona();
+  cliente: Paciente = new Paciente();
+  nombreEmpleadoBuscar: String = '';
+  nombrePacienteBuscar: String = '';
 
   //filtros
   listaCategorias: Categoria[] = [];
   listaTipoProducto: TipoProducto[] = [];
   idCategoriaSeleccionada: string = '';
   idTipoProductoSeleccionado: any;
-  mensajeErrorFiltro = ''
+  mensajeErrorFiltro = '';
 
   //modificacion
   index1: number = 0;
-  flagAsistio: any = null
+  flagAsistio: any = null;
 
   //paginacion
   page = 1;
   pageSize = 10;
   collectionSize = 0;
 
-  constructor(private ServicioService: ServicioService,private servicioCategorias: ServicecategoriaService, private fichaClinicaService: FichaClinicaService) { 
+  constructor(
+    private ServicioService: ServicioService,
+    private servicioCategorias: ServicecategoriaService,
+    private fichaClinicaService: FichaClinicaService,
+    private pacientesService: PacientesService
+  ) {
     this.refresh();
   }
 
   ngOnInit(): void {
-
     this.ServicioService.getServicios().subscribe({
       next: (entity) => {
         this.servicios = entity.lista;
 
-        this.serviciosCopia = this.servicios.map((x) => x)
+        this.serviciosCopia = this.servicios.map((x) => x);
         this.collectionSize = this.servicios.length;
-        this.refresh()
+        this.refresh();
       },
-      error: (error) => console.log('no se pudieron conseguir las fichas', error),
+      error: (error) =>
+        console.log('no se pudieron conseguir las fichas', error),
     });
 
     //para la lista de Categorias y Tipo de Producto (subcategorias)
     this.servicioCategorias.getCategorias().subscribe({
-      next: (entity) => { this.listaCategorias = entity.lista; },
-      error: (error) => console.log('no se pudieron conseguir las categorias'+ JSON.stringify(error)),
+      next: (entity) => {
+        this.listaCategorias = entity.lista;
+      },
+      error: (error) =>
+        console.log(
+          'no se pudieron conseguir las categorias' + JSON.stringify(error)
+        ),
     });
+    this.fecha = new Date().toLocaleDateString();
   }
 
-  getTipoProductosLikeId(){
-    if (this.idCategoriaSeleccionada){
-      console.log('gettipoproductoslikeid '+this.idCategoriaSeleccionada)
-      this.idTipoProductoSeleccionado = ''
-      this.servicioCategorias.getTipoProductosLikeId(this.idCategoriaSeleccionada).subscribe({
-        next: (entity) => { this.listaTipoProducto = entity.lista; },
-        error: (error) => console.log('no se pudieron conseguir los productos con el filtro'+ JSON.stringify(error))
-      });
+  getTipoProductosLikeId() {
+    if (this.idCategoriaSeleccionada) {
+      console.log('gettipoproductoslikeid ' + this.idCategoriaSeleccionada);
+      this.idTipoProductoSeleccionado = '';
+      this.servicioCategorias
+        .getTipoProductosLikeId(this.idCategoriaSeleccionada)
+        .subscribe({
+          next: (entity) => {
+            this.listaTipoProducto = entity.lista;
+          },
+          error: (error) =>
+            console.log(
+              'no se pudieron conseguir los productos con el filtro' +
+                JSON.stringify(error)
+            ),
+        });
     }
   }
 
-
   refresh() {
-    console.log('refresh')
-    this.listaServicios = this.servicios
-      .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
+    console.log('refresh');
+    this.listaServicios = this.servicios.slice(
+      (this.page - 1) * this.pageSize,
+      (this.page - 1) * this.pageSize + this.pageSize
+    );
   }
 
-
   guardar() {
-    console.log('guardar')
+    console.log('guardar');
     let ficha = new FichaClinica();
-    //ficha.fechaHora = this.fecha;
-    ficha.motivo_consulta = this.motivo_consulta;
+    ficha.motivoConsulta = this.motivo_consulta;
     ficha.diagnostico = this.diagnostico;
     ficha.observacion = this.observacion;
     //todo: empleado, cliente y tipoproducto deben ser variables de tipo persona y tipoproducto
     ficha.idEmpleado = {
-      "idPersona": this.nombreEmpleado.idPersona,
-      "nombre": "",
-      "apellido": "",
-    };
+      'idPersona': this.empleado.idPersona
+    }
     ficha.idCliente = {
-      "idPersona": this.nombreCliente,
-      "nombre": "",
-      "apellido": "",
-    };
+      'idPersona': this.cliente.idPersona
+    }
     ficha.idTipoProducto = {
-      "idTipoProducto": this.idTipoProductoSeleccionado,
-      "idCategoria" : {
-        "idCategoria": this.idCategoriaSeleccionada,
-        "descripcion": "",
-      },
-    };
+      'idTipoProducto': Number(this.idTipoProductoSeleccionado)
+    }
+    console.log(JSON.stringify(ficha))
 
     this.fichaClinicaService.guardar(ficha).subscribe({
-      next: (entity) => {console.log("Guardado ", entity); alert("Paciente Guardado")},
-      error: (error) => console.log('no se pudo guardar', error),
+      next: (entity) => {
+        console.log('Guardado ', entity);
+      },
+      error: (error) => {
+        console.log('no se pudo guardar', error)
+        alert('Ficha no se pudo crear');
+     },
+    });
+  };
+
+  buscarEmpleado() {
+    this.pacientesService.getEmpleadoPorNombre(this.nombreEmpleadoBuscar).subscribe({
+      next: (entity) => {
+        if (entity.lista[0] != undefined ){
+          this.empleado = entity.lista[0]
+        }else{
+          alert('Empleado no existe');
+        }
+      },
+      error: (error) => {
+        console.log('no se pudo encontrar', error)
+        alert('Empleado no existe');
+      },
     });
   }
 
-  limpiar(){
-    this.idCategoriaSeleccionada = ''
-    this.idTipoProductoSeleccionado = ''
-    this.nombreEmpleado = ''
-    this.nombreCliente = ''
-    this.fecha = ''
-    this.motivo_consulta = ''
-    this.diagnostico = ''
-    this.observacion = ''
-    this.refresh()
+  buscarCliente() {
+    this.pacientesService.getPacientePorNombre(this.nombrePacienteBuscar).subscribe({
+      next: (entity) => {
+        if (entity.lista[0] != undefined ){
+          this.cliente = entity.lista[0]
+        }else{
+          alert('Cliente no existe');
+        }
+      },
+      error: (error) => {
+        console.log('no se pudo encontrar', error)
+        alert('Cliente no existe');
+      },
+    });
   }
 
+  limpiar() {
+    this.idCategoriaSeleccionada = '';
+    this.idTipoProductoSeleccionado = '';
+    this.empleado = new Persona();
+    this.cliente = new Paciente();
+    this.empleado.nombre = ''
+    this.cliente.nombre = ''
+    this.nombreEmpleadoBuscar = '';
+    this.fecha = '';
+    this.motivo_consulta = '';
+    this.diagnostico = '';
+    this.observacion = '';
+    this.refresh();
+  }
 }

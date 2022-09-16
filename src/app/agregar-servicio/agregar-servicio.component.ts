@@ -18,7 +18,7 @@ export class AgregarServicioComponent implements OnInit {
   listaServicios: FichaClinica[] = [];
   serviciosCopia: FichaClinica[] = [];
   servicioSeleccionado?:FichaClinica
-  observacion:String=''
+  observacion:any=''
 
   //filtros
   fecha = formatDate(String(new Date()))
@@ -56,42 +56,50 @@ export class AgregarServicioComponent implements OnInit {
     this.refresh();
   }
 
+
   ngOnInit(): void {
 
-      this.route.params.subscribe(params => {
-        if(params['id'] !== "crear"){
-          this.idServicio = params['id']; 
-          this.esActualizar = true
-        } else
-          this.esActualizar = false
-    });
+    this.route.params.subscribe(params => {
+      if(params['id'] !== "crear"){
+        this.idServicio = params['id']; 
+        this.esActualizar = true
+      } else
+        this.esActualizar = false
 
-    if(this.esActualizar) {
-      this.servicioServices.getServicio(this.idServicio).subscribe({
-        next: (entity) => {
-          this.servicioServices.getFichaClinicaServicio(entity.idFichaClinica.idFichaClinica).subscribe({
-            next: (entity2) => {
-              this.servicios[0] = entity2;
-              this.collectionSize = 1;
+        if(this.esActualizar) {
+          this.servicioServices.getServicio(this.idServicio).subscribe({
+            next: (entity) => {
+              this.servicioServices.getFichaClinicaServicio(entity.idFichaClinica.idFichaClinica).subscribe({
+                next: (entity2) => {
+                  console.log("aaaaaaaaaaaaaaaaaaaaaaaa")
+                  this.servicios[0] = entity2;
+                  this.collectionSize = 1;
+                  this.refresh()
+                  this.serviciosCopia = this.servicios.map((x) => x)
+                },
+                error: (error) => console.log('no se pudieron conseguir los servicios', error),
+              })
+
+              this.empleado = entity.idEmpleado.idPersona
+              this.cliente = entity.idFichaClinica.idCliente.idCliente
+              this.observacion = entity.idFichaClinica.observacion
+
+            },
+            error: (error) => console.log('no se pudieron conseguir los servicios', error),
+          })
+        } else {
+    
+          this.servicioServices.getFichaClinica().subscribe({
+            next: (entity) => {
+              this.servicios = entity.lista;
+              console.log(entity);
+              this.collectionSize = this.servicios.length;
               this.refresh()
               this.serviciosCopia = this.servicios.map((x) => x)
             },
             error: (error) => console.log('no se pudieron conseguir los servicios', error),
-          })
-        },
-        error: (error) => console.log('no se pudieron conseguir los servicios', error),
-      })
-    }
-
-    this.servicioServices.getFichaClinica().subscribe({
-      next: (entity) => {
-        this.servicios = entity.lista;
-        console.log(entity);
-        this.collectionSize = this.servicios.length;
-        this.refresh()
-        this.serviciosCopia = this.servicios.map((x) => x)
-      },
-      error: (error) => console.log('no se pudieron conseguir los servicios', error),
+          });
+        }
     });
   }
 
@@ -130,38 +138,65 @@ export class AgregarServicioComponent implements OnInit {
   }
 
   agregar(){
-    let p = {
-      idFichaClinica:{
-        idFichaClinica:''
-      },
-      observacion:''
-    }
-
-    if(this.servicioSeleccionado){
-    
-      p.idFichaClinica={
-        idFichaClinica: String(this.servicioSeleccionado.idFichaClinica)
+    if(!this.esActualizar){
+      let p = {
+        idFichaClinica:{
+          idFichaClinica:''
+        },
+        observacion:''
       }
+
+      if(this.servicioSeleccionado){
       
+        p.idFichaClinica={
+          idFichaClinica: String(this.servicioSeleccionado.idFichaClinica)
+        }
+        
+        p.observacion=String(this.observacion)
+
+        this.servicioServices.agregarServicio(p).subscribe({
+          next: (entity) => {
+            console.log("Guardado ", entity); 
+            alert("Servicio Guardado");
+            if(entity.idServicio)
+              this.idServicio = entity.idServicio
+          },
+          error: (error) => console.log('no se pudo guardar', error),
+        });
+
+        this.seGuardo = true
+
+        
+
+      }else{
+        this.seGuardo = false
+        alert("Seleccione una ficha")
+      }
+
+    } else {
+      this.seGuardo = false
+      let p = {
+        idServicio:'',
+        idFichaClinica:{
+          idFichaClinica:''
+        },
+        observacion:''
+      }
+
+      p.idServicio = this.idServicio ? this.idServicio : ''
+      p.idFichaClinica={
+        idFichaClinica: String(this.servicios[0].idFichaClinica)
+      }
       p.observacion=String(this.observacion)
 
-      this.servicioServices.agregarServicio(p).subscribe({
+      this.servicioServices.actualizarServicio(p).subscribe({
         next: (entity) => {
           console.log("Guardado ", entity); 
-          alert("Servicio Guardado");
-          if(entity.idServicio)
-            this.idServicio = entity.idServicio
+          alert("Servicio Actualizado");
         },
-        error: (error) => console.log('no se pudo guardar', error),
+        error: (error) => console.log('no se pudo actualizar', error),
       });
 
-      this.seGuardo = true
-
-      
-
-    }else{
-      this.seGuardo = false
-      alert("Seleccione una ficha")
     }
 
   }

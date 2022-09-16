@@ -13,8 +13,10 @@ export class Servicio {
         descripcion : String,
       },
     },
+    observacion: String
   };
   idEmpleado={
+    idPersona : String,
     apellido : String,
     nombre : String,
   };

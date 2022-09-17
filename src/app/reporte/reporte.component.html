@@ -59,8 +59,8 @@
                 <td>
                     <div class="btn-group" role="group" aria-label="Basic outlined example">
 
-                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="refresh()">Editar Servicio</button>
-                        <button type="button" class="btn btn-outline-primary">Ver</button>
+                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="refresh()" [routerLink]="['/','agregar-servicio',servicio.idServicio]">Editar Servicio</button>
+                        <button type="button" class="btn btn-outline-primary" [routerLink]="['/','agregar-servicio',servicio.idServicio]">Ver</button>
                     </div>
                 </td>
             </tr>

@@ -62,34 +62,49 @@ export class ServiciosService {
     return this.http.post(`${this.api}/servicio`, p, options).pipe(
       tap({
         next: (data) => console.log('agregado ' + data),
-        error: (error) => {console.log("error: " + error); alert("Ha ocurrido un error")},
+        error: (error) => {console.log("error: " + error); alert(`Ha ocurrido un error ${error.error}`)},
       })
     );
   }
 
   agregarDetalle(idServicio: any, p: any): Observable<any> {
-    return this.http.post(`${this.api}/servicio/${idServicio}/detalle`, p).pipe(
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'usuario': 'usuario1' });
+
+    let options = { headers: headers };
+    return this.http.post(`${this.api}/servicio/${idServicio}/detalle`, p, options).pipe(
       tap({
         next: (data) => console.log('agregado ' + data),
-        error: (error) => {console.log("error: " + error); alert("Ha ocurrido un error")},
+        error: (error) => {console.log("error: " + error); alert(`Ha ocurrido un error ${error.error}`)},
       })
     );
   }
 
   borrarServicio(id: Number): Observable<any> {
-    return this.http.delete(`${this.api}/servicio/${id}`).pipe(
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'usuario': 'usuario1' });
+
+    let options = { headers: headers };
+    return this.http.delete(`${this.api}/servicio/${id}`, options).pipe(
       tap({
         next: (data) => console.log('eliminado ' + data),
-        error: (error) => {console.log("error: " + error); alert("Ha ocurrido un error")},
+        error: (error) => {console.log("error: " + error); alert(`Ha ocurrido un error ${error.error}`)},
       })
     );
   }
 
   actualizarServicio(p: any): Observable<any> {
-    return this.http.put(`${this.api}/servicio`, p).pipe(
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'usuario': 'usuario1' });
+
+    let options = { headers: headers };
+    return this.http.put(`${this.api}/servicio`, p, options).pipe(
       tap({
         next: (data) => console.log('actualizado ' + data),
-        error: (error) => {console.log("error: " + error); alert("Ha ocurrido un error")},
+        error: (error) => {console.log("error: " + error); alert(`Ha ocurrido un error ${error.error}`)},
       })
     );
   }

@@ -72,6 +72,7 @@ export class ReservaComponent implements OnInit {
       next: (entity) => console.log('reserva borrada', entity),
       error: (error) => console.log('no se pudo borrar la reserva', error),
     });
+    this.ngOnInit()
 
   }
 
@@ -160,7 +161,8 @@ export class ReservaComponent implements OnInit {
     this.reservaService.actualizarReserva(this.modificar[this.index1]).subscribe({
       next: (entity) => console.log('actualizado', entity),
       error: (error) => console.log('no se pudo actualizar la reserva', error),
-    });
+    }); 
+    this.ngOnInit()
     
   }
 

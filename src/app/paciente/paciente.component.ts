@@ -67,7 +67,7 @@ export class PacienteComponent implements OnInit {
       next: (entity) => {console.log("Guardado ", entity); alert("Paciente Guardado")},
       error: (error) => console.log('no se pudo guardar', error),
     });
-
+    this.ngOnInit()
   }
 
   eliminar(){
@@ -82,7 +82,7 @@ export class PacienteComponent implements OnInit {
       },
     });
 
-
+    this.ngOnInit()
   }
 
   setDatosModificar(p: Paciente){
@@ -129,7 +129,7 @@ export class PacienteComponent implements OnInit {
     this.cedula=""
     this.tipoPersona=""
     this.fechaNacimiento=""
-
+    this.ngOnInit()
   }
 
 

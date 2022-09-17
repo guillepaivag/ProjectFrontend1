@@ -74,6 +74,7 @@ export class HorarioExcepcionComponent implements OnInit {
       next: (entity) => {console.log("Guardado ", entity); alert("HorarioExcepcion Guardado")},
       error: (error) => console.log('no se pudo guardar', error),
     });
+    this.ngOnInit()
 
   }
 
@@ -88,7 +89,7 @@ export class HorarioExcepcionComponent implements OnInit {
         console.log('no se pudo guardar', error)
       },
     });
-
+    this.ngOnInit()
 
   }
 
@@ -129,6 +130,7 @@ export class HorarioExcepcionComponent implements OnInit {
     this.intervaloMinutos=""
     this.idEmpleado.idPersona=""
 
+    this.ngOnInit()
   }
 
 }

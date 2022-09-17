@@ -158,6 +158,7 @@ export class FichaClinicaComponent implements OnInit {
             JSON.stringify(error)
         ),
     });
+    this.ngOnInit()
   }
 
   refresh() {

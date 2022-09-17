@@ -26,7 +26,7 @@ export class ReservaService {
     return this.http.post(`${this.api}/reserva`, p,options).pipe(
       tap({
         next: (data) => console.log('agregado ' + data),
-        error: (error) => {console.log("error: " + error); alert("Ha ocurrido un error")},
+        error: (error) => {console.log("error: " + error); alert(`Ha ocurrido un error ${error.error}`)},
       })
     );
   }
@@ -40,7 +40,7 @@ export class ReservaService {
     return this.http.delete(`${this.api}/reserva/${id}`, options).pipe(
       tap({
         next: (data) => console.log('eliminado ' + data),
-        error: (error) => {console.log("error: " + error); alert("Ha ocurrido un error")},
+        error: (error) => {console.log("error: " + error); alert(`Ha ocurrido un error ${error.error}`)},
       })
     );
   }
@@ -54,7 +54,7 @@ export class ReservaService {
     return this.http.put(`${this.api}/reserva`, p, options).pipe(
       tap({
         next: (data) => console.log('actualizado ' + data),
-        error: (error) => {console.log("error: " + error); alert("Ha ocurrido un error")},
+        error: (error) => {console.log("error: " + error); alert(`Ha ocurrido un error ${error.error}`)},
       })
     );
   }

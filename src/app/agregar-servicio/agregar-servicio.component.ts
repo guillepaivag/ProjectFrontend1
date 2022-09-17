@@ -196,7 +196,7 @@ export class AgregarServicioComponent implements OnInit {
         },
         error: (error) => console.log('no se pudo actualizar', error),
       });
-
+      this.ngOnInit()
     }
 
   }
@@ -217,6 +217,7 @@ export class AgregarServicioComponent implements OnInit {
       next: (entity) => {console.log("Guardado ", entity); alert("Detalle Guardado")},
       error: (error) => console.log('no se pudo guardar', error),
     });
+    this.ngOnInit()
   }
 
   cancelar(){

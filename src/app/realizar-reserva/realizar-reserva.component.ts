@@ -132,6 +132,7 @@ export class RealizarReservaComponent implements OnInit {
         next: (entity) => {
           this.reservaGuardada = true
           console.log(entity)
+          alert("Reserva Agregada")
         },
         error: (error) => console.log(error)
       })

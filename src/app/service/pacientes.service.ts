@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { Paciente } from '../model/paciente.model';
 import { listadatos } from '../model/datos.model';
@@ -30,25 +30,35 @@ export class PacientesService {
     return this.http.post(`${this.api}/persona`, p).pipe(
       tap({
         next: (data) => console.log('agregado ' + data),
-        error: (error) => {console.log("error: " + error); alert("Ha ocurrido un error")},
+        error: (error) => {console.log("error: " + error); alert(`Ha ocurrido un error ${error.error}`)},
       })
     );
   }
 
   borrar(id: String): Observable<any> {
-    return this.http.delete(`${this.api}/persona/${id}`).pipe(
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'usuario': 'usuario1' });
+
+    let options = { headers: headers };
+    return this.http.delete(`${this.api}/persona/${id}`, options).pipe(
       tap({
         next: (data) => console.log('eliminado ' + data),
-        error: (error) => {console.log("error: " + error); alert("Ha ocurrido un error")},
+        error: (error) => {console.log("error: " + error); alert(`Ha ocurrido un error ${error.error}`)},
       })
     );
   }
 
   actualizar(p: any): Observable<any> {
-    return this.http.put(`${this.api}/persona`, p).pipe(
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'usuario': 'usuario1' });
+
+    let options = { headers: headers };
+    return this.http.put(`${this.api}/persona`, p, options).pipe(
       tap({
         next: (data) => console.log('actualizado ' + data),
-        error: (error) => {console.log("error: " + error); alert("Ha ocurrido un error")},
+        error: (error) => {console.log("error: " + error); alert(`Ha ocurrido un error ${error.error}`)},
       })
     );
   }

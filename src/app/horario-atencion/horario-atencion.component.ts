@@ -72,6 +72,8 @@ export class HorarioAtencionComponent implements OnInit {
       error: (error) => console.log('no se pudo guardar', error),
     });
 
+    this.ngOnInit()
+
   }
 
   eliminar(){
@@ -86,7 +88,7 @@ export class HorarioAtencionComponent implements OnInit {
       },
     });
 
-
+    this.ngOnInit()
   }
 
   setDatosModificar(p: HorarioAtencion){
@@ -98,8 +100,6 @@ export class HorarioAtencionComponent implements OnInit {
     this.horaCierreCadena=p.horaCierreCadena
     this.intervaloMinutos=p.intervaloMinutos
     this.idEmpleado.idPersona=p.idEmpleado.idPersona
-
-
 
   }
 
@@ -116,6 +116,8 @@ export class HorarioAtencionComponent implements OnInit {
       idPersona: this.idEmpleado.idPersona
     }
 
+    console.log(p)
+
     this.pacientesService.actualizar(p).subscribe({
       next: (entity) => {console.log("Actualizado ", entity); alert("HorarioAtencion Guardado")},
       error: (error) => console.log('no se pudo actualizar', error),
@@ -126,6 +128,6 @@ export class HorarioAtencionComponent implements OnInit {
     this.horaCierreCadena=""
     this.intervaloMinutos=""
     this.idEmpleado.idPersona=""
-
+    this.ngOnInit()
   }
 }

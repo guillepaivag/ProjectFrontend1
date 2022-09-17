@@ -30,7 +30,7 @@ export class PacientesService {
     return this.http.post(`${this.api}/persona`, p).pipe(
       tap({
         next: (data) => console.log('agregado ' + data),
-        error: (error) => console.log("error: " + error),
+        error: (error) => {console.log("error: " + error); alert("Ha ocurrido un error")},
       })
     );
   }
@@ -39,7 +39,7 @@ export class PacientesService {
     return this.http.delete(`${this.api}/persona/${id}`).pipe(
       tap({
         next: (data) => console.log('eliminado ' + data),
-        error: (error) => console.log("error: " + error),
+        error: (error) => {console.log("error: " + error); alert("Ha ocurrido un error")},
       })
     );
   }
@@ -48,7 +48,7 @@ export class PacientesService {
     return this.http.put(`${this.api}/persona`, p).pipe(
       tap({
         next: (data) => console.log('actualizado ' + data),
-        error: (error) => console.log("error: " + error),
+        error: (error) => {console.log("error: " + error); alert("Ha ocurrido un error")},
       })
     );
   }

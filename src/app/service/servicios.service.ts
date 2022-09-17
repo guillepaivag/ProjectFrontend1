@@ -62,7 +62,7 @@ export class ServiciosService {
     return this.http.post(`${this.api}/servicio`, p, options).pipe(
       tap({
         next: (data) => console.log('agregado ' + data),
-        error: (error) => console.log("error: " + error),
+        error: (error) => {console.log("error: " + error); alert("Ha ocurrido un error")},
       })
     );
   }
@@ -71,7 +71,7 @@ export class ServiciosService {
     return this.http.post(`${this.api}/servicio/${idServicio}/detalle`, p).pipe(
       tap({
         next: (data) => console.log('agregado ' + data),
-        error: (error) => console.log("error: " + error),
+        error: (error) => {console.log("error: " + error); alert("Ha ocurrido un error")},
       })
     );
   }
@@ -80,7 +80,7 @@ export class ServiciosService {
     return this.http.delete(`${this.api}/servicio/${id}`).pipe(
       tap({
         next: (data) => console.log('eliminado ' + data),
-        error: (error) => console.log("error: " + error),
+        error: (error) => {console.log("error: " + error); alert("Ha ocurrido un error")},
       })
     );
   }
@@ -89,7 +89,7 @@ export class ServiciosService {
     return this.http.put(`${this.api}/servicio`, p).pipe(
       tap({
         next: (data) => console.log('actualizado ' + data),
-        error: (error) => console.log("error: " + error),
+        error: (error) => {console.log("error: " + error); alert("Ha ocurrido un error")},
       })
     );
   }

@@ -26,7 +26,7 @@ export class HorarioAtencionService {
     return this.http.post(`${this.api}/personaHorarioAgenda`, p, options).pipe(
       tap({
         next: (data) => console.log('agregado ' + data),
-        error: (error) => console.log("error: " + error),
+        error: (error) => {console.log("error: " + error); alert("Ha ocurrido un error")},
       })
     );
   }
@@ -35,7 +35,7 @@ export class HorarioAtencionService {
     return this.http.delete(`${this.api}/personaHorarioAgenda/${id}`).pipe(
       tap({
         next: (data) => console.log('eliminado ' + data),
-        error: (error) => console.log("error: " + error),
+        error: (error) => {console.log("error: " + error); alert("Ha ocurrido un error")},
       })
     );
   }
@@ -44,7 +44,7 @@ export class HorarioAtencionService {
     return this.http.put(`${this.api}/personaHorarioAgenda`, p).pipe(
       tap({
         next: (data) => console.log('actualizado ' + data),
-        error: (error) => console.log("error: " + error),
+        error: (error) => {console.log("error: " + error); alert("Ha ocurrido un error")},
       })
     );
   }
